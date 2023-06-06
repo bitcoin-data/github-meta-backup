@@ -1,0 +1,1390 @@
+{
+  "type": "pull",
+  "pull": {
+    "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27827",
+    "id": 1378881987,
+    "node_id": "PR_kwDOABII585SMBHD",
+    "html_url": "https://github.com/bitcoin/bitcoin/pull/27827",
+    "diff_url": "https://github.com/bitcoin/bitcoin/pull/27827.diff",
+    "patch_url": "https://github.com/bitcoin/bitcoin/pull/27827.patch",
+    "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27827",
+    "commits_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27827/commits",
+    "review_comments_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27827/comments",
+    "review_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments%7B/number%7D",
+    "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27827/comments",
+    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/b1ce82495f66df63aa61c20e2f2757cf293ade69",
+    "number": 27827,
+    "state": "open",
+    "locked": false,
+    "maintainer_can_modify": true,
+    "title": "[Silent Payments]: Base functionality",
+    "user": {
+      "login": "josibake",
+      "id": 7444140,
+      "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/josibake",
+      "html_url": "https://github.com/josibake",
+      "followers_url": "https://api.github.com/users/josibake/followers",
+      "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+      "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+      "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+      "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+      "organizations_url": "https://api.github.com/users/josibake/orgs",
+      "repos_url": "https://api.github.com/users/josibake/repos",
+      "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+      "received_events_url": "https://api.github.com/users/josibake/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "body": "This PR implements the basic silent payments scheme. In particular:\r\n\r\n* Adds support for existing wallets to send to silent payment addresses\r\n* Adds support to the Bitcoin Core wallet for receiving silent payments\r\n\r\nThe following items are not covered in this PR and are intended for follow-up PRs:\r\n\r\n* Adding labels for the receiver wallet\r\n* Creating multiple outputs for the same silent payment address when sending\r\n* Full RPC coverage (only `send` is covered in this PR)\r\n* Light client support (vending the tweak data per block, either in an index or to serve to an indexer, such as electrum server)\r\n* Add benchmarks to validate that there are no DoS concerns for doing silent payment verification for transactions in the mempool\r\n* More unit / functional test coverage\r\n\r\nThis PR is a continuation of the work done in https://github.com/bitcoin/bitcoin/pull/24897, where most of the follow-ups I mention above have already been fully or partially implemented.\r\n\r\nFor the silent payments specification, see https://github.com/bitcoin/bips/pull/1458\r\n\r\n## Notes for the reviewers\r\n\r\nThere are a few parts of this PR that need re-working but are implementation details and not specific to how silent payments work. I decided to open the PR as-is so that folks reviewing the BIP have an implementation to look at and to get some suggestions on how to better implement this in the wallet. Specifically, I'm looking for feedback on how to improve the following:\r\n\r\n* The `sp()` descriptor should be updated to implement the BIP and independently derive the scan key (currently it's just a hash of the spend key)\r\n* Both the spend and scan key are kept in their own object, it would be nice to have them only accessed through the descriptor. Another idea would be allow scanning even if the wallet is encrypted, so that the spend key is not accessible unless spending\r\n* Each silent payment output found is added to the wallet as a `rawtr` descriptor. Ideally, we have a new descriptor that takes the spend key and then stores the auxiliary data needed to construct the private key (e.g `sp(spend_key, <one of hash(ecdh_shared_secret>)`\r\n* Some of the methods could probably be better organized (e.g implemented on the SPKMan, when it could be a wallet method)",
+    "labels": [],
+    "created_at": "2023-06-05T12:12:23Z",
+    "updated_at": "2023-06-06T15:57:12Z",
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "merge_commit_sha": "b36485c17b55cdb5d372a8ef825df34834c5bce2",
+    "assignees": [],
+    "requested_reviewers": [],
+    "requested_teams": [],
+    "rebaseable": true,
+    "head": {
+      "label": "josibake:silent-payments-base-pr-slim-down",
+      "ref": "silent-payments-base-pr-slim-down",
+      "sha": "b1ce82495f66df63aa61c20e2f2757cf293ade69",
+      "user": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "repo": {
+        "id": 344501009,
+        "node_id": "MDEwOlJlcG9zaXRvcnkzNDQ1MDEwMDk=",
+        "name": "bitcoin",
+        "full_name": "josibake/bitcoin",
+        "owner": {
+          "login": "josibake",
+          "id": 7444140,
+          "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/josibake",
+          "html_url": "https://github.com/josibake",
+          "followers_url": "https://api.github.com/users/josibake/followers",
+          "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+          "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+          "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+          "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+          "organizations_url": "https://api.github.com/users/josibake/orgs",
+          "repos_url": "https://api.github.com/users/josibake/repos",
+          "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+          "received_events_url": "https://api.github.com/users/josibake/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "private": false,
+        "html_url": "https://github.com/josibake/bitcoin",
+        "description": "Bitcoin Core integration/staging tree",
+        "fork": true,
+        "url": "https://api.github.com/repos/josibake/bitcoin",
+        "archive_url": "https://api.github.com/repos/josibake/bitcoin/%7Barchive_format%7D%7B/ref%7D",
+        "assignees_url": "https://api.github.com/repos/josibake/bitcoin/assignees%7B/user%7D",
+        "blobs_url": "https://api.github.com/repos/josibake/bitcoin/git/blobs%7B/sha%7D",
+        "branches_url": "https://api.github.com/repos/josibake/bitcoin/branches%7B/branch%7D",
+        "collaborators_url": "https://api.github.com/repos/josibake/bitcoin/collaborators%7B/collaborator%7D",
+        "comments_url": "https://api.github.com/repos/josibake/bitcoin/comments%7B/number%7D",
+        "commits_url": "https://api.github.com/repos/josibake/bitcoin/commits%7B/sha%7D",
+        "compare_url": "https://api.github.com/repos/josibake/bitcoin/compare/%7Bbase%7D...%7Bhead%7D",
+        "contents_url": "https://api.github.com/repos/josibake/bitcoin/contents/%7B+path%7D",
+        "contributors_url": "https://api.github.com/repos/josibake/bitcoin/contributors",
+        "deployments_url": "https://api.github.com/repos/josibake/bitcoin/deployments",
+        "downloads_url": "https://api.github.com/repos/josibake/bitcoin/downloads",
+        "events_url": "https://api.github.com/repos/josibake/bitcoin/events",
+        "forks_url": "https://api.github.com/repos/josibake/bitcoin/forks",
+        "git_commits_url": "https://api.github.com/repos/josibake/bitcoin/git/commits%7B/sha%7D",
+        "git_refs_url": "https://api.github.com/repos/josibake/bitcoin/git/refs%7B/sha%7D",
+        "git_tags_url": "https://api.github.com/repos/josibake/bitcoin/git/tags%7B/sha%7D",
+        "git_url": "git://github.com/josibake/bitcoin.git",
+        "issue_comment_url": "https://api.github.com/repos/josibake/bitcoin/issues/comments%7B/number%7D",
+        "issue_events_url": "https://api.github.com/repos/josibake/bitcoin/issues/events%7B/number%7D",
+        "issues_url": "https://api.github.com/repos/josibake/bitcoin/issues%7B/number%7D",
+        "keys_url": "https://api.github.com/repos/josibake/bitcoin/keys%7B/key_id%7D",
+        "labels_url": "https://api.github.com/repos/josibake/bitcoin/labels%7B/name%7D",
+        "languages_url": "https://api.github.com/repos/josibake/bitcoin/languages",
+        "merges_url": "https://api.github.com/repos/josibake/bitcoin/merges",
+        "milestones_url": "https://api.github.com/repos/josibake/bitcoin/milestones%7B/number%7D",
+        "notifications_url": "https://api.github.com/repos/josibake/bitcoin/notifications%7B?since,all,participating}",
+        "pulls_url": "https://api.github.com/repos/josibake/bitcoin/pulls%7B/number%7D",
+        "releases_url": "https://api.github.com/repos/josibake/bitcoin/releases%7B/id%7D",
+        "ssh_url": "git@github.com:josibake/bitcoin.git",
+        "stargazers_url": "https://api.github.com/repos/josibake/bitcoin/stargazers",
+        "statuses_url": "https://api.github.com/repos/josibake/bitcoin/statuses/%7Bsha%7D",
+        "subscribers_url": "https://api.github.com/repos/josibake/bitcoin/subscribers",
+        "subscription_url": "https://api.github.com/repos/josibake/bitcoin/subscription",
+        "tags_url": "https://api.github.com/repos/josibake/bitcoin/tags",
+        "teams_url": "https://api.github.com/repos/josibake/bitcoin/teams",
+        "trees_url": "https://api.github.com/repos/josibake/bitcoin/git/trees%7B/sha%7D",
+        "clone_url": "https://github.com/josibake/bitcoin.git",
+        "hooks_url": "https://api.github.com/repos/josibake/bitcoin/hooks",
+        "svn_url": "https://github.com/josibake/bitcoin",
+        "homepage": "https://bitcoincore.org/en/download",
+        "language": "C++",
+        "forks_count": 0,
+        "stargazers_count": 0,
+        "watchers_count": 0,
+        "size": 223450,
+        "default_branch": "master",
+        "open_issues_count": 0,
+        "is_template": false,
+        "topics": [],
+        "has_issues": false,
+        "has_projects": true,
+        "has_wiki": false,
+        "has_pages": false,
+        "has_downloads": false,
+        "archived": false,
+        "disabled": false,
+        "visibility": "public",
+        "pushed_at": "2023-06-06T14:47:26Z",
+        "created_at": "2021-03-04T14:24:20Z",
+        "updated_at": "2022-01-04T15:38:49Z",
+        "license": {
+          "key": "mit",
+          "name": "MIT License",
+          "node_id": "MDc6TGljZW5zZTEz",
+          "spdx_id": "MIT",
+          "url": "https://api.github.com/licenses/mit",
+          "html_url": null,
+          "description": null,
+          "implementation": null,
+          "permissions": null,
+          "conditions": null,
+          "limitations": null,
+          "body": null,
+          "featured": null
+        }
+      }
+    },
+    "base": {
+      "label": "bitcoin:master",
+      "ref": "master",
+      "sha": "8cc65f093c0cf7a27b3bfc6da90fd7a6ac8f5e48",
+      "user": {
+        "login": "bitcoin",
+        "id": 528860,
+        "node_id": "MDEyOk9yZ2FuaXphdGlvbjUyODg2MA==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/528860?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/bitcoin",
+        "html_url": "https://github.com/bitcoin",
+        "followers_url": "https://api.github.com/users/bitcoin/followers",
+        "following_url": "https://api.github.com/users/bitcoin/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/bitcoin/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/bitcoin/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/bitcoin/subscriptions",
+        "organizations_url": "https://api.github.com/users/bitcoin/orgs",
+        "repos_url": "https://api.github.com/users/bitcoin/repos",
+        "events_url": "https://api.github.com/users/bitcoin/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/bitcoin/received_events",
+        "type": "Organization",
+        "site_admin": false
+      },
+      "repo": {
+        "id": 1181927,
+        "node_id": "MDEwOlJlcG9zaXRvcnkxMTgxOTI3",
+        "name": "bitcoin",
+        "full_name": "bitcoin/bitcoin",
+        "owner": {
+          "login": "bitcoin",
+          "id": 528860,
+          "node_id": "MDEyOk9yZ2FuaXphdGlvbjUyODg2MA==",
+          "avatar_url": "https://avatars.githubusercontent.com/u/528860?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/bitcoin",
+          "html_url": "https://github.com/bitcoin",
+          "followers_url": "https://api.github.com/users/bitcoin/followers",
+          "following_url": "https://api.github.com/users/bitcoin/following%7B/other_user%7D",
+          "gists_url": "https://api.github.com/users/bitcoin/gists%7B/gist_id%7D",
+          "starred_url": "https://api.github.com/users/bitcoin/starred%7B/owner%7D%7B/repo%7D",
+          "subscriptions_url": "https://api.github.com/users/bitcoin/subscriptions",
+          "organizations_url": "https://api.github.com/users/bitcoin/orgs",
+          "repos_url": "https://api.github.com/users/bitcoin/repos",
+          "events_url": "https://api.github.com/users/bitcoin/events%7B/privacy%7D",
+          "received_events_url": "https://api.github.com/users/bitcoin/received_events",
+          "type": "Organization",
+          "site_admin": false
+        },
+        "private": false,
+        "html_url": "https://github.com/bitcoin/bitcoin",
+        "description": "Bitcoin Core integration/staging tree",
+        "fork": false,
+        "url": "https://api.github.com/repos/bitcoin/bitcoin",
+        "archive_url": "https://api.github.com/repos/bitcoin/bitcoin/%7Barchive_format%7D%7B/ref%7D",
+        "assignees_url": "https://api.github.com/repos/bitcoin/bitcoin/assignees%7B/user%7D",
+        "blobs_url": "https://api.github.com/repos/bitcoin/bitcoin/git/blobs%7B/sha%7D",
+        "branches_url": "https://api.github.com/repos/bitcoin/bitcoin/branches%7B/branch%7D",
+        "collaborators_url": "https://api.github.com/repos/bitcoin/bitcoin/collaborators%7B/collaborator%7D",
+        "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/comments%7B/number%7D",
+        "commits_url": "https://api.github.com/repos/bitcoin/bitcoin/commits%7B/sha%7D",
+        "compare_url": "https://api.github.com/repos/bitcoin/bitcoin/compare/%7Bbase%7D...%7Bhead%7D",
+        "contents_url": "https://api.github.com/repos/bitcoin/bitcoin/contents/%7B+path%7D",
+        "contributors_url": "https://api.github.com/repos/bitcoin/bitcoin/contributors",
+        "deployments_url": "https://api.github.com/repos/bitcoin/bitcoin/deployments",
+        "downloads_url": "https://api.github.com/repos/bitcoin/bitcoin/downloads",
+        "events_url": "https://api.github.com/repos/bitcoin/bitcoin/events",
+        "forks_url": "https://api.github.com/repos/bitcoin/bitcoin/forks",
+        "git_commits_url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits%7B/sha%7D",
+        "git_refs_url": "https://api.github.com/repos/bitcoin/bitcoin/git/refs%7B/sha%7D",
+        "git_tags_url": "https://api.github.com/repos/bitcoin/bitcoin/git/tags%7B/sha%7D",
+        "git_url": "git://github.com/bitcoin/bitcoin.git",
+        "issue_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments%7B/number%7D",
+        "issue_events_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events%7B/number%7D",
+        "issues_url": "https://api.github.com/repos/bitcoin/bitcoin/issues%7B/number%7D",
+        "keys_url": "https://api.github.com/repos/bitcoin/bitcoin/keys%7B/key_id%7D",
+        "labels_url": "https://api.github.com/repos/bitcoin/bitcoin/labels%7B/name%7D",
+        "languages_url": "https://api.github.com/repos/bitcoin/bitcoin/languages",
+        "merges_url": "https://api.github.com/repos/bitcoin/bitcoin/merges",
+        "milestones_url": "https://api.github.com/repos/bitcoin/bitcoin/milestones%7B/number%7D",
+        "notifications_url": "https://api.github.com/repos/bitcoin/bitcoin/notifications%7B?since,all,participating}",
+        "pulls_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls%7B/number%7D",
+        "releases_url": "https://api.github.com/repos/bitcoin/bitcoin/releases%7B/id%7D",
+        "ssh_url": "git@github.com:bitcoin/bitcoin.git",
+        "stargazers_url": "https://api.github.com/repos/bitcoin/bitcoin/stargazers",
+        "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/%7Bsha%7D",
+        "subscribers_url": "https://api.github.com/repos/bitcoin/bitcoin/subscribers",
+        "subscription_url": "https://api.github.com/repos/bitcoin/bitcoin/subscription",
+        "tags_url": "https://api.github.com/repos/bitcoin/bitcoin/tags",
+        "teams_url": "https://api.github.com/repos/bitcoin/bitcoin/teams",
+        "trees_url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees%7B/sha%7D",
+        "clone_url": "https://github.com/bitcoin/bitcoin.git",
+        "hooks_url": "https://api.github.com/repos/bitcoin/bitcoin/hooks",
+        "svn_url": "https://github.com/bitcoin/bitcoin",
+        "homepage": "https://bitcoincore.org/en/download",
+        "language": "C++",
+        "forks_count": 34325,
+        "stargazers_count": 69819,
+        "watchers_count": 69819,
+        "size": 233879,
+        "default_branch": "master",
+        "open_issues_count": 626,
+        "is_template": false,
+        "topics": [
+          "bitcoin",
+          "c-plus-plus",
+          "cryptocurrency",
+          "cryptography",
+          "p2p"
+        ],
+        "has_issues": true,
+        "has_projects": true,
+        "has_wiki": false,
+        "has_pages": false,
+        "has_downloads": false,
+        "archived": false,
+        "disabled": false,
+        "visibility": "public",
+        "pushed_at": "2023-06-07T07:29:24Z",
+        "created_at": "2010-12-19T15:16:43Z",
+        "updated_at": "2023-06-07T07:34:31Z",
+        "license": {
+          "key": "mit",
+          "name": "MIT License",
+          "node_id": "MDc6TGljZW5zZTEz",
+          "spdx_id": "MIT",
+          "url": "https://api.github.com/licenses/mit",
+          "html_url": null,
+          "description": null,
+          "implementation": null,
+          "permissions": null,
+          "conditions": null,
+          "limitations": null,
+          "body": null,
+          "featured": null
+        }
+      }
+    },
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27827"
+      }
+    },
+    "author_association": "MEMBER",
+    "draft": false,
+    "additions": 2236,
+    "deletions": 64,
+    "changed_files": 47,
+    "commits": 15,
+    "review_comments": 0,
+    "comments": 1
+  },
+  "events": [
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGUzZGE1YjJkMWJmYTVkMjA5MGVlMTMzZWU3N2U2MTk1MmYwNTdmNGM",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/e3da5b2d1bfa5d2090ee133ee77e61952f057f4c",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/e3da5b2d1bfa5d2090ee133ee77e61952f057f4c",
+      "tree": {
+        "sha": "49531d0ea8c9237ae59518a519a3d87c06ccdd8a",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/49531d0ea8c9237ae59518a519a3d87c06ccdd8a"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 49531d0ea8c9237ae59518a519a3d87c06ccdd8a\nparent 7f2019755d147e7e17c54f0bb61296211bb45262\nauthor w0xlt <woltx@protonmail.com> 1665719290 -0300\ncommitter josibake <josibake@protonmail.com> 1685950405 +0200\n\nconf: add EDCH module\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR9j8UACgkQity1WMTz\nPWUHiRAAgq3FuvqlX0WFMFj8Da2Hno5P/S5tzPFu8mbQv4sis1ysALiufM6VdSxc\nh4p4EUS6a7fCVc30WEAPJAq2KVBBThEFx4GR8yg7IRQN2YITa7V7QMtV5prW7nmq\nWIMPnStywTpweP+TXkLKP+nz+mevgpSVP85hfeM7GMf16lhTg9vK5Xn+RXKTAi6L\nw42MJRcWroiII1/W5b371OKFeT3zT6QIx+8rnVMvOt0OtkgteqaiF/bcK7k7yWgr\nb8oZ7iSZHjCCRX+8GFpEpqC/6QXxTV1AuRh+wNynHgrptzDqWK75ZxIVRU623LC3\nk+zio3fB7GYL9qp2aROPbKfZQdCSPUfgGceeQUsn7zOt6otPJctGvnE8eWpT3hVw\nOHD8gATXDQcT3JeKu2wRA72U5VaVZB0+/mg+wep6aFjuCnyDS+oe6GfMRz8qfrPL\nqEzluhnnZHo0tYQnzNtenOniphbVJgiS/oJJeTT6f1Koj8Yk2tBNcGp2XfFhPVgO\nN4sve3130Zmp/o8MCz4SwgY9ct2CITD7g7wUduoLkXNcA8QTBvwkV01M2rsUsIDx\nfN0cYESBMBQ+lQYJrKHVFbti2hTx/uJMqviapM2oyAKODvgBjldA7eiSDdTr73gk\nTAuufVbLqcBhq/KJ0J5Z5e/9nJ3SxJFkxAe5kYTiuMD5NzdE8ak=\n=qrsm\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/7f2019755d147e7e17c54f0bb61296211bb45262",
+          "sha": "7f2019755d147e7e17c54f0bb61296211bb45262",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/7f2019755d147e7e17c54f0bb61296211bb45262"
+        }
+      ],
+      "message": "conf: add EDCH module",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-05T07:33:25Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-10-14T03:48:10Z"
+      },
+      "sha": "e3da5b2d1bfa5d2090ee133ee77e61952f057f4c"
+    },
+    {
+      "event": "commented",
+      "id": 1576673424,
+      "node_id": "IC_kwDOABII585d-iCQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1576673424",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T12:12:27Z",
+      "updated_at": "2023-06-05T20:54:09Z",
+      "author_association": "MEMBER",
+      "body": "<!--e57a25ab6845829454e8d69fc972939a-->\n\nThe following sections might be updated with supplementary metadata relevant to reviewers and maintainers.\n\n<!--021abf342d371248e50ceaed478a90ca-->\n### Reviews\nSee [the guideline](https://github.com/bitcoin/bitcoin/blob/master/CONTRIBUTING.md#code-review) for information on the review process.\nA summary of reviews will appear here.\n<!--174a7506f384e20aa4161008e828411d-->\n### Conflicts\nReviewers, this pull request conflicts with the following ones:\n\n* [#bitcoin-core/gui/700](https://github.com/bitcoin-core/gui/pull/700) (Dialog for allowing the user to choose the change output when bumping a tx by achow101)\n* [#bitcoin-core/gui/650](https://github.com/bitcoin-core/gui/pull/650) (Add Import to Wallet GUI by KolbyML)\n* [#27601](https://github.com/bitcoin/bitcoin/pull/27601) (wallet: don't duplicate change output if already exist by furszy)\n* [#27479](https://github.com/bitcoin/bitcoin/pull/27479) (BIP324: ElligatorSwift integrations by sipa)\n* [#27351](https://github.com/bitcoin/bitcoin/pull/27351) (wallet: add `seeds` argument to `importdescriptors` by apoelstra)\n* [#27307](https://github.com/bitcoin/bitcoin/pull/27307) (wallet: track mempool conflicts with wallet transactions by ishaanam)\n* [#27286](https://github.com/bitcoin/bitcoin/pull/27286) (wallet: Keep track of the wallet's own transaction outputs in memory by achow101)\n* [#27101](https://github.com/bitcoin/bitcoin/pull/27101) (Support JSON-RPC 2.0 when requested by client by pinheadmz)\n* [#26840](https://github.com/bitcoin/bitcoin/pull/26840) (refactor: importpubkey, importprivkey, importaddress, importmulti, and importdescriptors rpc by KolbyML)\n* [#26728](https://github.com/bitcoin/bitcoin/pull/26728) (wallet: Have the wallet store the key for automatically generated descriptors by achow101)\n* [#26467](https://github.com/bitcoin/bitcoin/pull/26467) (bumpfee: Allow the user to choose which output is change by achow101)\n* [#26008](https://github.com/bitcoin/bitcoin/pull/26008) (wallet: cache IsMine scriptPubKeys to improve performance of descriptor wallets by achow101)\n* [#25979](https://github.com/bitcoin/bitcoin/pull/25979) ([WIP] wallet: standardize change output detection process by furszy)\n* [#25907](https://github.com/bitcoin/bitcoin/pull/25907) (wallet: rpc to add automatically generated descriptors by achow101)\n* [#25634](https://github.com/bitcoin/bitcoin/pull/25634) (wallet, tests: Expand and test when the blank wallet flag should be un/set by achow101)\n* [#25273](https://github.com/bitcoin/bitcoin/pull/25273) (wallet: Pass through transaction locktime and preset input sequences and scripts to CreateTransaction by achow101)\n* [#24128](https://github.com/bitcoin/bitcoin/pull/24128) (wallet: BIP 326 sequence based anti-fee-snipe for taproot inputs by MarcoFalke)\n* [#22838](https://github.com/bitcoin/bitcoin/pull/22838) (descriptors: Be able to specify change and receiving in a single descriptor string by achow101)\n* [#22341](https://github.com/bitcoin/bitcoin/pull/22341) (rpc: add getxpub by Sjors)\n* [#10102](https://github.com/bitcoin/bitcoin/pull/10102) (Multiprocess bitcoin by ryanofsky)\n\nIf you consider this pull request important, please also help to review the conflicting pull requests. Ideally, start with the one that should be merged first.\n",
+      "user": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27827#issuecomment-1576673424",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27827"
+    },
+    {
+      "event": "renamed",
+      "id": 9432372184,
+      "node_id": "RTE_lADOABII585nz26GzwAAAAIyNpPY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9432372184",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T12:13:29Z",
+      "rename": {
+        "from": "Silent Payments",
+        "to": "[DRAFT] Silent Payments"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 9432767969,
+      "node_id": "LE_lADOABII585nz26GzwAAAAIyPJ3h",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9432767969",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T12:46:44Z",
+      "label": {
+        "name": "CI failed",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "ready_for_review",
+      "id": 9433442155,
+      "node_id": "RFRE_lADOABII585nz26GzwAAAAIyRudr",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9433442155",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T13:31:51Z"
+    },
+    {
+      "event": "renamed",
+      "id": 9433500367,
+      "node_id": "RTE_lADOABII585nz26GzwAAAAIyR8rP",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9433500367",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T13:34:06Z",
+      "rename": {
+        "from": "[DRAFT] Silent Payments",
+        "to": "[Silent Payments]: Base functionality "
+      }
+    },
+    {
+      "event": "renamed",
+      "id": 9433501414,
+      "node_id": "RTE_lADOABII585nz26GzwAAAAIyR87m",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9433501414",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T13:34:09Z",
+      "rename": {
+        "from": "[Silent Payments]: Base functionality ",
+        "to": "[Silent Payments]: Base functionality"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9433738160,
+      "node_id": "HRFPE_lADOABII585nz26GzwAAAAIyS2uw",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9433738160",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T13:50:05Z"
+    },
+    {
+      "event": "subscribed",
+      "id": 9437554149,
+      "node_id": "SE_lADOABII585nz26GzwAAAAIyhaXl",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9437554149",
+      "actor": {
+        "login": "LetsGoHEAT",
+        "id": 134640646,
+        "node_id": "U_kgDOCAZ0Bg",
+        "avatar_url": "https://avatars.githubusercontent.com/u/134640646?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/LetsGoHEAT",
+        "html_url": "https://github.com/LetsGoHEAT",
+        "followers_url": "https://api.github.com/users/LetsGoHEAT/followers",
+        "following_url": "https://api.github.com/users/LetsGoHEAT/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/LetsGoHEAT/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/LetsGoHEAT/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/LetsGoHEAT/subscriptions",
+        "organizations_url": "https://api.github.com/users/LetsGoHEAT/orgs",
+        "repos_url": "https://api.github.com/users/LetsGoHEAT/repos",
+        "events_url": "https://api.github.com/users/LetsGoHEAT/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/LetsGoHEAT/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-05T19:37:26Z"
+    },
+    {
+      "event": "subscribed",
+      "id": 9443083679,
+      "node_id": "SE_lADOABII585nz26GzwAAAAIy2gWf",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9443083679",
+      "actor": {
+        "login": "leshik",
+        "id": 443678,
+        "node_id": "MDQ6VXNlcjQ0MzY3OA==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/443678?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/leshik",
+        "html_url": "https://github.com/leshik",
+        "followers_url": "https://api.github.com/users/leshik/followers",
+        "following_url": "https://api.github.com/users/leshik/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/leshik/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/leshik/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/leshik/subscriptions",
+        "organizations_url": "https://api.github.com/users/leshik/orgs",
+        "repos_url": "https://api.github.com/users/leshik/repos",
+        "events_url": "https://api.github.com/users/leshik/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/leshik/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-06T08:20:44Z"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9445893060,
+      "node_id": "HRFPE_lADOABII585nz26GzwAAAAIzBOPE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9445893060",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-06T12:49:08Z"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9445907344,
+      "node_id": "HRFPE_lADOABII585nz26GzwAAAAIzBRuQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9445907344",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-06T12:50:30Z"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDYxYzU4NGYwNzEzNDk4ZmQxZjk5YTkyOTkyY2ZjMTI4Mzk2ODM4OTI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/61c584f0713498fd1f99a92992cfc12839683892",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/61c584f0713498fd1f99a92992cfc12839683892",
+      "tree": {
+        "sha": "25262ff87d1b2a2b77f89a76508614ac7021a215",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/25262ff87d1b2a2b77f89a76508614ac7021a215"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 25262ff87d1b2a2b77f89a76508614ac7021a215\nparent e3da5b2d1bfa5d2090ee133ee77e61952f057f4c\nauthor w0xlt <woltx@protonmail.com> 1665672556 -0300\ncommitter josibake <josibake@protonmail.com> 1686058934 +0200\n\ncrypto: update CKey, CPubkey for silent payments\n\n* Add methods for adding and multiplying CKeys\n* Add a method for combining multiple public keys via addition\n* Add a method for doing ECDH with a CPubKey and scalar\n\nThese are the CKey,CPubkey primitives we need to implement\nthe silent payments protocl in the next commit.\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/N8kACgkQity1WMTz\nPWWNKw//U9C1Lt2fnM6VlBwOYfOffQrfw4he66fkIkGc0+pZbS9FB+2hZHlImguI\nVEGicjUxGHwgxMQfOuwTSuIuyL6z8q6yhiZDEbO28C2vgt1iEoamgbXVGYZqGTeU\nGq7EhcyIQGZHuk5aMAiUdXf3zcKRdH57QVIMS5BtktaJpUq2kTavphf/tr2ssn92\nCMKvJaZ2j7p+UMkHKSV5HGL8ZGfKOsKgOZe/TYgSNGaCVszGcbUrSIA7NEJX7YXa\nz04a3cXazxnIXr4bO0QEtOaQpPJ/7J/OnIExgjhKUNdksXcYqhs1xxrF6d3bn8v4\nPoj/2lQiawHqr8ZaTvuvOA51Zf7r1DAUXm14K3WCk0yUFNNnTF7JSxUiUL5xJ+rm\nCBy0onzoqDWqb2LUiH+/3f1R5mBoRfYcWQCZfUxQYDA4VXoxuCVy7PdnVSet40kn\n/aRmC29MsMD7d+hyogu1YyUisKw8B+2hkGqdUeoUrHQ2nhK9+qmE5IXrd7QJQ85x\noESoeiBqmqLghIIWySNa3CXxggJuGnsxxchMGy7B3fKxREwE/Ka318NYMgFbgT2Q\nrpDafVVzsJmrIDKYPLAusiiXi5TjmVG+93e7/iYFiG2Xi0oC1UVd6zBU7LXg8pZk\n3Ji362wASOqa+6Ko0w4ui25XJ/2vT6sFAF14k4RqZH0JxjE1g1c=\n=e9UI\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/e3da5b2d1bfa5d2090ee133ee77e61952f057f4c",
+          "sha": "e3da5b2d1bfa5d2090ee133ee77e61952f057f4c",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/e3da5b2d1bfa5d2090ee133ee77e61952f057f4c"
+        }
+      ],
+      "message": "crypto: update CKey, CPubkey for silent payments\n\n* Add methods for adding and multiplying CKeys\n* Add a method for combining multiple public keys via addition\n* Add a method for doing ECDH with a CPubKey and scalar\n\nThese are the CKey,CPubkey primitives we need to implement\nthe silent payments protocl in the next commit.",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T13:42:14Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-10-13T14:49:16Z"
+      },
+      "sha": "61c584f0713498fd1f99a92992cfc12839683892"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGNkN2UwM2U0YjE1MWJkNmYzODA0ODdiNDkyMjc5NDM3MzQ3ZGEyMTU",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/cd7e03e4b151bd6f380487b492279437347da215",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/cd7e03e4b151bd6f380487b492279437347da215",
+      "tree": {
+        "sha": "87cf96d987090696ce80cdcc9cebb58cdb287f54",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/87cf96d987090696ce80cdcc9cebb58cdb287f54"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 87cf96d987090696ce80cdcc9cebb58cdb287f54\nparent 61c584f0713498fd1f99a92992cfc12839683892\nauthor w0xlt <94266259+w0xlt@users.noreply.github.com> 1649816051 -0300\ncommitter josibake <josibake@protonmail.com> 1686058953 +0200\n\nadd Silent Payment Scheme\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/N8kACgkQity1WMTz\nPWV4dQ/9GlyXfqvj+fP7z7v/uFS4qc4/gXng8DccOuhonAMGdfP7N+fViByZUF8I\nxD8LRisWzlCdtZ4KCRpzqnGEiBK0G4ltuZNtWx7K+/wfhVhF1vVTgJiAfZlqUviI\nayDuuzh9pW6KWmymc+SgYh2DH3MYt8wgiqCp10RAZHSeuZEZK3+5kEEMXvPv90TU\nKUoV/pWM7r8DCzrjKIZhra8lSjZ60bX8wiarjLk5Wj/zun7qIUxHbzcsVSz/TXd6\nOCC2Wujzfa2GVrpDZfb8mjyyC8PUl6mFyzaothEwekihwbJMrO9x76yhxF+YZ+CN\nCHFRbBHj5sLWXcIu/M9XtpkjokVzUENE8B/wfICR09Ke+LzHluhoKPIKz7QKPN7n\nlTGbLnUn3JIYY/i0iLOdely3TY0BFV3oLWst6HBvvRSFRkW/1d5YMwgcUnwiSfTX\nx1gltfz+mpWl4e1CmiE1dIa9GFSM259kcGnqQxL8TBdzf+i2raAoZ/lXRpet0XEG\nNzwZGP2LtB5orJIsjU5GSIkYuX7tve20N+ncIHkCZJnWh/6ThoAdsKwkpxm0SsaU\nn7thmMieWJZOSWJMzNLtPuBe6cUq8EpPxGUhON3P2LREJltFp3JSz2K1JhLLhXMJ\nhJObA3FRURAZCd783UHRppcJcY6ERmX23rlrbZEQEAXmeWzmXHY=\n=HGkc\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/61c584f0713498fd1f99a92992cfc12839683892",
+          "sha": "61c584f0713498fd1f99a92992cfc12839683892",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/61c584f0713498fd1f99a92992cfc12839683892"
+        }
+      ],
+      "message": "add Silent Payment Scheme",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T13:42:33Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "94266259+w0xlt@users.noreply.github.com",
+        "date": "2022-04-13T02:14:11Z"
+      },
+      "sha": "cd7e03e4b151bd6f380487b492279437347da215"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDEwZDRkY2YwZWZmNjllZDhlYmYwMDcyOWE1NWFhZDgxOTExOTlhZWY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/10d4dcf0eff69ed8ebf00729a55aad8191199aef",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/10d4dcf0eff69ed8ebf00729a55aad8191199aef",
+      "tree": {
+        "sha": "eadccf7195d3959a22aea467e276184410fb027e",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/eadccf7195d3959a22aea467e276184410fb027e"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree eadccf7195d3959a22aea467e276184410fb027e\nparent cd7e03e4b151bd6f380487b492279437347da215\nauthor w0xlt <woltx@protonmail.com> 1660516406 -0300\ncommitter josibake <josibake@protonmail.com> 1686058953 +0200\n\nscript: create a new output type `OutputType::SILENT_PAYMENT`\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/N8kACgkQity1WMTz\nPWX94w//XamAO5lxS+yWvE8NZspJRKH11W/T4rsRDzztoIVum6gYFfKv8tIJBQms\nRvEQJ2KfhbcBVYhLrywDPQZ5ZVelm/X22IBPO0YR5cQmbTH/+H++NdSTjBEPgsB6\n93BZmcv+Kz+koe2KV3PyJd+35BsUwwfpRSwaYdXHrXZnmfKwTgupqO86yvhPvTZA\ntUPyv6qfGvmEbpycmQERhxjHq5yVGnwBDRgaZ6bbVUfl2Ls8/B8aNWg6lJIVzncp\n6RDOuuEM86vcEIQlYTy/Yfh5uybWww4qEL5rnbwndAlr33LbH0N5tE6Y0TgdT4JO\nEan7WTCjiC/B6KvOQwIIS3X78fCCxOWRBgF799kIME7I092GZ8JbXsYFQ+QVMkd6\nywkl6m/wYYLrXSlYh6lEoP4+Mh3kwi7NptGZOaYvqIam7Hf4r7D6y+eYaL//zJrx\ndD1mbCFG9YzKrG6QQD4yiTw3wvgLQMz+JffQdiKHpKyEAKOungA8jOKzLw3B2Q0x\nISJtte8PJeSpNzV/ERnxRjGC5I4QU/lTOjDxHFJKHWAq3oa36aNKbsSPjGDsezKI\nsty9YRyy+iW2Q49JRY5L+oySWtQKWd+1+k6TZXxJWT5afBU5ECAJ48k3QE/Apk9E\nfTBKBxEpRiEapuvkZ6A1p7+FwFQN/hg4ShTu1rB/LwLdniRYStc=\n=GzY0\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/cd7e03e4b151bd6f380487b492279437347da215",
+          "sha": "cd7e03e4b151bd6f380487b492279437347da215",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/cd7e03e4b151bd6f380487b492279437347da215"
+        }
+      ],
+      "message": "script: create a new output type `OutputType::SILENT_PAYMENT`",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T13:42:33Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-08-14T22:33:26Z"
+      },
+      "sha": "10d4dcf0eff69ed8ebf00729a55aad8191199aef"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDNlZTUyNTYyYzFhYmUzZDZmMGYzOWFkOTg1MWMwMGNjNDFmYzIyMjQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/3ee52562c1abe3d6f0f39ad9851c00cc41fc2224",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/3ee52562c1abe3d6f0f39ad9851c00cc41fc2224",
+      "tree": {
+        "sha": "43c34ef781c5740b3ec33d78e29b910fc612d39b",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/43c34ef781c5740b3ec33d78e29b910fc612d39b"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 43c34ef781c5740b3ec33d78e29b910fc612d39b\nparent 10d4dcf0eff69ed8ebf00729a55aad8191199aef\nauthor josibake <josibake@protonmail.com> 1685355158 +0200\ncommitter josibake <josibake@protonmail.com> 1686058953 +0200\n\nsender: decode silent payment address\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/N8kACgkQity1WMTz\nPWW8nxAAmGVuf63WGiUe1CdKIsEjIJrbnXKP+T3aQ/FnEfnena25ia4km1NMSmxI\nXXQrTOPLhASQFZ9CSmzWunrjfVZfyEZS53xjNBYwDBMPmdn+H9sehS2DLtujBYYG\naoALwrOjPsJhezh8DPu7UCoD4L4H2tT/rEH3o1semKDglySOyHgCuPwejzXLFb6s\nBBN4X27Gilf/WyBFeZhdMleVJJgKaLeFRU86BOANiPmZFpddY6o9/E6r8ixdrRCO\n7ng+onihu1c9ZfN+v2r33chDh4yL/ETFuKKw5KI1wpk/IvtqidlLboj4ptMrfR+V\nAmexju6CkA9/djhHgvS4UTJdNxra1sB8Lz6Th1vYVeq0oivbmtSER4B46o0geKTD\nnmHBWkqsmFx+PFrmmOzt9VjRw5j7PsdL5pEeTO9PL3WO35LWR7u6lkrhM7eYnAdE\nj/qK/+vvMXjFf/bOJu7gjvH0vTVRusaasc1MdXM8bEwzpzWH4M4UtO9Y6X/x+8FI\ne5wI5EYTJp+LHujQ+RumQ4Uih7HB9I5w87QIpQ+272seDQOI3PkUPnB9PS4CUw0S\n39e2fq0KTskBpJsQmntunRqI4f3pqa0rVcCFHGegTKFyUnCuW78SmIiK+3flgc2w\nrgkbJXNlyTuDgqnjzemQ1EbD7ni2GKGvWEgpKqNpTAso7Gpi7ls=\n=sbx5\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/10d4dcf0eff69ed8ebf00729a55aad8191199aef",
+          "sha": "10d4dcf0eff69ed8ebf00729a55aad8191199aef",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/10d4dcf0eff69ed8ebf00729a55aad8191199aef"
+        }
+      ],
+      "message": "sender: decode silent payment address",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T13:42:33Z"
+      },
+      "author": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-05-29T10:12:38Z"
+      },
+      "sha": "3ee52562c1abe3d6f0f39ad9851c00cc41fc2224"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9446587168,
+      "node_id": "HRFPE_lADOABII585nz26GzwAAAAIzD3sg",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9446587168",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-06T13:46:16Z"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGQxZmU4NmE0ZGZmMWM3MDJjMDYwMzkxOWVhNjkzNzc0NmU1ZmU5ZGE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/d1fe86a4dff1c702c0603919ea6937746e5fe9da",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/d1fe86a4dff1c702c0603919ea6937746e5fe9da",
+      "tree": {
+        "sha": "72e8642a8c6a569ad78cb2d0906a51b46ef7c75b",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/72e8642a8c6a569ad78cb2d0906a51b46ef7c75b"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 72e8642a8c6a569ad78cb2d0906a51b46ef7c75b\nparent 3ee52562c1abe3d6f0f39ad9851c00cc41fc2224\nauthor w0xlt <woltx@protonmail.com> 1660550234 -0300\ncommitter josibake <josibake@protonmail.com> 1686062758 +0200\n\nwallet: add function to create silent transaction\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/Rs0ACgkQity1WMTz\nPWW0Yw/9G+ST/eBHB0aAjVE/QOBlrqXDWNyyVpSIl96RX7QmH9Rz2i/ZwjvZ2Z8T\nuOvUABYsVse36ULOZONtG45PoXFd4U+rs/t9OxYIOh9Hgph1NYmLzapivo55AWrf\n+T7Cgz3pmjeCeV0skYMgW8yoxNT3LvZoqetRUP14mhS78dGMZ9HMJcHSkIv/RG1o\nxeoPWy3TtU8KOrXSrWXyu7LHmjh/CpxiVl8QWqg29h4oOBwwS+lNjTSpM+0AKm3S\ntcX/nIEKq4M+qRGDul+wef5XLY+ifZiUGDjcsfoJVMj6lO05R11ehLRGIXYgkcU5\nBA71Xr+Xw9s1L6e8DiNkpOYYgV0Muyj7sBGYV8zBnYWyn/M2tCbp6xg+US6JbKOJ\ni5k1UactonriUpOY5+z94O+uz9oMsaBj1OV86cH3T5k5lwNDrR3b+s0KW9b5fuCx\n5RUZHTIc7f1gLn8/0fv3prcmImdngHw62YXEI/P/OREREOtjSaYlMRZRGUEG/hGz\n1PSLDoAZLiweZGtLv7/O8pN7VyiPoajEAKGzilr5RYlHBoCF5oRFs1OvSddBBRFg\niRI8/1UYoxdiNxavdvPbNXlTEt8jGtvSIPXdvXdtNgJo5Bs0ATQA/SmheXLwVVHp\nOuABS1xh8sUaDPMX5aiZFEJGAIjDE0nnqStMFok2G94x4eVb3EI=\n=Dhkw\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/3ee52562c1abe3d6f0f39ad9851c00cc41fc2224",
+          "sha": "3ee52562c1abe3d6f0f39ad9851c00cc41fc2224",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/3ee52562c1abe3d6f0f39ad9851c00cc41fc2224"
+        }
+      ],
+      "message": "wallet: add function to create silent transaction",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:45:58Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-08-15T07:57:14Z"
+      },
+      "sha": "d1fe86a4dff1c702c0603919ea6937746e5fe9da"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGY0MjExNjJiOTY5Mzk2OGFhZmYxNmU1YWQ2OGNiZmMzZDRjMTY0NTg",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/f421162b9693968aaff16e5ad68cbfc3d4c16458",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/f421162b9693968aaff16e5ad68cbfc3d4c16458",
+      "tree": {
+        "sha": "2c6a122a6f8784eedd1e076783d58463323c06f9",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/2c6a122a6f8784eedd1e076783d58463323c06f9"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 2c6a122a6f8784eedd1e076783d58463323c06f9\nparent d1fe86a4dff1c702c0603919ea6937746e5fe9da\nauthor w0xlt <woltx@protonmail.com> 1660516610 -0300\ncommitter josibake <josibake@protonmail.com> 1686062800 +0200\n\nscript: add `sp()`  descriptor\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtAACgkQity1WMTz\nPWVBrRAAj1NLHsMhgZz4/bxGcEUHRe4uadsAOu75eFPWGjpWJrkyeqpYSHjnVboz\nVL4D69olyHeP/lKUPCwNmB8VJb4drANC3qGZCim7RGjFJHBRbVJ9StKvwqRLaO0b\nBpWgmKoy7YLHttVbYQEMBVJB9Titc8AH1Mp71+RcB+Rm/yFxSwEEPajJZURrv4lG\n8jlgAQpH17J6DSj6IApkJrrdw+Jyd2eQF1SY9Ny9y5niBVMy+8I+KZk4KKqywm9Q\nGDFdCdzSzgnX3av/6lePHliku0rKUNfxFVnF5B48TPbUgXScr6UxQ6ELjpFsoZty\nANm5RKm7tLqLoA2zFokp8gBwg0mS0kacpckt3A2+DmqhGPpVUwlKaaXSNU59vjEV\n2rGTmvv0EWAHDWGU/AIFrbYHmniCL0VlCV2HewObZpGqFJKCIzh0dWaOogpzXVUr\nHpGpFYqoAirWUinYuVHTM8nU/Shb/uq5kqtsuvCRQHnMd+kuE1XhXAAJQsdZVLzs\nmcaRIb2fVzbp18O33NYkNw89tbR3TGkGILx1Ptmlzk0AZJobDibGaqVeREgbVBVy\nWm6VvR5DavGnmmtHFZGgwBCiIrPARG60aH85+mnnpf6ZcgPoTkoB3AMcb6pHvbRP\nAQXU4KSeezEnM5sPoPswnhEpLAK13dsOVB7YJgbMaRRTNZP55wI=\n=oZZY\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/d1fe86a4dff1c702c0603919ea6937746e5fe9da",
+          "sha": "d1fe86a4dff1c702c0603919ea6937746e5fe9da",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/d1fe86a4dff1c702c0603919ea6937746e5fe9da"
+        }
+      ],
+      "message": "script: add `sp()`  descriptor",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:40Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-08-14T22:36:50Z"
+      },
+      "sha": "f421162b9693968aaff16e5ad68cbfc3d4c16458"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDk3ZmZkNzhlMGI2NjUyODA4YTBhNGNkMzY1ODhjY2E5MmM3YzFlYWM",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/97ffd78e0b6652808a0a4cd36588cca92c7c1eac",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/97ffd78e0b6652808a0a4cd36588cca92c7c1eac",
+      "tree": {
+        "sha": "b0d9193bf9df634053b8675f40f7bf31d858c6ec",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/b0d9193bf9df634053b8675f40f7bf31d858c6ec"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree b0d9193bf9df634053b8675f40f7bf31d858c6ec\nparent f421162b9693968aaff16e5ad68cbfc3d4c16458\nauthor w0xlt <woltx@protonmail.com> 1660522265 -0300\ncommitter josibake <josibake@protonmail.com> 1686062802 +0200\n\nwallet: add Silent Payment flag\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtIACgkQity1WMTz\nPWWwARAA1csn4voPjhXtF41se3fO3r1BUfMTbaveTu+jhitqAl/BcHeXLg/CXTzJ\n09m6FB3UpoY1j4ypvdehsvzddfFpi+FNK5VyOV6c6nMjCorQ8yUl1tefuGA1A+IL\n9N1yTKnI2XpQ0HGnc4zbDy35clblQOINjS8lf6M3+OegzidMY3dh9EfdADUn/bSj\n/KLeqBKwU2FoToHPCNvGPCklKbt4zBRxEu3EYWrCFNnb+F35LtHtT4U9pcvk3QlY\nOrmCMbM4jDXmLORNmI0s/51yUp0PPbFu1l/2kw4OxZUifv2EoRwSkLq0eBgsiwpI\nX7KjQm852h4tbDlqEZVfvS1zNGS9scS3XfR+pN3AUAgnwXNv8B0RJ3QZMYcM1xUY\niHv5b2Vtc6hggqohEQIyetduE9x0mU9KvDY/umKv3HL3acA34rbjRttXFJk1omHH\nXZYviYUAIKBVW2EyYOd7oYap1trOPc15pioKR+W8ALLP3JtQoKRjqsLURpO+FOWc\n3KgDuIsZz4VpZkT9QjCFCLi4go/bnaiiiJA7bOkOy2ikB/lMK106Cxs1RoJ/ToQt\nCSDS79iQyAugKp/poivooKE3AMC2J9mfPznCkw8iFMiCRGvReBTmTe44N4Z2ZQKG\nnO7nPkeyYrLjpWekLOZjurEvXtQ6hbltMzOhsVvjjXzTd10SsdE=\n=Wx7q\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/f421162b9693968aaff16e5ad68cbfc3d4c16458",
+          "sha": "f421162b9693968aaff16e5ad68cbfc3d4c16458",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/f421162b9693968aaff16e5ad68cbfc3d4c16458"
+        }
+      ],
+      "message": "wallet: add Silent Payment flag",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:42Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-08-15T00:11:05Z"
+      },
+      "sha": "97ffd78e0b6652808a0a4cd36588cca92c7c1eac"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDk5YzBkZmY4MzFhNjlkMjc2ODgwNjhjYWU1MTYyYTFjODA2N2E5ZTU",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/99c0dff831a69d27688068cae5162a1c8067a9e5",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/99c0dff831a69d27688068cae5162a1c8067a9e5",
+      "tree": {
+        "sha": "df7394ef33326ab304104d7ca1a9e49e83654e04",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/df7394ef33326ab304104d7ca1a9e49e83654e04"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree df7394ef33326ab304104d7ca1a9e49e83654e04\nparent 97ffd78e0b6652808a0a4cd36588cca92c7c1eac\nauthor josibake <josibake@protonmail.com> 1685355845 +0200\ncommitter josibake <josibake@protonmail.com> 1686062802 +0200\n\nreceiver: encode silent payment address\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtIACgkQity1WMTz\nPWWyEhAAzhHTviTrSkd7Ez1W24rAYLh7r0hoCsxs/rFOl08nCA8CZ8WNN0bTITom\nxflcfAT2c7ax5mq98l6VRmqr8+qHRxhjdbgzcAPFfRYlHEnXjiqjYWc/fgSLM396\nTJ2g7QmzoWunNFGl64mFTQYTwZMOxqVpWQgpibDeXG6RglsoHvVg8+SQe3xDUYDZ\nW46cW3Y3nRnszLaLIq111Mg0r2ypT+cEaPxXHL6aGBaiEJSoo0Hi4CTlzwOdRGkQ\niqEk+ObYwtp/lPLRDIxT/FwL+jd+4BEB+X1RjyCtL3DHGrl2Q4gSmE3IyGx4Ck7s\nZfa/LdFv2OE+rSnb3vLQaX/t8JnjZDYMtyF/TyoiREpl/C8kb2PAUIU6O20VUgVK\nZoixv4zMffiCFOkFaGUxuD4j1gjmz4ON5ARyGq5B4MJacFRZo5BsfkTt10N0cjZN\n6FZTdK405d5TMFYzlXnypKObLomYvOOaVYK98Hk3d/yY/y53oJAvRmnq02NOG6F/\nsgCKmNgpn+SZvPqK5V4KEJqdtZq43ZQR91Vcfh4uPvIyFRMoqY1Vi1FyKBWItk0m\nB5cJJ0H8eMY6zRRrASlEvc4dLB1kdxRIStNFxNBKSRoGJLjLaKca/Ict7jOFB894\ndChOa5jzCV/PP38HwgtjlRgBNADw/QZZfibpkny278+QRnR8JOw=\n=NBdu\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/97ffd78e0b6652808a0a4cd36588cca92c7c1eac",
+          "sha": "97ffd78e0b6652808a0a4cd36588cca92c7c1eac",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/97ffd78e0b6652808a0a4cd36588cca92c7c1eac"
+        }
+      ],
+      "message": "receiver: encode silent payment address",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:42Z"
+      },
+      "author": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-05-29T10:24:05Z"
+      },
+      "sha": "99c0dff831a69d27688068cae5162a1c8067a9e5"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDg2ODU1MDU0MzMzZTI2Y2FmYmQ0ZGM3NzgyZTRmNWRkZmQyNzcxNDU",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/86855054333e26cafbd4dc7782e4f5ddfd277145",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/86855054333e26cafbd4dc7782e4f5ddfd277145",
+      "tree": {
+        "sha": "a6b88d7f56ab1b563eef7bf9e7dfda7105b8e757",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/a6b88d7f56ab1b563eef7bf9e7dfda7105b8e757"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree a6b88d7f56ab1b563eef7bf9e7dfda7105b8e757\nparent 99c0dff831a69d27688068cae5162a1c8067a9e5\nauthor josibake <josibake@protonmail.com> 1685356189 +0200\ncommitter josibake <josibake@protonmail.com> 1686062802 +0200\n\nwallet: get wallet descriptor by output type\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtIACgkQity1WMTz\nPWV+2A//REsZQ3S9sq1yntEyqNtulqrPqYKOIGUlugReXtWdDH0G9ot/X+hgAfcA\nuVVrMsLPyc4Di1VzE+Kr07Yy4TqVqNzfvYYnsFFRUu+Kskh2NCnN/wMdYnDYFU1T\nPpV+qPcFz0ery5oi6AEEC5qHa/Iej7ifxfpheiZMkIzQ7YVC1vQrkeGOUokRfJn2\nEn0oyrq7UsLXfIBqk6tR6XlfWLEIsTt2V2ZvULS1gYenTLhBylWnusHNCCaEmze7\n68Il6a7GT8J/jGi8etFGrLmZko8wSfYE8LteX4O0BtCiuQcVhmqUAF6LEi7F68Nk\nWedRGqwrkpxeBxEX+qy1umQAMnYwpEkdXFBs6xIag5r1VB1fwolnOg98tDUuDix0\n1n5wlV0Tno+Kdt91uuU74hzItzIi/imHWbk+BaLz36TvMPI4DErNRcjF5aZr2IV3\nxYcAPMGGbEN+mfKJFHoLF3Sp4cH1YpNVQJ85puO4V81U/FBjeVf211AxoB4z5745\nmhFaZ8gLwmeqVfLPSBB5i8N1WgvCUILSAIqf6dUFZpJOGmM4knIeijltGkhi98Tq\nFdmUrUnxGGAfBOVUGC9bDnnImKWDM5P9E0nWIfqswcDdRiJ73KBtZxEFQxpN9ACo\n+P60shTa9tgAGuAHfCQbHWdNmMVIGqmYq0aEbavESRo7RigVPcw=\n=gD9+\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/99c0dff831a69d27688068cae5162a1c8067a9e5",
+          "sha": "99c0dff831a69d27688068cae5162a1c8067a9e5",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/99c0dff831a69d27688068cae5162a1c8067a9e5"
+        }
+      ],
+      "message": "wallet: get wallet descriptor by output type",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:42Z"
+      },
+      "author": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-05-29T10:29:49Z"
+      },
+      "sha": "86855054333e26cafbd4dc7782e4f5ddfd277145"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGI2N2JmOGI1OTY3NGIyODM5NGI5NzBhODYxYTE5NTAwNDNkOTk4ODc",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/b67bf8b59674b28394b970a861a1950043d99887",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/b67bf8b59674b28394b970a861a1950043d99887",
+      "tree": {
+        "sha": "17a52bf77105a4edf50c1870f3eae0b6e0f4066a",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/17a52bf77105a4edf50c1870f3eae0b6e0f4066a"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 17a52bf77105a4edf50c1870f3eae0b6e0f4066a\nparent 86855054333e26cafbd4dc7782e4f5ddfd277145\nauthor w0xlt <woltx@protonmail.com> 1660533021 -0300\ncommitter josibake <josibake@protonmail.com> 1686062803 +0200\n\nwallet: enable SP option in the `createwallet`\n\nCo-authored-by: Aurèle Oulès <aurele@oules.com>\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtMACgkQity1WMTz\nPWU7lQ//Y9CFh9fEvGCJKSKBp8vu/yQUKJLoqjQ3xWaBlKIwfBNwHh2K1io2fXdY\nDyj0QPTl+5lRTqkkRkTHFO8DN0l7YpH4Ph1p+wRGOUNpUL+zgNkKZdYaHLdwjtfl\nDR0D7woN9r7HNViGMIHZfAsSj30TZNUVQ0R0mNXfnUgAT+sYUFwvduSNXJFv+9D6\nKwHKDrwFXWKozQHgA+oetbAI08xHo5osR+qV4BwHNudVu5A/SMWy5Yl4vri8Zya/\nrihQ168kxDFB04jA+GwzkC7xgXw8xn8dAZIxWgjOwVU8DWEJmeO9ThNj2Q9BwN9N\nILOWpkKiwoB2WTT+u2OPrdROky01bGtrDRV1uBVJY1lBhfyNI58yjnVKLnfjmWKB\nHYmuth1s4L8cgw5ltT1jXi7GILMxPxelsfkc/WnZnB8aLokVKE/cTCN0kpe7sSpq\n8QUEPLyKgxZNkaga4/TWxd3ohutXZpTZpe7W2KZM/vglxsoyQtsozDafMUL4+V56\njDXRDUnxAyeOjnn2siC9EKzlxUEn3aUGzrEq+Mqr8q7TpriGOA+WIMuROdgcSDkJ\n/tG1f92qtBnT9z+K0sQNhyv+2XS0m6kfzhjXz0KO3MRspvoIbH6OOCUHq/2ESIQW\nmvtqmYu0wwiGqhVIx1dQ6PXqy2wzdDvE6z1tonBmYxNwXATr3Y8=\n=BlBW\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/86855054333e26cafbd4dc7782e4f5ddfd277145",
+          "sha": "86855054333e26cafbd4dc7782e4f5ddfd277145",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/86855054333e26cafbd4dc7782e4f5ddfd277145"
+        }
+      ],
+      "message": "wallet: enable SP option in the `createwallet`\n\nCo-authored-by: Aurèle Oulès <aurele@oules.com>",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:43Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-08-15T03:10:21Z"
+      },
+      "sha": "b67bf8b59674b28394b970a861a1950043d99887"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDY0YzU1OGExZGM2OTcyMWZhZmEyMGQ0ZWQxYTEzZTU5MDA1NTc4MTQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/64c558a1dc69721fafa20d4ed1a13e5900557814",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/64c558a1dc69721fafa20d4ed1a13e5900557814",
+      "tree": {
+        "sha": "020236471e12a6fd1a7028338572305e4e14ad58",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/020236471e12a6fd1a7028338572305e4e14ad58"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 020236471e12a6fd1a7028338572305e4e14ad58\nparent b67bf8b59674b28394b970a861a1950043d99887\nauthor josibake <josibake@protonmail.com> 1676309369 -0300\ncommitter josibake <josibake@protonmail.com> 1686062803 +0200\n\ninterface: Add `getUndoBlock` function\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtMACgkQity1WMTz\nPWVCJA//ZHt57W6YcAknk6zyYKxbZVGvG33xqHuvxpQBeSUmV/+AT4XbKfyDk6Pj\nHOlPyGpGC4r9qlGT1l9kFuRN/FS8XpFO1BdIvhFQrgjKlrhVcmeo5Oyt3DG6TeOb\nsCURWFdP0mjmK4jV1s7tQX/zzA/7iSuCcL0gydzuSmDvFr88lWnYlZvfuB3iZvCG\nIGXWKSFuG4RE4cQBXjBrOnsBakkQRCun/4OyfRRqPYkHORrXdxX0Kaalz1dkxaUw\nvlAiWqHYDOsOXaC9Ijzz8htop7GEiX7hrB+6B/ALWYD6MJH2cql+fzeEEfdJVcO9\n3FLpq4rmB8N0sWKwhbzmQpLm6kOK6w5xNSRxwAP36jtQp7b/+kCbV+WW6MJI/EAH\nkHyIx0YL9eq7oZIPoLDD/kh8fU0U8SH7vfp0ljqACVdyWYmBVLjfIPBcQV217ukh\nOKTPQiYPPchKB8kAuE95/e7c59mDfTA4AN9TP50gAiZtWCg++ReysHfwcJCBRnOZ\nHMr1vPUytjjZWGvH5hxwJzUYL5vesCqvf0+pjYTy120cgCNJMGXHDeginBoYYVMS\nX+PcUbsViSgTIbv5Hk5DfkJfOBF942qcM5WeqLb19fjl+suq5D76jjE2beqflDK5\nOG9W3g3pZJTotnTbH1O2d7vj8F6/RiKEc5qHR0RFaVCewW9Wl5k=\n=XEDC\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/b67bf8b59674b28394b970a861a1950043d99887",
+          "sha": "b67bf8b59674b28394b970a861a1950043d99887",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/b67bf8b59674b28394b970a861a1950043d99887"
+        }
+      ],
+      "message": "interface: Add `getUndoBlock` function",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:43Z"
+      },
+      "author": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-02-13T17:29:29Z"
+      },
+      "sha": "64c558a1dc69721fafa20d4ed1a13e5900557814"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGZhYzcyN2EwYjA5ZWViODY3YzJjNTE1MTAyY2YyODkzYmI1YTU2Yjc",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/fac727a0b09eeb867c2c515102cf2893bb5a56b7",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/fac727a0b09eeb867c2c515102cf2893bb5a56b7",
+      "tree": {
+        "sha": "6676eb24ff49ea67e06e23f638c78ffccd358b26",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/6676eb24ff49ea67e06e23f638c78ffccd358b26"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 6676eb24ff49ea67e06e23f638c78ffccd358b26\nparent 64c558a1dc69721fafa20d4ed1a13e5900557814\nauthor josibake <josibake@protonmail.com> 1676318830 -0300\ncommitter josibake <josibake@protonmail.com> 1686062803 +0200\n\nwallet: Add `GetSilentPaymentKeysPerBlock` function\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtMACgkQity1WMTz\nPWVz5hAAr7DknDOebxDthMEUX5PMq10Wh8MmOc+s9awI/cOa5YTpjrHgcCUcRiyx\nOfeSRyyJ8+fDWCQnMlKlV7+C+J2P41pmEiX6mQIAS1NSD+5j9HZd8My0KkTwDR8y\nreoKU9ESOUvF83vT5MRfYSrlf7+P4Q7iIWWOfhljggEjxsbbN+ucSjzcC2r4ZYbN\nqfceNSaafMweDCK9+DlVAtJD4cbXPZPgUQ9ojksFfNP1OV376QNEEVNb4TWLT1P0\nk1KevC9dGgkdf86J9GshDuUsCYzMqsSxP63+zEdOctu5RqiH4Ra7BgYQ0rwostmS\ngClO9J9oRmkkHXDdI1eJkEdy+RRl0myLnWA3dJ2BDSZAYG/d++weR9UtCWQiG/oJ\n+4wax67R7RMazmihCum/npqUs4Znc0WXRdZhPqg60bmESm2cTC1MgrpVaG5/7gTD\n+nwGJWtrAK8rCoZuxoOCuqKkt0/UQcOTbqXzM+lIdjJnHW0VhP9F7l/uhal34buu\ng7QIHz8c5vEi3f6w5PuGR2Bl4KWHE56Vi7cT9E+kLdcX2ue6BwVHvmQ555jZ7n3U\nsmrFjdJTtdnUWp7+gbzgmYMDUTBTtFXtYsRODW5h4KtTVTzsPfg4lJy5oxLxp+DE\nG5SSw4YCZ1/DelKawysML/EjhsPPgzffCmFRgozHewTIa+O7j/M=\n=O4my\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/64c558a1dc69721fafa20d4ed1a13e5900557814",
+          "sha": "64c558a1dc69721fafa20d4ed1a13e5900557814",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/64c558a1dc69721fafa20d4ed1a13e5900557814"
+        }
+      ],
+      "message": "wallet: Add `GetSilentPaymentKeysPerBlock` function",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:43Z"
+      },
+      "author": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-02-13T20:07:10Z"
+      },
+      "sha": "fac727a0b09eeb867c2c515102cf2893bb5a56b7"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGJlMDFkYmMxMmY2YjQ3MGJjZWQwNWE1YzExOGNhMmRkMGQzMDA3ZmQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/be01dbc12f6b470bced05a5c118ca2dd0d3007fd",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/be01dbc12f6b470bced05a5c118ca2dd0d3007fd",
+      "tree": {
+        "sha": "97658d403f25065ebf7ff1a785c9310c6e1aa957",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/97658d403f25065ebf7ff1a785c9310c6e1aa957"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 97658d403f25065ebf7ff1a785c9310c6e1aa957\nparent fac727a0b09eeb867c2c515102cf2893bb5a56b7\nauthor w0xlt <woltx@protonmail.com> 1660571402 -0300\ncommitter josibake <josibake@protonmail.com> 1686062803 +0200\n\nwallet: add Silent Payment verification\n\nCo-authored-by: josibake <josibake@protonmail.com>\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtMACgkQity1WMTz\nPWWlZg//braReXNfYXbf8J6rdGxox8Xg0coypKnGklrpgF4D9XClWbn9CiLkbgQY\n7VKGJvIjgQlvhd6D3QA7mQPg2SlR7W17IPoqE76aa9MzH/qiq6ARq2dXyUjBx3WL\ns9paK3qOmJr7/e6JXpQa2DQvtIMc0YISaDpXthY2Z8bntps8CjHCxWPs9IDCqL0h\nHmEqsLTpJ8a+Yt5B1Or7mfbxyAe+18YuxcuAnbbzTPaJI2nP8QXNakNdrIV4lOTA\nS8YYi+kNUcDehfw1iUoQOwwEQeBmPfQjO36SRIDSk8jCwukc9FxjbMPI2tlgwDGB\ncH3ZlFGQ9DkV8g5V93AcA2tju7Z4i8KCnLGzzVHtnpB/29S6NWBPRKCiM1MWuFKW\nLvuY2kTWLW5cf+nl0IKJUI6zqO7a/IjnhMzHCINHLWI4InyAoMZ3rRumXrUINJsZ\nL/jXdGUOrPtdPH4cWh9kuS8hfgUb/jtLtFUmls4weTLRfuxvWFguKKimJSUPnc4t\nQ/+QwDIXv7WrxV7AvhAhEyncX053JPdPzUSmobBLW/f/dajmaumaOtztXmvPAIvw\nIX1xMNAICv3VUe0XbfXoyIMpFj/YHcQruP3vEIUnslEpyyb5R3EYZbNB9a6PcRQg\npP/3rBeiJWo3lLDKske0kr3ElmqsezPL1/mV64hk6UdU1H3NtKE=\n=gWfv\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/fac727a0b09eeb867c2c515102cf2893bb5a56b7",
+          "sha": "fac727a0b09eeb867c2c515102cf2893bb5a56b7",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/fac727a0b09eeb867c2c515102cf2893bb5a56b7"
+        }
+      ],
+      "message": "wallet: add Silent Payment verification\n\nCo-authored-by: josibake <josibake@protonmail.com>",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:43Z"
+      },
+      "author": {
+        "name": "w0xlt",
+        "email": "woltx@protonmail.com",
+        "date": "2022-08-15T13:50:02Z"
+      },
+      "sha": "be01dbc12f6b470bced05a5c118ca2dd0d3007fd"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGIxY2U4MjQ5NWY2NmRmNjNhYTYxYzIwZTJmMjc1N2NmMjkzYWRlNjk",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/b1ce82495f66df63aa61c20e2f2757cf293ade69",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/b1ce82495f66df63aa61c20e2f2757cf293ade69",
+      "tree": {
+        "sha": "e7cced4dd831599a19f3f911b73cd424004c5a9f",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/e7cced4dd831599a19f3f911b73cd424004c5a9f"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree e7cced4dd831599a19f3f911b73cd424004c5a9f\nparent be01dbc12f6b470bced05a5c118ca2dd0d3007fd\nauthor josibake <josibake@protonmail.com> 1685713822 +0200\ncommitter josibake <josibake@protonmail.com> 1686062803 +0200\n\nadd functional tests\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEYWUWuOtu0CiC/Ep6ity1WMTzPWUFAmR/RtMACgkQity1WMTz\nPWXjzw//RuOsdc8yrPAouF2Pqj+dO4MnFNv3NN0xK9hBM5sPgIbQx6ONWxkx/r5N\n46+QlhA1Hgec/QLGApT49340n2AWKs+4eZAvEq6WDnmOoA+zwKOwn+kUA8JSbzhp\ncEnVLAy+iRJ9vSpmVmnIL3/YTHZbcnanSpYRoBrPLTyJO9Bbb28kI7dE6LYWh9w3\n5RAEUQXSAdO9ZIQ0ML0dSFheumyh0OWH+zBoTW6OzyWl859kZVwAS+EAjMrCmo7r\n3piRUISu/tVcLRcn4LA+D+HuNrKcX4htsGEbRRtsPp78k6g+07FDltbaeBKr9wY6\n8HaRtSA0331IM93NOT9+MFVOZORL84uXGGbk1y4+HOo8c4sDvQd+P9sZYpUhmAHa\nPaG8Dt+9oIbjpZiJyURsThTDcVYdUpGlgunGTathVrW7CPmzf+YTTURsdEZU4zH1\nN5VPxCS477bjqcTwlklfQez1J2Nm5bpYGfkpVl3qxq5JDTXfR7ab7OYAg3g2D3Es\noedqCKt6aYIHQCqnZBp2Do7mMpuaZJIiS6rV1L8XF1piuqbo4c9aSdgPTQ0p+CgB\nx7u/LKxOdVbg95/V9sfmj70wsDZGTSOopijwkCGHmiQCtNeqG3Ba/q/UMbt8u8ka\n996v3EqYZeMkO7xnbdJaEXTG2LOcgej7rDxe80XTO7Qmn+A4Vy0=\n=Ju9E\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/be01dbc12f6b470bced05a5c118ca2dd0d3007fd",
+          "sha": "be01dbc12f6b470bced05a5c118ca2dd0d3007fd",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/be01dbc12f6b470bced05a5c118ca2dd0d3007fd"
+        }
+      ],
+      "message": "add functional tests",
+      "committer": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-06T14:46:43Z"
+      },
+      "author": {
+        "name": "josibake",
+        "email": "josibake@protonmail.com",
+        "date": "2023-06-02T13:50:22Z"
+      },
+      "sha": "b1ce82495f66df63aa61c20e2f2757cf293ade69"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9447338769,
+      "node_id": "HRFPE_lADOABII585nz26GzwAAAAIzGvMR",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9447338769",
+      "actor": {
+        "login": "josibake",
+        "id": 7444140,
+        "node_id": "MDQ6VXNlcjc0NDQxNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7444140?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/josibake",
+        "html_url": "https://github.com/josibake",
+        "followers_url": "https://api.github.com/users/josibake/followers",
+        "following_url": "https://api.github.com/users/josibake/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/josibake/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/josibake/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/josibake/subscriptions",
+        "organizations_url": "https://api.github.com/users/josibake/orgs",
+        "repos_url": "https://api.github.com/users/josibake/repos",
+        "events_url": "https://api.github.com/users/josibake/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/josibake/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-06T14:47:31Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 9448130490,
+      "node_id": "UNLE_lADOABII585nz26GzwAAAAIzJwe6",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9448130490",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-06T15:57:12Z",
+      "label": {
+        "name": "CI failed",
+        "color": "cccccc"
+      }
+    }
+  ],
+  "comments": []
+}

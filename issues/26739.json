@@ -1,0 +1,130 @@
+{
+  "type": "issue",
+  "issue": {
+    "id": 1506980804,
+    "node_id": "I_kwDOABII585Z0rPE",
+    "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26739",
+    "repository_url": "https://api.github.com/repos/bitcoin/bitcoin",
+    "labels_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26739/labels%7B/name%7D",
+    "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26739/comments",
+    "events_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26739/events",
+    "html_url": "https://github.com/bitcoin/bitcoin/issues/26739",
+    "number": 26739,
+    "state": "open",
+    "state_reason": null,
+    "title": "Unable to open descriptor wallets that are not in a wallet directory",
+    "body": "A user reported on IRC that they were unable to open a descriptor wallet that they had in their walletdir as a file, not as a wallet directory. Since we expect descriptor wallets to always be in a wallet directory, this resulted in them being unable to use their wallet until they moved it into a directory. IIRC the it was an intentional decision to impose this restriction for descriptor wallets because we would only be creating new wallets which would create wallets in the expected directories following the expected wallet directory format. Since descriptor wallets were wholly new, there was no expectation that we would need the backwards compatibility feature of being able to open wallets that are not contained within a wallet directory.\r\n\r\nBut given that this has had an impact on some users, should we allow users to specify wallets in this way?\r\n\r\nIt's important to remember that this feature only exists for legacy wallets because of how multiwallet was originally implemented. The intention was only to not remove backwards compatibility for wallets created with the original multiwallet implementation, not as a proper feature. But it seems that some users (and third party application developers) are using this as if it were an intended and expected feature.\r\n\r\nI'm pretty sure there was some discussion in #19077 about this, but it's a big PR and I can't find the comments.",
+    "user": {
+      "login": "achow101",
+      "id": 3782274,
+      "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/achow101",
+      "html_url": "https://github.com/achow101",
+      "followers_url": "https://api.github.com/users/achow101/followers",
+      "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+      "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+      "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+      "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+      "organizations_url": "https://api.github.com/users/achow101/orgs",
+      "repos_url": "https://api.github.com/users/achow101/repos",
+      "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+      "received_events_url": "https://api.github.com/users/achow101/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 64584,
+        "node_id": "MDU6TGFiZWw2NDU4NA==",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/Brainstorming",
+        "name": "Brainstorming",
+        "color": "ebd775",
+        "default": false
+      },
+      {
+        "id": 149424,
+        "node_id": "MDU6TGFiZWwxNDk0MjQ=",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/Wallet",
+        "name": "Wallet",
+        "color": "08a781",
+        "default": false
+      }
+    ],
+    "assignees": [],
+    "author_association": "MEMBER",
+    "locked": false,
+    "comments": 0,
+    "created_at": "2022-12-21T22:19:49Z",
+    "updated_at": "2022-12-21T22:19:49Z"
+  },
+  "events": [
+    {
+      "event": "labeled",
+      "id": 8090937147,
+      "node_id": "LE_lADOABII585Z0rPEzwAAAAHiQec7",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8090937147",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2022-12-21T22:19:49Z",
+      "label": {
+        "name": "Brainstorming",
+        "color": "ebd775"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 8090937148,
+      "node_id": "LE_lADOABII585Z0rPEzwAAAAHiQec8",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8090937148",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2022-12-21T22:19:49Z",
+      "label": {
+        "name": "Wallet",
+        "color": "08a781"
+      }
+    }
+  ]
+}

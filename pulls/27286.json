@@ -1,0 +1,2457 @@
+{
+  "type": "pull",
+  "pull": {
+    "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27286",
+    "id": 1283294415,
+    "node_id": "PR_kwDOABII585MfYTP",
+    "html_url": "https://github.com/bitcoin/bitcoin/pull/27286",
+    "diff_url": "https://github.com/bitcoin/bitcoin/pull/27286.diff",
+    "patch_url": "https://github.com/bitcoin/bitcoin/pull/27286.patch",
+    "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27286",
+    "commits_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27286/commits",
+    "review_comments_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27286/comments",
+    "review_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments%7B/number%7D",
+    "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27286/comments",
+    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/ab939250063137ec474ddf3865e638a52a387024",
+    "number": 27286,
+    "state": "open",
+    "locked": false,
+    "maintainer_can_modify": true,
+    "title": "wallet: Keep track of the wallet's own transaction outputs in memory",
+    "user": {
+      "login": "achow101",
+      "id": 3782274,
+      "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/achow101",
+      "html_url": "https://github.com/achow101",
+      "followers_url": "https://api.github.com/users/achow101/followers",
+      "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+      "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+      "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+      "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+      "organizations_url": "https://api.github.com/users/achow101/orgs",
+      "repos_url": "https://api.github.com/users/achow101/repos",
+      "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+      "received_events_url": "https://api.github.com/users/achow101/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "body": "Currently, the wallet is not actually aware about its own transaction outputs. Instead, it will iterate all of the transactions stored in `mapWallet`, and then all of the outputs of those transactions, in order to figure out what belongs to it for the purposes of coin selection and balance calculation. For balance calculation, there is caching that results in it only iterating all of the transactions, but not all of the outputs. However when the cache is dirty, everything is iterated. This is especially problematic for wallets that have a lot of transactions, or transactions that have a lot of unrelated outputs (as may occur with coinjoins or batched payments).\r\n\r\nThis PR helps to resolve this issue by making the wallet track all of the outputs that belong to it in a new member `m_txos`. Note that this includes outputs that may have already been spent. Both balance calculation (`GetBalance`) and coin selection (`AvailableCoins`) are updated to iterate `m_txos`. This is generally faster since it ignores all of the unrelated outputs, and it is not slower as in the worst case of wallets containing only single output transactions, it's exactly the same number of outputs iterated.\r\n\r\n`m_txos` is memory only, and it is populated during wallet loading. When each transaction is loaded, all of its outputs are checked to see if it is `IsMine`, and if so, an entry added to `m_txos`. When new transactions are received, the same procedure is done.\r\n\r\nSince imports can change the `IsMine` status of a transaction (although they can only be \"promoted\" from watchonly to spendable), all of the import RPCs will be a bit slower as they re-iterate all transactions and all outputs to update `m_txos`.\r\n\r\nEach output in `m_txos` is stored in a new `WalletTXO` class. This class contains references to the parent `CWalletTx` and the `CTxOut` itself. It also caches the `IsMine` value of the txout. This should be safe as `IsMine` should not change unless there are imports. This allows us to have additional performance improvements in places that use these `WalletTXO`s as they can use the cached `IsMine` rather than repeatedly calling `IsMine` which can be expensive.\r\n\r\nThe existing `WalletBalance` benchmark demonstrates the performance improvement that this PR makes. The existing `WalletAvailableCoins` benchmark doesn't as all of the outputs used in that benchmark belong to the test wallet. I've updated that benchmark to have a bunch of unrelated outputs in each transaction so that the difference is demonstrated.\r\n\r\nThis is part of a larger project to have the wallet actually track and store a set of its UTXOs.\r\n\r\nBuilt on #24914 as it requires loading the txs last in order for `m_txos` to be built correctly.\r\n\r\n***\r\n\r\n## Benchmarks:\r\n\r\nMaster:\r\n\r\n|               ns/op |                op/s |    err% |          ins/op |         bra/op |   miss% |     total | benchmark\r\n|--------------------:|--------------------:|--------:|----------------:|---------------:|--------:|----------:|:----------\r\n|       92,245,141.50 |               10.84 |    0.1% |  988,823,975.00 |  66,803,340.50 |    0.0% |      2.04 | `WalletAvailableCoins`\r\n|            5,709.90 |          175,134.50 |    0.5% |       80,968.24 |      25,539.15 |    0.1% |      0.01 | `WalletBalanceClean`\r\n|          139,396.17 |            7,173.80 |    0.6% |    1,383,390.50 |     430,276.86 |    0.0% |      0.01 | `WalletBalanceDirty`\r\n|            5,055.80 |          197,792.47 |    0.3% |       80,968.10 |      25,539.02 |    0.1% |      0.01 | `WalletBalanceMine`\r\n|                9.79 |      102,152,396.19 |    0.1% |          161.00 |          37.00 |    0.0% |      0.01 | `WalletBalanceWatch`\r\n|        1,552,736.00 |              644.02 |    1.5% |   20,316,315.80 |     618,545.80 |    0.6% |      0.08 | `WalletCreateTxUseOnlyPresetInputs`\r\n|      114,114,732.00 |                8.76 |    0.5% |1,291,047,717.60 | 320,244,602.00 |    0.0% |      6.30 | `WalletCreateTxUsePresetInputsAndCoinSelection`\r\n|      359,315,754.00 |                2.78 |    0.1% |4,339,447,818.00 | 136,619,757.00 |    0.7% |      1.80 | `WalletLoadingDescriptors`\r\n|       98,230,601.00 |               10.18 |    0.1% |  537,688,964.00 |  97,332,266.00 |    0.3% |      0.49 | `WalletLoadingLegacy`\r\n\r\nPR:\r\n\r\n|               ns/op |                op/s |    err% |          ins/op |         bra/op |   miss% |     total | benchmark\r\n|--------------------:|--------------------:|--------:|----------------:|---------------:|--------:|----------:|:----------\r\n|       75,319,868.50 |               13.28 |    0.2% |  863,758,229.00 |  30,892,593.00 |    0.2% |      1.66 | `WalletAvailableCoins`\r\n|            2,367.62 |          422,364.95 |    1.0% |       35,785.05 |       9,893.01 |    0.2% |      0.01 | `WalletBalanceClean`\r\n|            2,685.58 |          372,359.55 |    0.2% |       36,501.05 |      10,027.01 |    0.1% |      0.01 | `WalletBalanceDirty`\r\n|            3,462.24 |          288,830.68 |    2.7% |       35,785.06 |       9,893.01 |    0.3% |      0.01 | `WalletBalanceMine`\r\n|               11.65 |       85,838,176.97 |    0.1% |          180.00 |          42.00 |    0.0% |      0.01 | `WalletBalanceWatch`\r\n|        1,563,092.60 |              639.76 |    1.5% |   20,426,154.40 |     649,953.80 |    0.6% |      0.09 | `WalletCreateTxUseOnlyPresetInputs`\r\n|       58,367,804.40 |               17.13 |    0.9% |  587,164,005.00 | 107,905,843.80 |    0.1% |      3.21 | `WalletCreateTxUsePresetInputsAndCoinSelection`\r\n|      365,302,636.00 |                2.74 |    0.2% |4,349,345,147.00 | 138,730,668.00 |    0.8% |      1.83 | `WalletLoadingDescriptors`\r\n|      124,995,585.00 |                8.00 |    1.2% |  801,998,316.00 | 103,210,721.00 |    0.3% |      0.63 | `WalletLoadingLegacy`\r\n",
+    "labels": [
+      {
+        "id": 149424,
+        "node_id": "MDU6TGFiZWwxNDk0MjQ=",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/Wallet",
+        "name": "Wallet",
+        "color": "08a781",
+        "default": false
+      }
+    ],
+    "created_at": "2023-03-20T21:02:45Z",
+    "updated_at": "2023-06-06T00:15:03Z",
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "merge_commit_sha": "a42074e2236137ee071154366c33ab3a8cb6ca6f",
+    "assignees": [],
+    "requested_reviewers": [],
+    "requested_teams": [],
+    "rebaseable": true,
+    "head": {
+      "label": "achow101:wallet-txos",
+      "ref": "wallet-txos",
+      "sha": "ab939250063137ec474ddf3865e638a52a387024",
+      "user": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "repo": {
+        "id": 45006379,
+        "node_id": "MDEwOlJlcG9zaXRvcnk0NTAwNjM3OQ==",
+        "name": "bitcoin",
+        "full_name": "achow101/bitcoin",
+        "owner": {
+          "login": "achow101",
+          "id": 3782274,
+          "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/achow101",
+          "html_url": "https://github.com/achow101",
+          "followers_url": "https://api.github.com/users/achow101/followers",
+          "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+          "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+          "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+          "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+          "organizations_url": "https://api.github.com/users/achow101/orgs",
+          "repos_url": "https://api.github.com/users/achow101/repos",
+          "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+          "received_events_url": "https://api.github.com/users/achow101/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "private": false,
+        "html_url": "https://github.com/achow101/bitcoin",
+        "description": "Bitcoin Core integration/staging tree",
+        "fork": true,
+        "url": "https://api.github.com/repos/achow101/bitcoin",
+        "archive_url": "https://api.github.com/repos/achow101/bitcoin/%7Barchive_format%7D%7B/ref%7D",
+        "assignees_url": "https://api.github.com/repos/achow101/bitcoin/assignees%7B/user%7D",
+        "blobs_url": "https://api.github.com/repos/achow101/bitcoin/git/blobs%7B/sha%7D",
+        "branches_url": "https://api.github.com/repos/achow101/bitcoin/branches%7B/branch%7D",
+        "collaborators_url": "https://api.github.com/repos/achow101/bitcoin/collaborators%7B/collaborator%7D",
+        "comments_url": "https://api.github.com/repos/achow101/bitcoin/comments%7B/number%7D",
+        "commits_url": "https://api.github.com/repos/achow101/bitcoin/commits%7B/sha%7D",
+        "compare_url": "https://api.github.com/repos/achow101/bitcoin/compare/%7Bbase%7D...%7Bhead%7D",
+        "contents_url": "https://api.github.com/repos/achow101/bitcoin/contents/%7B+path%7D",
+        "contributors_url": "https://api.github.com/repos/achow101/bitcoin/contributors",
+        "deployments_url": "https://api.github.com/repos/achow101/bitcoin/deployments",
+        "downloads_url": "https://api.github.com/repos/achow101/bitcoin/downloads",
+        "events_url": "https://api.github.com/repos/achow101/bitcoin/events",
+        "forks_url": "https://api.github.com/repos/achow101/bitcoin/forks",
+        "git_commits_url": "https://api.github.com/repos/achow101/bitcoin/git/commits%7B/sha%7D",
+        "git_refs_url": "https://api.github.com/repos/achow101/bitcoin/git/refs%7B/sha%7D",
+        "git_tags_url": "https://api.github.com/repos/achow101/bitcoin/git/tags%7B/sha%7D",
+        "git_url": "git://github.com/achow101/bitcoin.git",
+        "issue_comment_url": "https://api.github.com/repos/achow101/bitcoin/issues/comments%7B/number%7D",
+        "issue_events_url": "https://api.github.com/repos/achow101/bitcoin/issues/events%7B/number%7D",
+        "issues_url": "https://api.github.com/repos/achow101/bitcoin/issues%7B/number%7D",
+        "keys_url": "https://api.github.com/repos/achow101/bitcoin/keys%7B/key_id%7D",
+        "labels_url": "https://api.github.com/repos/achow101/bitcoin/labels%7B/name%7D",
+        "languages_url": "https://api.github.com/repos/achow101/bitcoin/languages",
+        "merges_url": "https://api.github.com/repos/achow101/bitcoin/merges",
+        "milestones_url": "https://api.github.com/repos/achow101/bitcoin/milestones%7B/number%7D",
+        "notifications_url": "https://api.github.com/repos/achow101/bitcoin/notifications%7B?since,all,participating}",
+        "pulls_url": "https://api.github.com/repos/achow101/bitcoin/pulls%7B/number%7D",
+        "releases_url": "https://api.github.com/repos/achow101/bitcoin/releases%7B/id%7D",
+        "ssh_url": "git@github.com:achow101/bitcoin.git",
+        "stargazers_url": "https://api.github.com/repos/achow101/bitcoin/stargazers",
+        "statuses_url": "https://api.github.com/repos/achow101/bitcoin/statuses/%7Bsha%7D",
+        "subscribers_url": "https://api.github.com/repos/achow101/bitcoin/subscribers",
+        "subscription_url": "https://api.github.com/repos/achow101/bitcoin/subscription",
+        "tags_url": "https://api.github.com/repos/achow101/bitcoin/tags",
+        "teams_url": "https://api.github.com/repos/achow101/bitcoin/teams",
+        "trees_url": "https://api.github.com/repos/achow101/bitcoin/git/trees%7B/sha%7D",
+        "clone_url": "https://github.com/achow101/bitcoin.git",
+        "hooks_url": "https://api.github.com/repos/achow101/bitcoin/hooks",
+        "svn_url": "https://github.com/achow101/bitcoin",
+        "homepage": "https://bitcoin.org/en/download",
+        "language": "C++",
+        "forks_count": 10,
+        "stargazers_count": 34,
+        "watchers_count": 34,
+        "size": 238743,
+        "default_branch": "master",
+        "open_issues_count": 0,
+        "is_template": false,
+        "topics": [],
+        "has_issues": false,
+        "has_projects": true,
+        "has_wiki": false,
+        "has_pages": false,
+        "has_downloads": false,
+        "archived": false,
+        "disabled": false,
+        "visibility": "public",
+        "pushed_at": "2023-06-07T07:15:28Z",
+        "created_at": "2015-10-27T00:20:28Z",
+        "updated_at": "2023-05-16T00:18:41Z",
+        "license": {
+          "key": "mit",
+          "name": "MIT License",
+          "node_id": "MDc6TGljZW5zZTEz",
+          "spdx_id": "MIT",
+          "url": "https://api.github.com/licenses/mit",
+          "html_url": null,
+          "description": null,
+          "implementation": null,
+          "permissions": null,
+          "conditions": null,
+          "limitations": null,
+          "body": null,
+          "featured": null
+        }
+      }
+    },
+    "base": {
+      "label": "bitcoin:master",
+      "ref": "master",
+      "sha": "7f2019755d147e7e17c54f0bb61296211bb45262",
+      "user": {
+        "login": "bitcoin",
+        "id": 528860,
+        "node_id": "MDEyOk9yZ2FuaXphdGlvbjUyODg2MA==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/528860?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/bitcoin",
+        "html_url": "https://github.com/bitcoin",
+        "followers_url": "https://api.github.com/users/bitcoin/followers",
+        "following_url": "https://api.github.com/users/bitcoin/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/bitcoin/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/bitcoin/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/bitcoin/subscriptions",
+        "organizations_url": "https://api.github.com/users/bitcoin/orgs",
+        "repos_url": "https://api.github.com/users/bitcoin/repos",
+        "events_url": "https://api.github.com/users/bitcoin/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/bitcoin/received_events",
+        "type": "Organization",
+        "site_admin": false
+      },
+      "repo": {
+        "id": 1181927,
+        "node_id": "MDEwOlJlcG9zaXRvcnkxMTgxOTI3",
+        "name": "bitcoin",
+        "full_name": "bitcoin/bitcoin",
+        "owner": {
+          "login": "bitcoin",
+          "id": 528860,
+          "node_id": "MDEyOk9yZ2FuaXphdGlvbjUyODg2MA==",
+          "avatar_url": "https://avatars.githubusercontent.com/u/528860?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/bitcoin",
+          "html_url": "https://github.com/bitcoin",
+          "followers_url": "https://api.github.com/users/bitcoin/followers",
+          "following_url": "https://api.github.com/users/bitcoin/following%7B/other_user%7D",
+          "gists_url": "https://api.github.com/users/bitcoin/gists%7B/gist_id%7D",
+          "starred_url": "https://api.github.com/users/bitcoin/starred%7B/owner%7D%7B/repo%7D",
+          "subscriptions_url": "https://api.github.com/users/bitcoin/subscriptions",
+          "organizations_url": "https://api.github.com/users/bitcoin/orgs",
+          "repos_url": "https://api.github.com/users/bitcoin/repos",
+          "events_url": "https://api.github.com/users/bitcoin/events%7B/privacy%7D",
+          "received_events_url": "https://api.github.com/users/bitcoin/received_events",
+          "type": "Organization",
+          "site_admin": false
+        },
+        "private": false,
+        "html_url": "https://github.com/bitcoin/bitcoin",
+        "description": "Bitcoin Core integration/staging tree",
+        "fork": false,
+        "url": "https://api.github.com/repos/bitcoin/bitcoin",
+        "archive_url": "https://api.github.com/repos/bitcoin/bitcoin/%7Barchive_format%7D%7B/ref%7D",
+        "assignees_url": "https://api.github.com/repos/bitcoin/bitcoin/assignees%7B/user%7D",
+        "blobs_url": "https://api.github.com/repos/bitcoin/bitcoin/git/blobs%7B/sha%7D",
+        "branches_url": "https://api.github.com/repos/bitcoin/bitcoin/branches%7B/branch%7D",
+        "collaborators_url": "https://api.github.com/repos/bitcoin/bitcoin/collaborators%7B/collaborator%7D",
+        "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/comments%7B/number%7D",
+        "commits_url": "https://api.github.com/repos/bitcoin/bitcoin/commits%7B/sha%7D",
+        "compare_url": "https://api.github.com/repos/bitcoin/bitcoin/compare/%7Bbase%7D...%7Bhead%7D",
+        "contents_url": "https://api.github.com/repos/bitcoin/bitcoin/contents/%7B+path%7D",
+        "contributors_url": "https://api.github.com/repos/bitcoin/bitcoin/contributors",
+        "deployments_url": "https://api.github.com/repos/bitcoin/bitcoin/deployments",
+        "downloads_url": "https://api.github.com/repos/bitcoin/bitcoin/downloads",
+        "events_url": "https://api.github.com/repos/bitcoin/bitcoin/events",
+        "forks_url": "https://api.github.com/repos/bitcoin/bitcoin/forks",
+        "git_commits_url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits%7B/sha%7D",
+        "git_refs_url": "https://api.github.com/repos/bitcoin/bitcoin/git/refs%7B/sha%7D",
+        "git_tags_url": "https://api.github.com/repos/bitcoin/bitcoin/git/tags%7B/sha%7D",
+        "git_url": "git://github.com/bitcoin/bitcoin.git",
+        "issue_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments%7B/number%7D",
+        "issue_events_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events%7B/number%7D",
+        "issues_url": "https://api.github.com/repos/bitcoin/bitcoin/issues%7B/number%7D",
+        "keys_url": "https://api.github.com/repos/bitcoin/bitcoin/keys%7B/key_id%7D",
+        "labels_url": "https://api.github.com/repos/bitcoin/bitcoin/labels%7B/name%7D",
+        "languages_url": "https://api.github.com/repos/bitcoin/bitcoin/languages",
+        "merges_url": "https://api.github.com/repos/bitcoin/bitcoin/merges",
+        "milestones_url": "https://api.github.com/repos/bitcoin/bitcoin/milestones%7B/number%7D",
+        "notifications_url": "https://api.github.com/repos/bitcoin/bitcoin/notifications%7B?since,all,participating}",
+        "pulls_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls%7B/number%7D",
+        "releases_url": "https://api.github.com/repos/bitcoin/bitcoin/releases%7B/id%7D",
+        "ssh_url": "git@github.com:bitcoin/bitcoin.git",
+        "stargazers_url": "https://api.github.com/repos/bitcoin/bitcoin/stargazers",
+        "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/%7Bsha%7D",
+        "subscribers_url": "https://api.github.com/repos/bitcoin/bitcoin/subscribers",
+        "subscription_url": "https://api.github.com/repos/bitcoin/bitcoin/subscription",
+        "tags_url": "https://api.github.com/repos/bitcoin/bitcoin/tags",
+        "teams_url": "https://api.github.com/repos/bitcoin/bitcoin/teams",
+        "trees_url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees%7B/sha%7D",
+        "clone_url": "https://github.com/bitcoin/bitcoin.git",
+        "hooks_url": "https://api.github.com/repos/bitcoin/bitcoin/hooks",
+        "svn_url": "https://github.com/bitcoin/bitcoin",
+        "homepage": "https://bitcoincore.org/en/download",
+        "language": "C++",
+        "forks_count": 34325,
+        "stargazers_count": 69819,
+        "watchers_count": 69819,
+        "size": 233879,
+        "default_branch": "master",
+        "open_issues_count": 626,
+        "is_template": false,
+        "topics": [
+          "bitcoin",
+          "c-plus-plus",
+          "cryptocurrency",
+          "cryptography",
+          "p2p"
+        ],
+        "has_issues": true,
+        "has_projects": true,
+        "has_wiki": false,
+        "has_pages": false,
+        "has_downloads": false,
+        "archived": false,
+        "disabled": false,
+        "visibility": "public",
+        "pushed_at": "2023-06-07T07:29:24Z",
+        "created_at": "2010-12-19T15:16:43Z",
+        "updated_at": "2023-06-07T07:34:31Z",
+        "license": {
+          "key": "mit",
+          "name": "MIT License",
+          "node_id": "MDc6TGljZW5zZTEz",
+          "spdx_id": "MIT",
+          "url": "https://api.github.com/licenses/mit",
+          "html_url": null,
+          "description": null,
+          "implementation": null,
+          "permissions": null,
+          "conditions": null,
+          "limitations": null,
+          "body": null,
+          "featured": null
+        }
+      }
+    },
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27286"
+      }
+    },
+    "author_association": "MEMBER",
+    "draft": true,
+    "additions": 1088,
+    "deletions": 866,
+    "changed_files": 14,
+    "commits": 27,
+    "review_comments": 0,
+    "comments": 1
+  },
+  "events": [
+    {
+      "event": "commented",
+      "id": 1476930328,
+      "node_id": "IC_kwDOABII585YCCsY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1476930328",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-03-20T21:02:48Z",
+      "updated_at": "2023-06-06T00:15:03Z",
+      "author_association": "MEMBER",
+      "body": "<!--e57a25ab6845829454e8d69fc972939a-->\n\nThe following sections might be updated with supplementary metadata relevant to reviewers and maintainers.\n\n<!--021abf342d371248e50ceaed478a90ca-->\n### Reviews\nSee [the guideline](https://github.com/bitcoin/bitcoin/blob/master/CONTRIBUTING.md#code-review) for information on the review process.\nA summary of reviews will appear here.\n<!--174a7506f384e20aa4161008e828411d-->\n### Conflicts\nReviewers, this pull request conflicts with the following ones:\n\n* [#bitcoin-core/gui/733](https://github.com/bitcoin-core/gui/pull/733) (Deniability - a tool to automatically improve coin ownership privacy by denavila)\n* [#bitcoin-core/gui/650](https://github.com/bitcoin-core/gui/pull/650) (Add Import to Wallet GUI by KolbyML)\n* [#27827](https://github.com/bitcoin/bitcoin/pull/27827) ([Silent Payments]: Base functionality by josibake)\n* [#27792](https://github.com/bitcoin/bitcoin/pull/27792) (wallet: Deniability API (Unilateral Transaction Meta-Privacy) by denavila)\n* [#27783](https://github.com/bitcoin/bitcoin/pull/27783) (Add public Boost headers explicitly by hebasto)\n* [#27425](https://github.com/bitcoin/bitcoin/pull/27425) (test: move remaining rand code from util/setup_common to util/random by jonatack)\n* [#27307](https://github.com/bitcoin/bitcoin/pull/27307) (wallet: track mempool conflicts with wallet transactions by ishaanam)\n* [#26840](https://github.com/bitcoin/bitcoin/pull/26840) (refactor: importpubkey, importprivkey, importaddress, importmulti, and importdescriptors rpc by KolbyML)\n* [#26836](https://github.com/bitcoin/bitcoin/pull/26836) (wallet: finish addressbook encapsulation and simplify addressbook migration by furszy)\n* [#26728](https://github.com/bitcoin/bitcoin/pull/26728) (wallet: Have the wallet store the key for automatically generated descriptors by achow101)\n* [#26596](https://github.com/bitcoin/bitcoin/pull/26596) (wallet: Migrate legacy wallets to descriptor wallets without requiring BDB by achow101)\n* [#26008](https://github.com/bitcoin/bitcoin/pull/26008) (wallet: cache IsMine scriptPubKeys to improve performance of descriptor wallets by achow101)\n* [#25907](https://github.com/bitcoin/bitcoin/pull/25907) (wallet: rpc to add automatically generated descriptors by achow101)\n* [#25273](https://github.com/bitcoin/bitcoin/pull/25273) (wallet: Pass through transaction locktime and preset input sequences and scripts to CreateTransaction by achow101)\n* [#22838](https://github.com/bitcoin/bitcoin/pull/22838) (descriptors: Be able to specify change and receiving in a single descriptor string by achow101)\n* [#22341](https://github.com/bitcoin/bitcoin/pull/22341) (rpc: add getxpub by Sjors)\n\nIf you consider this pull request important, please also help to review the conflicting pull requests. Ideally, start with the one that should be merged first.\n",
+      "user": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27286#issuecomment-1476930328",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27286"
+    },
+    {
+      "event": "labeled",
+      "id": 8799205482,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAIMeThq",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8799205482",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-03-20T21:02:50Z",
+      "label": {
+        "name": "Wallet",
+        "color": "08a781"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 8913283218,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAITReiS",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8913283218",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-03T13:53:09Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 8964360991,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIWUUsf",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8964360991",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-10T14:45:18Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 8964546125,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIWVB5N",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8964546125",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-10T15:06:52Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 8964909964,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIWWauM",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8964909964",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-10T15:58:18Z"
+    },
+    {
+      "event": "labeled",
+      "id": 8977151682,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAIXFHbC",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8977151682",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-11T18:50:14Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 8977672228,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIXHGgk",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8977672228",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-11T19:58:49Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 8978106678,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIXIwk2",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8978106678",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-11T20:55:52Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 8984506953,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAIXhLJJ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8984506953",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-12T11:26:45Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 8986356725,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIXoOv1",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8986356725",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-12T14:25:22Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 8987168967,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIXrVDH",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/8987168967",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-04-12T15:39:01Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 9136374703,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAIgkgOv",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9136374703",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-01T12:51:22Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9136869059,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIgmY7D",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9136869059",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-01T14:12:34Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 9137166885,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIgnhol",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9137166885",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-01T14:56:27Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 9195864599,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAIkHcIX",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9195864599",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-09T02:14:21Z",
+      "label": {
+        "name": "CI failed",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 9245688598,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAInFgMW",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9245688598",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-15T11:52:36Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9251094818,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAInaIEi",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9251094818",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-15T21:04:38Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 9251711476,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIncen0",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9251711476",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-15T22:38:37Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "unlabeled",
+      "id": 9252650429,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIngD29",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9252650429",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-16T02:22:22Z",
+      "label": {
+        "name": "CI failed",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 9256718801,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAInvlHR",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9256718801",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-16T11:07:11Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9261559639,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIoCC9X",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9261559639",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-16T19:01:36Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 9262090607,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIoEElv",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9262090607",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-16T20:06:31Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 9281636068,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAIpOobk",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9281636068",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-18T16:26:25Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9291327326,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIpzmde",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9291327326",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-19T17:20:32Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 9291684634,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIp09sa",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9291684634",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-19T18:10:42Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9292194429,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIp26J9",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9292194429",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-19T19:28:42Z"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9355564874,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAItopdK",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9355564874",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-27T01:49:31Z"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9358094453,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAItyTB1",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9358094453",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-05-27T17:57:47Z"
+    },
+    {
+      "event": "labeled",
+      "id": 9416434693,
+      "node_id": "LE_lADOABII585hU2-ZzwAAAAIxQ2QF",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9416434693",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-02T17:07:25Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDEwMmU0YWQwMmY1NzQyN2M1ZjFkNDg5M2JiZmU4MjFiNjgyYWJkOTI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/102e4ad02f57427c5f1d4893bbfe821b682abd92",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/102e4ad02f57427c5f1d4893bbfe821b682abd92",
+      "tree": {
+        "sha": "8de3f03f253047a17a72971c09fa60f081aa94f7",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/8de3f03f253047a17a72971c09fa60f081aa94f7"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/7f2019755d147e7e17c54f0bb61296211bb45262",
+          "sha": "7f2019755d147e7e17c54f0bb61296211bb45262",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/7f2019755d147e7e17c54f0bb61296211bb45262"
+        }
+      ],
+      "message": "walletdb: Refactor minversion loading\n\nMove minversion loading to its own function in WalletBatch",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T15:35:22Z"
+      },
+      "sha": "102e4ad02f57427c5f1d4893bbfe821b682abd92"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDEyN2RmYzc5M2RhZWZiYzM2YWZiMWZjODY4ODJmZDkwYTQ2YWM2ZTE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/127dfc793daefbc36afb1fc86882fd90a46ac6e1",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/127dfc793daefbc36afb1fc86882fd90a46ac6e1",
+      "tree": {
+        "sha": "ce6e92f04b2e4df18c17a858b7b8412eefd286c3",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/ce6e92f04b2e4df18c17a858b7b8412eefd286c3"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/102e4ad02f57427c5f1d4893bbfe821b682abd92",
+          "sha": "102e4ad02f57427c5f1d4893bbfe821b682abd92",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/102e4ad02f57427c5f1d4893bbfe821b682abd92"
+        }
+      ],
+      "message": "walletdb: Refactor wallet flags loading\n\nMove wallet flags loading to its own function in WalletBatch\n\nThe return value is changed to be TOO_NEW rather than CORRUPT when\nunknown flags are found.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T15:39:46Z"
+      },
+      "sha": "127dfc793daefbc36afb1fc86882fd90a46ac6e1"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDljNDg5YjA0YzQyMjdkNDM0MzMzMTM3YWYxZDRlMzNhYjBmNGJlN2Y",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c489b04c4227d434333137af1d4e33ab0f4be7f",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/9c489b04c4227d434333137af1d4e33ab0f4be7f",
+      "tree": {
+        "sha": "35282b77687c35d0d94450cb510912da9fffa613",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/35282b77687c35d0d94450cb510912da9fffa613"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/127dfc793daefbc36afb1fc86882fd90a46ac6e1",
+          "sha": "127dfc793daefbc36afb1fc86882fd90a46ac6e1",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/127dfc793daefbc36afb1fc86882fd90a46ac6e1"
+        }
+      ],
+      "message": "walletdb: Refactor key reading and loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T18:42:00Z"
+      },
+      "sha": "9c489b04c4227d434333137af1d4e33ab0f4be7f"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDhkOTU0MTJkMmZlM2Q2MjA3Mzk4Mzc0MjZhZjJhZTk4YjBlYzdmNjE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8d95412d2fe3d620739837426af2ae98b0ec7f61",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/8d95412d2fe3d620739837426af2ae98b0ec7f61",
+      "tree": {
+        "sha": "4ff1583dad6af84cb3f2db3df12774048b65eedb",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/4ff1583dad6af84cb3f2db3df12774048b65eedb"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c489b04c4227d434333137af1d4e33ab0f4be7f",
+          "sha": "9c489b04c4227d434333137af1d4e33ab0f4be7f",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/9c489b04c4227d434333137af1d4e33ab0f4be7f"
+        }
+      ],
+      "message": "walletdb: Refactor crypted key loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T19:34:23Z"
+      },
+      "sha": "8d95412d2fe3d620739837426af2ae98b0ec7f61"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGJjMjJkNjk2ZTA4ZTkyNjMxMzM4ODY0ZmRiMTdlMjY3OTlkZDgyYzY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/bc22d696e08e92631338864fdb17e26799dd82c6",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/bc22d696e08e92631338864fdb17e26799dd82c6",
+      "tree": {
+        "sha": "46156bcda7299c8d42a9e468995fd1ca4708ece9",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/46156bcda7299c8d42a9e468995fd1ca4708ece9"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8d95412d2fe3d620739837426af2ae98b0ec7f61",
+          "sha": "8d95412d2fe3d620739837426af2ae98b0ec7f61",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/8d95412d2fe3d620739837426af2ae98b0ec7f61"
+        }
+      ],
+      "message": "walletdb: Refactor encryption key loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T20:07:59Z"
+      },
+      "sha": "bc22d696e08e92631338864fdb17e26799dd82c6"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGMwNjM2Mjg3ZWQyYTViYmQ2MGYxYjExODIzMTg3NWQxOWI4ZWVkOTI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c0636287ed2a5bbd60f1b118231875d19b8eed92",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/c0636287ed2a5bbd60f1b118231875d19b8eed92",
+      "tree": {
+        "sha": "60ef41e395cbb86c9dbaa9e7d1941c4db03ca771",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/60ef41e395cbb86c9dbaa9e7d1941c4db03ca771"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/bc22d696e08e92631338864fdb17e26799dd82c6",
+          "sha": "bc22d696e08e92631338864fdb17e26799dd82c6",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/bc22d696e08e92631338864fdb17e26799dd82c6"
+        }
+      ],
+      "message": "walletdb: Refactor hd chain loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T20:37:29Z"
+      },
+      "sha": "c0636287ed2a5bbd60f1b118231875d19b8eed92"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGM2MmE0ZjY4YTQ3ZDIyNzliMTQ0YzgyOWFkZjFlNzI2YTg3NmMyNzY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c62a4f68a47d2279b144c829adf1e726a876c276",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/c62a4f68a47d2279b144c829adf1e726a876c276",
+      "tree": {
+        "sha": "91c8f4b74f8f3f423c7b82f4b271de12727a3d0b",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/91c8f4b74f8f3f423c7b82f4b271de12727a3d0b"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c0636287ed2a5bbd60f1b118231875d19b8eed92",
+          "sha": "c0636287ed2a5bbd60f1b118231875d19b8eed92",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/c0636287ed2a5bbd60f1b118231875d19b8eed92"
+        }
+      ],
+      "message": "salvage: Remove use of ReadKeyValue in salvage\n\nTo prepare to remove ReadKeyValue, change salvage to not use it",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T20:38:44Z"
+      },
+      "sha": "c62a4f68a47d2279b144c829adf1e726a876c276"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDk4NmE3Mzc0YWUwMWY4OGE2YzBmM2U3MThkYTBmNjgzNTIwZTBmZmI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/986a7374ae01f88a6c0f3e718da0f683520e0ffb",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/986a7374ae01f88a6c0f3e718da0f683520e0ffb",
+      "tree": {
+        "sha": "3a876378bea8da69d208593b4a6810fa9d922d06",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/3a876378bea8da69d208593b4a6810fa9d922d06"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c62a4f68a47d2279b144c829adf1e726a876c276",
+          "sha": "c62a4f68a47d2279b144c829adf1e726a876c276",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/c62a4f68a47d2279b144c829adf1e726a876c276"
+        }
+      ],
+      "message": "walletdb: Refactor legacy wallet record loading into its own function\n\nInstead of loading legacy wallet records as we come across them when\niterating the database, load them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T18:27:39Z"
+      },
+      "sha": "986a7374ae01f88a6c0f3e718da0f683520e0ffb"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDUyODgzZTE3MDFmNjg1NTBjZDMxNTA3NzRkNGYzMDNmZTA4MGU4N2U",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/52883e1701f68550cd3150774d4f303fe080e87e",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/52883e1701f68550cd3150774d4f303fe080e87e",
+      "tree": {
+        "sha": "2f86aac2270fc7892b6cfaddcc1166766102d288",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/2f86aac2270fc7892b6cfaddcc1166766102d288"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/986a7374ae01f88a6c0f3e718da0f683520e0ffb",
+          "sha": "986a7374ae01f88a6c0f3e718da0f683520e0ffb",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/986a7374ae01f88a6c0f3e718da0f683520e0ffb"
+        }
+      ],
+      "message": "walletdb: Refactor descriptor wallet records loading\n\nInstead of loading descriptor wallet records as we come across them when\niterating the database, loading them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T20:16:49Z"
+      },
+      "sha": "52883e1701f68550cd3150774d4f303fe080e87e"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDNkZTJmOTYyYWU2ZmEwNmRiYWFiZWYyNzZkZjQ2NWUzNGQ3NzkwYTc",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/3de2f962ae6fa06dbaabef276df465e34d7790a7",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/3de2f962ae6fa06dbaabef276df465e34d7790a7",
+      "tree": {
+        "sha": "97944141a4bb0e3c7a7d4cf8cbb8b61a54fe86e8",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/97944141a4bb0e3c7a7d4cf8cbb8b61a54fe86e8"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/52883e1701f68550cd3150774d4f303fe080e87e",
+          "sha": "52883e1701f68550cd3150774d4f303fe080e87e",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/52883e1701f68550cd3150774d4f303fe080e87e"
+        }
+      ],
+      "message": "walletdb: refactor address book loading\n\nInstead of loading address book records as we come across them when\niterating the database, load them explicitly",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T22:25:10Z"
+      },
+      "sha": "3de2f962ae6fa06dbaabef276df465e34d7790a7"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGFhNmNjYTQyYzY3NTVhNWJjNjEwMWU5ZGVkZjA1MDI3Y2FlNTg4NGQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aa6cca42c6755a5bc6101e9dedf05027cae5884d",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/aa6cca42c6755a5bc6101e9dedf05027cae5884d",
+      "tree": {
+        "sha": "d3489dbeea22a8c842a6d09f1373aa5e8dd18bdf",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d3489dbeea22a8c842a6d09f1373aa5e8dd18bdf"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/3de2f962ae6fa06dbaabef276df465e34d7790a7",
+          "sha": "3de2f962ae6fa06dbaabef276df465e34d7790a7",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/3de2f962ae6fa06dbaabef276df465e34d7790a7"
+        }
+      ],
+      "message": "walletdb: refactor tx loading\n\nInstead of loading tx records as we come across them when iterating the\ndatabase, load them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T16:18:11Z"
+      },
+      "sha": "aa6cca42c6755a5bc6101e9dedf05027cae5884d"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDRkMTQ0MzFmYzViN2RhZWU0Y2U3NjRmMWU3MjQwOTExYTU5MTgwOTA",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/4d14431fc5b7daee4ce764f1e7240911a5918090",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/4d14431fc5b7daee4ce764f1e7240911a5918090",
+      "tree": {
+        "sha": "0bc2aaa633e8a959e370c5261cfe040e3e25737e",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/0bc2aaa633e8a959e370c5261cfe040e3e25737e"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aa6cca42c6755a5bc6101e9dedf05027cae5884d",
+          "sha": "aa6cca42c6755a5bc6101e9dedf05027cae5884d",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/aa6cca42c6755a5bc6101e9dedf05027cae5884d"
+        }
+      ],
+      "message": "walletdb: refactor active spkm loading\n\nInstead of loading active spkm records as we come across them when\niterating the database, load them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T18:26:26Z"
+      },
+      "sha": "4d14431fc5b7daee4ce764f1e7240911a5918090"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDljM2E3OWJjZmRjOGZmYjU2ZTEwZjllODAyZWE5YWNiNTc3NmFmMzc",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
+      "tree": {
+        "sha": "97ffe7b36c2dbf84867af1665e57b4207500142c",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/97ffe7b36c2dbf84867af1665e57b4207500142c"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/4d14431fc5b7daee4ce764f1e7240911a5918090",
+          "sha": "4d14431fc5b7daee4ce764f1e7240911a5918090",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/4d14431fc5b7daee4ce764f1e7240911a5918090"
+        }
+      ],
+      "message": "walletdb: refactor defaultkey and wkey loading\n\nInstead of dealing with these records when iterating the entire\ndatabase, find and handle them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T18:43:52Z"
+      },
+      "sha": "9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGFlZTFiMGM2YzhkMDU4NDU0ZWNkN2JiZjIwZGNlOGFmNzY4Y2I1ZmE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
+      "tree": {
+        "sha": "c87fde95636a4739b4f1fd03a676e09e948f80fa",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/c87fde95636a4739b4f1fd03a676e09e948f80fa"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
+          "sha": "9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37"
+        }
+      ],
+      "message": "walletdb: refactor decryption key loading\n\nInstead of loading decryption keys as we iterate the database, load them\nexplicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T19:08:51Z"
+      },
+      "sha": "aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGUwODVmYWFiNTc3MzJmZmFmNTExNWJiODA0NWRiYzU5OTVmZTI5Y2Y",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "tree": {
+        "sha": "0ce510e38f3ff171148444cc169495f8dd02655e",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/0ce510e38f3ff171148444cc169495f8dd02655e"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
+          "sha": "aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa"
+        }
+      ],
+      "message": "walletdb: Remove loading code where the database is iterated\n\nInstead of iterating the database to load the wallet, we now load\nparticular kinds of records in an order that we want them to be loaded.\nSo it is no longer necessary to iterate the entire database to load the\nwallet.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:24Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T18:56:23Z"
+      },
+      "sha": "e085faab57732ffaf5115bb8045dbc5995fe29cf"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDhmZGI4ZjU0ZGFjOTFjZmQ5Nzc1NTMxNzlmNGQ5NzQxNDQzMWNjMjY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8fdb8f54dac91cfd977553179f4d97414431cc26",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/8fdb8f54dac91cfd977553179f4d97414431cc26",
+      "tree": {
+        "sha": "769724b37a44110ad975e75a3c9adee51a194bc7",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/769724b37a44110ad975e75a3c9adee51a194bc7"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/e085faab57732ffaf5115bb8045dbc5995fe29cf",
+          "sha": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/e085faab57732ffaf5115bb8045dbc5995fe29cf"
+        }
+      ],
+      "message": "walletdb: Load Txs last\n\nNeed to load txs last so that IsMine works.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-13T19:38:21Z"
+      },
+      "sha": "8fdb8f54dac91cfd977553179f4d97414431cc26"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGRjY2MzMTkwNThiODk0MGQ2Y2M5ZjAxZjI3OTE2OTIxZjJlYTBhNWQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/dccc319058b8940d6cc9f01f27916921f2ea0a5d",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/dccc319058b8940d6cc9f01f27916921f2ea0a5d",
+      "tree": {
+        "sha": "d375a6ee2b2d8745292a02d6b112bdd6075738c6",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d375a6ee2b2d8745292a02d6b112bdd6075738c6"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8fdb8f54dac91cfd977553179f4d97414431cc26",
+          "sha": "8fdb8f54dac91cfd977553179f4d97414431cc26",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/8fdb8f54dac91cfd977553179f4d97414431cc26"
+        }
+      ],
+      "message": "wallet: Keep track of transaction outputs owned by the wallet\n\nWhen loading transactions to the wallet, check the outputs, and keep\ntrack of the ones that are IsMine.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-13T18:23:30Z"
+      },
+      "sha": "dccc319058b8940d6cc9f01f27916921f2ea0a5d"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDg1MjBiZTZhZWY2N2NkYzcxYjAwYWM5ZmExZTY4YWE0YzY1MGViODQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8520be6aef67cdc71b00ac9fa1e68aa4c650eb84",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/8520be6aef67cdc71b00ac9fa1e68aa4c650eb84",
+      "tree": {
+        "sha": "e9fc799838e0576d7a4b78dfa31f2128def77604",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/e9fc799838e0576d7a4b78dfa31f2128def77604"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/dccc319058b8940d6cc9f01f27916921f2ea0a5d",
+          "sha": "dccc319058b8940d6cc9f01f27916921f2ea0a5d",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/dccc319058b8940d6cc9f01f27916921f2ea0a5d"
+        }
+      ],
+      "message": "wallet: Exit IsTrustedTx early if wtx is already in trusted_parents",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-13T18:58:23Z"
+      },
+      "sha": "8520be6aef67cdc71b00ac9fa1e68aa4c650eb84"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDA1NDEzYmE4NjhlMTg5M2YxNTZiMzU4ZWRhYjVlMjViYmVkNmMyZjE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/05413ba868e1893f156b358edab5e25bbed6c2f1",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/05413ba868e1893f156b358edab5e25bbed6c2f1",
+      "tree": {
+        "sha": "6c14727e0d8c8a522f5a7ec584c8953df254b831",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/6c14727e0d8c8a522f5a7ec584c8953df254b831"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8520be6aef67cdc71b00ac9fa1e68aa4c650eb84",
+          "sha": "8520be6aef67cdc71b00ac9fa1e68aa4c650eb84",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/8520be6aef67cdc71b00ac9fa1e68aa4c650eb84"
+        }
+      ],
+      "message": "wallet: Change balance calculation to use m_txos\n\nSince we track the outputs owned by the wallet with m_txos, we can now\ncalculate the balance of the wallet by iterating m_txos and summing up\nthe amounts of the unspent txos.\n\nThis also fixed a bug (for which we had a test for the buggy behavior)\ninvolving the balances of conflicted txs becoming unconflicted.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-13T18:58:49Z"
+      },
+      "sha": "05413ba868e1893f156b358edab5e25bbed6c2f1"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDhjMGUwYmFkN2E2NGM5OWNiZmQ4OTUxNDE3Y2EzNmM1ZjE1YWEzYjA",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8c0e0bad7a64c99cbfd8951417ca36c5f15aa3b0",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/8c0e0bad7a64c99cbfd8951417ca36c5f15aa3b0",
+      "tree": {
+        "sha": "d4d834b7ab6e499887658224f3f90e3e49411d65",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d4d834b7ab6e499887658224f3f90e3e49411d65"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/05413ba868e1893f156b358edab5e25bbed6c2f1",
+          "sha": "05413ba868e1893f156b358edab5e25bbed6c2f1",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/05413ba868e1893f156b358edab5e25bbed6c2f1"
+        }
+      ],
+      "message": "wallet: Recalculate the wallet's txos after any imports",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-13T21:10:43Z"
+      },
+      "sha": "8c0e0bad7a64c99cbfd8951417ca36c5f15aa3b0"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDc5YWM2ZDRlYmE5MDk3ZGE5ZTJkZWQyYzk1NmQxMTQ4NGE1N2UxOWI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/79ac6d4eba9097da9e2ded2c956d11484a57e19b",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/79ac6d4eba9097da9e2ded2c956d11484a57e19b",
+      "tree": {
+        "sha": "bbd753f54f2da26a60a498307c89700253dbeda4",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/bbd753f54f2da26a60a498307c89700253dbeda4"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8c0e0bad7a64c99cbfd8951417ca36c5f15aa3b0",
+          "sha": "8c0e0bad7a64c99cbfd8951417ca36c5f15aa3b0",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/8c0e0bad7a64c99cbfd8951417ca36c5f15aa3b0"
+        }
+      ],
+      "message": "test: Test for balance update due to watchonly becoming spendable",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-13T20:45:02Z"
+      },
+      "sha": "79ac6d4eba9097da9e2ded2c956d11484a57e19b"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDI1OWI0OTg3ZDI0NzFiNDZlZWI3NDBjODdmN2RlZDBjMjhmZDJmYzQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/259b4987d2471b46eeb740c87f7ded0c28fd2fc4",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/259b4987d2471b46eeb740c87f7ded0c28fd2fc4",
+      "tree": {
+        "sha": "14650e62a03cd6c3203ed244a9f7fc706864512e",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/14650e62a03cd6c3203ed244a9f7fc706864512e"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/79ac6d4eba9097da9e2ded2c956d11484a57e19b",
+          "sha": "79ac6d4eba9097da9e2ded2c956d11484a57e19b",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/79ac6d4eba9097da9e2ded2c956d11484a57e19b"
+        }
+      ],
+      "message": "wallet: Use wallet's TXO set in AvailableCoins\n\nInstead of iterating every transaction and every output stored in wallet\nwhen trying to figure out what outputs can be spent, iterate the TXO set\nwhich should be a lot smaller.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-20T18:42:27Z"
+      },
+      "sha": "259b4987d2471b46eeb740c87f7ded0c28fd2fc4"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGI1ZjhiMmUwZGYxYWRmYmNjODk3NDE3MmQyYjk0ZTYzYTE0YTNkOWE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/b5f8b2e0df1adfbcc8974172d2b94e63a14a3d9a",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/b5f8b2e0df1adfbcc8974172d2b94e63a14a3d9a",
+      "tree": {
+        "sha": "d417d2f37ce53bb0202582593aa4cb99bb527df6",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d417d2f37ce53bb0202582593aa4cb99bb527df6"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/259b4987d2471b46eeb740c87f7ded0c28fd2fc4",
+          "sha": "259b4987d2471b46eeb740c87f7ded0c28fd2fc4",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/259b4987d2471b46eeb740c87f7ded0c28fd2fc4"
+        }
+      ],
+      "message": "wallet: Retrieve TXO directly in FetchSelectedInputs\n\nInstead of searching mapWallet for the preselected inputs, search\nm_txos.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-20T19:01:11Z"
+      },
+      "sha": "b5f8b2e0df1adfbcc8974172d2b94e63a14a3d9a"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDhiNmRlYWI1NTU0OTk4MGQ5NmYwMDE4ZDZjN2E3ODFiM2EwOGE0MTE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8b6deab55549980d96f0018d6c7a781b3a08a411",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/8b6deab55549980d96f0018d6c7a781b3a08a411",
+      "tree": {
+        "sha": "178f4dcdb1133871968ca8f187fc222874b8da64",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/178f4dcdb1133871968ca8f187fc222874b8da64"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/b5f8b2e0df1adfbcc8974172d2b94e63a14a3d9a",
+          "sha": "b5f8b2e0df1adfbcc8974172d2b94e63a14a3d9a",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/b5f8b2e0df1adfbcc8974172d2b94e63a14a3d9a"
+        }
+      ],
+      "message": "wallet: Recompute wallet TXOs after descriptor migration\n\nWhen a legacy wallet has been migrated to contain descriptors, but\nbefore the transactions have been updated to match, we need to recompute\nthe wallet TXOs so that the transaction update will work correctly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-20T20:02:41Z"
+      },
+      "sha": "8b6deab55549980d96f0018d6c7a781b3a08a411"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGM5Y2U0ZTA3YzE0NDU4ZGFkYmQ3NGUzNTIwNmFmMzZjZDNiYjc2OTY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c9ce4e07c14458dadbd74e35206af36cd3bb7696",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/c9ce4e07c14458dadbd74e35206af36cd3bb7696",
+      "tree": {
+        "sha": "d18e1992970f70456fb0ec90d977baabb490fd14",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d18e1992970f70456fb0ec90d977baabb490fd14"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8b6deab55549980d96f0018d6c7a781b3a08a411",
+          "sha": "8b6deab55549980d96f0018d6c7a781b3a08a411",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/8b6deab55549980d96f0018d6c7a781b3a08a411"
+        }
+      ],
+      "message": "wallet: Have GetDebit use the wallet's TXO set\n\nInstead of looking up the previous tx in mapWallet, and then calling\nIsMine on the specified output, use the TXO set and its cached IsMine\nvalue.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-20T20:15:48Z"
+      },
+      "sha": "c9ce4e07c14458dadbd74e35206af36cd3bb7696"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDA5YjUyM2Y5NzZmNjQ5NjQ2MzUxNjZkNGM3MzE1NzFkZTkxYmM3MmY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/09b523f976f64964635166d4c731571de91bc72f",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/09b523f976f64964635166d4c731571de91bc72f",
+      "tree": {
+        "sha": "708d1bf1c74d5f739a84e95b2c4039a02e23e976",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/708d1bf1c74d5f739a84e95b2c4039a02e23e976"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c9ce4e07c14458dadbd74e35206af36cd3bb7696",
+          "sha": "c9ce4e07c14458dadbd74e35206af36cd3bb7696",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/c9ce4e07c14458dadbd74e35206af36cd3bb7696"
+        }
+      ],
+      "message": "wallet: Remove unused CachedTxGet{Available,Immature}Credit\n\nThese two functions are no longer used as GetBalances now uses the TXO\nset rather than per-tx cached balances",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-20T20:16:42Z"
+      },
+      "sha": "09b523f976f64964635166d4c731571de91bc72f"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGFiOTM5MjUwMDYzMTM3ZWM0NzRkZGYzODY1ZTYzOGE1MmEzODcwMjQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/ab939250063137ec474ddf3865e638a52a387024",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/ab939250063137ec474ddf3865e638a52a387024",
+      "tree": {
+        "sha": "2bd88f3d9f226b47a7eb91305401a79e0db6a173",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/2bd88f3d9f226b47a7eb91305401a79e0db6a173"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/09b523f976f64964635166d4c731571de91bc72f",
+          "sha": "09b523f976f64964635166d4c731571de91bc72f",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/09b523f976f64964635166d4c731571de91bc72f"
+        }
+      ],
+      "message": "bench: Have AvailableCoins benchmark include a lot of unrelated utxos\n\nOne of the main issues with AvailableCoins is its performance when txs\nhave unrelated outputs, so update the benchmark to check the performance\nof that.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-02T17:36:55Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-03-20T20:31:07Z"
+      },
+      "sha": "ab939250063137ec474ddf3865e638a52a387024"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9416692430,
+      "node_id": "HRFPE_lADOABII585hU2-ZzwAAAAIxR1LO",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9416692430",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-02T17:43:28Z"
+    },
+    {
+      "event": "unlabeled",
+      "id": 9417311554,
+      "node_id": "UNLE_lADOABII585hU2-ZzwAAAAIxUMVC",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9417311554",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-02T19:11:01Z",
+      "label": {
+        "name": "Needs rebase",
+        "color": "cccccc"
+      }
+    }
+  ],
+  "comments": []
+}
