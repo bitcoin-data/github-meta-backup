@@ -50,7 +50,7 @@
       }
     ],
     "created_at": "2023-06-02T18:43:28Z",
-    "updated_at": "2023-06-07T10:43:20Z",
+    "updated_at": "2023-06-07T16:50:13Z",
     "mergeable": true,
     "mergeable_state": "blocked",
     "merge_commit_sha": "375f2e1e2db8f485580ed73a8ec47249aa82ab1d",
@@ -307,7 +307,7 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34341,
+        "forks_count": 34342,
         "stargazers_count": 69825,
         "watchers_count": 69825,
         "size": 234259,
@@ -360,7 +360,7 @@
     "deletions": 2,
     "changed_files": 1,
     "commits": 1,
-    "review_comments": 4,
+    "review_comments": 5,
     "comments": 2
   },
   "events": [
@@ -913,6 +913,58 @@
       "_links": {
         "self": {
           "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1218422493"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27806"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 121,
+      "original_line": 121,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221909729",
+      "pull_request_review_id": 1468170155,
+      "id": 1221909729,
+      "node_id": "PRRC_kwDOABII585I1Nzh",
+      "diff_hunk": "@@ -118,9 +118,10 @@ FUZZ_TARGET_INIT(mini_miner_selection, initialize_miner)\n     LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 100)\n     {\n         CMutableTransaction mtx = CMutableTransaction();\n-        const size_t num_inputs = 2;\n-        const size_t num_outputs = fuzzed_data_provider.ConsumeIntegralInRange<size_t>(2, 5);\n+        const size_t num_inputs = std::min(size_t{2}, available_coins.size());",
+      "path": "src/test/fuzz/mini_miner.cpp",
+      "position": 6,
+      "original_position": 6,
+      "commit_id": "bbb927739955b1588d94c5fd8ed73ddf5afde46c",
+      "original_commit_id": "bbb927739955b1588d94c5fd8ed73ddf5afde46c",
+      "in_reply_to_id": 1214886372,
+      "user": {
+        "login": "glozow",
+        "id": 25183001,
+        "node_id": "MDQ6VXNlcjI1MTgzMDAx",
+        "avatar_url": "https://avatars.githubusercontent.com/u/25183001?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/glozow",
+        "html_url": "https://github.com/glozow",
+        "followers_url": "https://api.github.com/users/glozow/followers",
+        "following_url": "https://api.github.com/users/glozow/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/glozow/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/glozow/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/glozow/subscriptions",
+        "organizations_url": "https://api.github.com/users/glozow/orgs",
+        "repos_url": "https://api.github.com/users/glozow/repos",
+        "events_url": "https://api.github.com/users/glozow/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/glozow/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "> Happy to add an assert, though\r\n\r\nMaybe add this? `assert(!available_coins.empty());` above this line",
+      "created_at": "2023-06-07T16:50:10Z",
+      "updated_at": "2023-06-07T16:50:11Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27806#discussion_r1221909729",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221909729"
         },
         "pull_request": {
           "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27806"

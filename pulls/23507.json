@@ -67,7 +67,7 @@
       }
     ],
     "created_at": "2021-11-13T20:50:14Z",
-    "updated_at": "2023-06-07T16:13:15Z",
+    "updated_at": "2023-06-07T16:53:31Z",
     "closed_at": "2023-04-25T15:18:10Z",
     "mergeable": false,
     "mergeable_state": "dirty",
@@ -304,7 +304,7 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34341,
+        "forks_count": 34342,
         "stargazers_count": 69825,
         "watchers_count": 69825,
         "size": 234259,
@@ -357,7 +357,7 @@
     "deletions": 148,
     "changed_files": 17,
     "commits": 14,
-    "review_comments": 4,
+    "review_comments": 5,
     "comments": 13
   },
   "events": [
@@ -3155,6 +3155,58 @@
       "_links": {
         "self": {
           "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221863188"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/23507"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 104,
+      "original_line": 104,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221913157",
+      "pull_request_review_id": 1468175715,
+      "id": 1221913157,
+      "node_id": "PRRC_kwDOABII585I1OpF",
+      "diff_hunk": "@@ -100,7 +100,6 @@ FUZZ_TARGET_INIT(transaction, initialize_transaction)\n     (void)AreInputsStandard(tx, coins_view_cache);\n     (void)IsWitnessStandard(tx, coins_view_cache);\n \n-    UniValue u(UniValue::VOBJ);\n-    TxToUniv(tx, /*block_hash=*/uint256::ZERO, /*entry=*/u);\n-    TxToUniv(tx, /*block_hash=*/uint256::ONE, /*entry=*/u);\n+    (void)TxToUniv(tx, /*block_hash=*/uint256::ZERO);\n+    (void)TxToUniv(tx, /*block_hash=*/uint256::ONE);",
+      "path": "src/test/fuzz/transaction.cpp",
+      "position": 8,
+      "original_position": 8,
+      "commit_id": "df41d4624981db50650f85bbcf1f564ae42a45eb",
+      "original_commit_id": "df41d4624981db50650f85bbcf1f564ae42a45eb",
+      "in_reply_to_id": 1221850091,
+      "user": {
+        "login": "MarcoFalke",
+        "id": 6399679,
+        "node_id": "MDQ6VXNlcjYzOTk2Nzk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6399679?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MarcoFalke",
+        "html_url": "https://github.com/MarcoFalke",
+        "followers_url": "https://api.github.com/users/MarcoFalke/followers",
+        "following_url": "https://api.github.com/users/MarcoFalke/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/MarcoFalke/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/MarcoFalke/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/MarcoFalke/subscriptions",
+        "organizations_url": "https://api.github.com/users/MarcoFalke/orgs",
+        "repos_url": "https://api.github.com/users/MarcoFalke/repos",
+        "events_url": "https://api.github.com/users/MarcoFalke/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/MarcoFalke/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "Maybe just split out the `TxToUniv` change in  a new pull?",
+      "created_at": "2023-06-07T16:53:30Z",
+      "updated_at": "2023-06-07T16:53:31Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/23507#discussion_r1221913157",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221913157"
         },
         "pull_request": {
           "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/23507"
