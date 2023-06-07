@@ -12,12 +12,12 @@
     "review_comments_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27711/comments",
     "review_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments%7B/number%7D",
     "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27711/comments",
-    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/a6a3c3245303d05917c04460e71790e33241f3b5",
+    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/f13880e83200ec824d7528061f96708d96bf9bd4",
     "number": 27711,
     "state": "open",
     "locked": false,
     "maintainer_can_modify": true,
-    "title": "kernel: Remove shutdown from kernel library",
+    "title": "kernel:  Remove shutdown globals from kernel library",
     "user": {
       "login": "TheCharlatan",
       "id": 8421793,
@@ -38,7 +38,7 @@
       "type": "User",
       "site_admin": false
     },
-    "body": "This pull request is part of the `libbitcoinkernel` project https://github.com/bitcoin/bitcoin/issues/27587 https://github.com/orgs/bitcoin/projects/3 and more specifically its \"Step 2: Decouple most non-consensus code from libbitcoinkernel\".\r\n\r\n---\r\n\r\nThis removes the shutdown files from the kernel library. As a standalone library the libbitcoinkernel should not have to rely on code that handles some of the particulars of process termination. Additionally this moves the remaining usages of the `uiInterface` out of the kernel code. The process of moving the `uiInterface` out of the kernel was started in https://github.com/bitcoin/bitcoin/pull/27636.\r\n\r\nThe approach taken here uses the notification interface to externalize the existing shutdown code from the kernel library. The `fRequestShutdown` global atomic is passed by reference to the `ChainstateManager::Options` to allow for the termination of long-running kernel functions.\r\n",
+    "body": "This pull request is part of the `libbitcoinkernel` project https://github.com/bitcoin/bitcoin/issues/27587 https://github.com/orgs/bitcoin/projects/3 and more specifically its \"Step 2: Decouple most non-consensus code from libbitcoinkernel\".\r\n\r\n---\r\n\r\nThis removes the shutdown files from the kernel library. As a standalone library the libbitcoinkernel should not have to rely on code that accesses shutdown state through a global. Instead, replace it with an interrupt class that is owned by the kernel context. Additionally this moves the remaining usages of the `uiInterface` out of the kernel code. The process of moving the `uiInterface` out of the kernel was started in https://github.com/bitcoin/bitcoin/pull/27636.\r\n\r\nThe approach taken here uses the notification interface to externalize the existing shutdown code from the kernel library. The `SignalInterrupt` kernel context member is passed by reference to the `ChainstateManager` to allow for the termination of long-running kernel functions and sending interrupt signals.\r\n",
     "labels": [
       {
         "id": 118379652,
@@ -47,13 +47,22 @@
         "name": "Validation",
         "color": "6060aa",
         "default": false
+      },
+      {
+        "id": 5334691551,
+        "node_id": "LA_kwDOABII588AAAABPfju3w",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/CI%20failed",
+        "name": "CI failed",
+        "description": "",
+        "color": "cccccc",
+        "default": false
       }
     ],
     "created_at": "2023-05-21T11:20:12Z",
-    "updated_at": "2023-06-05T14:46:28Z",
+    "updated_at": "2023-06-07T13:07:05Z",
     "mergeable": true,
     "mergeable_state": "blocked",
-    "merge_commit_sha": "245b42a0be905ed7d5464158bf41d2a5584593a8",
+    "merge_commit_sha": "24db29beea03b34823c82956fb04663bbd7df2cd",
     "assignees": [],
     "requested_reviewers": [],
     "requested_teams": [],
@@ -61,7 +70,7 @@
     "head": {
       "label": "TheCharlatan:rmKernelShutdown",
       "ref": "rmKernelShutdown",
-      "sha": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "sha": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "user": {
         "login": "TheCharlatan",
         "id": 8421793,
@@ -157,7 +166,7 @@
         "forks_count": 0,
         "stargazers_count": 1,
         "watchers_count": 1,
-        "size": 211820,
+        "size": 211816,
         "default_branch": "master",
         "open_issues_count": 2,
         "is_template": false,
@@ -170,7 +179,7 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-06T21:01:05Z",
+        "pushed_at": "2023-06-07T10:02:15Z",
         "created_at": "2017-06-15T16:03:35Z",
         "updated_at": "2023-05-21T09:47:16Z",
         "license": {
@@ -193,7 +202,7 @@
     "base": {
       "label": "bitcoin:master",
       "ref": "master",
-      "sha": "71300489af362c3fed4736de6bffab4d758b6a84",
+      "sha": "1af72e728d984d9fd49f7fa7eaa0c14943245c19",
       "user": {
         "login": "bitcoin",
         "id": 528860,
@@ -286,12 +295,12 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34325,
-        "stargazers_count": 69819,
-        "watchers_count": 69819,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
-        "open_issues_count": 626,
+        "open_issues_count": 627,
         "is_template": false,
         "topics": [
           "bitcoin",
@@ -308,9 +317,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T07:29:24Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T07:34:31Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -335,12 +344,12 @@
     },
     "author_association": "MEMBER",
     "draft": false,
-    "additions": 197,
-    "deletions": 98,
-    "changed_files": 24,
-    "commits": 4,
+    "additions": 416,
+    "deletions": 197,
+    "changed_files": 31,
+    "commits": 7,
     "review_comments": 12,
-    "comments": 14
+    "comments": 16
   },
   "events": [
     {
@@ -1169,166 +1178,6 @@
       }
     },
     {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDk3OGMwNWQ1OGNlYTlmOTZmMjcxMzY2NzY2M2FmMzViNDM5MDU3MDE",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/978c05d58cea9f96f2713667663af35b43905701",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/978c05d58cea9f96f2713667663af35b43905701",
-      "tree": {
-        "sha": "a0f0341f9a7275a8099aaec3ecc93c698b4bedc6",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/a0f0341f9a7275a8099aaec3ecc93c698b4bedc6"
-      },
-      "verification": {
-        "verified": true,
-        "reason": "valid",
-        "payload": "tree a0f0341f9a7275a8099aaec3ecc93c698b4bedc6\nparent 71300489af362c3fed4736de6bffab4d758b6a84\nauthor TheCharlatan <seb.kung@gmail.com> 1684320203 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1685520739 +0200\n\nkernel: Pass reference of global shutdown requested atomic\n\nThis and the following commit seek to decouple the libbitcoinkernel\nlibrary from the shutdown code. As a library, it should not directly\nrely on code that manages the termination of processes.\n",
-        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmR3AWMACgkQm3m0VpHb\nQXOTsRAAp1Z1vNYY7sYdk2eoFyune9elCwA3wNDj4CpbrynrsX6sXRyZS6ZMKpKy\nhwsQe+VE0RA+XM3h2j+AQnyy55yX7iSA2DYGZX+TWeMZgpw6ayQZOlE6vgFNVLaA\nlg5kLZeuIGfA3xyRHe4Alm1xD9EH3DchYUhG7U5mbkvmFdhOJckhdtx51yDYOvQi\niqvPq6pPIAWWh9WDQ1KfwaDom4c/rAk6m9Gs/srrLssA9X1WtmudYbzdDm01ltLE\nZYQFjHC1Iz9DEgUs42ICHed7Kv8XaA8HtLihBCRmaj9wbU9dRRFcUIou2eiP/+Qq\np1BtGZEMie3U4hgwDwWTW0Bwy1I/VS45vx5xwMQn/UYCIIerL1v8Ty8tvOGXDXgO\nlOsERN/OlLh8h89a46wo0Uu2bSD0EUvqBubpTVqPuwtxz779RdtMnNIMudU2a2uv\nc11tj/S8VjrAdibQi5xeUgUpv5pAuZBK501t615DFEj8D34d1cd25cIMOuZzbMLL\n9m1DmUpW39qJahxrsxkSZrai9PazdmB/7RaNku1XV9XhoAI38YEjBjkYBsrRpQrq\npXiOj5XNkxun4ks4BsMzhWOlL0AT/bx42DIqXOvzcL+tkuFSNeSa36zHtNl+/5gm\njKP/cHoSg4dthKquT5kjSLiLi6yJB9i1+orzSFppw2+hXbOpy2k=\n=+xop\n-----END PGP SIGNATURE-----"
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/71300489af362c3fed4736de6bffab4d758b6a84",
-          "sha": "71300489af362c3fed4736de6bffab4d758b6a84",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/71300489af362c3fed4736de6bffab4d758b6a84"
-        }
-      ],
-      "message": "kernel: Pass reference of global shutdown requested atomic\n\nThis and the following commit seek to decouple the libbitcoinkernel\nlibrary from the shutdown code. As a library, it should not directly\nrely on code that manages the termination of processes.",
-      "committer": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-31T08:12:19Z"
-      },
-      "author": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-17T10:43:23Z"
-      },
-      "sha": "978c05d58cea9f96f2713667663af35b43905701"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDg2NzRlNWUzOTk2MWJhMjdiNjMwYThiNGM0OTkzZTUwMzY3NmY0NDc",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8674e5e39961ba27b630a8b4c4993e503676f447",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/8674e5e39961ba27b630a8b4c4993e503676f447",
-      "tree": {
-        "sha": "d46f57a3a6169ba202216bb4bdf5af10fbf58d4e",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d46f57a3a6169ba202216bb4bdf5af10fbf58d4e"
-      },
-      "verification": {
-        "verified": true,
-        "reason": "valid",
-        "payload": "tree d46f57a3a6169ba202216bb4bdf5af10fbf58d4e\nparent 978c05d58cea9f96f2713667663af35b43905701\nauthor TheCharlatan <seb.kung@gmail.com> 1684084910 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1685520741 +0200\n\nscripted-diff: Rename FatalError to FatalErrorf\n\nThis is done in preparation for the next commit where a new FatalError\nfunction is introduced. FatalErrorf follows common convention to append\n'f' for functions accepting format arguments.\n\n-BEGIN VERIFY SCRIPT-\nsed -i 's/FatalError/FatalErrorf/g' $( git grep -l 'FatalError')\n-END VERIFY SCRIPT-\n",
-        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmR3AWUACgkQm3m0VpHb\nQXOXnBAAwFODYVmFQ9oySkhIRbJGK/LwGgj4SUmJ2SXVtKHr2hc1Q5zK3RuMw2xb\nSKt8blOywZZRC7FXyyWfGSnN2koHBOyC36cWR6E/LvFmIhYwAtHMWmQLeluJ4dvV\nWvP3xgTHbYQtKWr2UYXZ9pO7qZY/rcFdgiso9j8Jyi146jyNHwupqSCbouqV8Xsr\ndShSFbEmQcuB4dJymYxDBK37sYIKJPeWJ+PYUPgtaCGzXW9WXVy9Q/RPcvn4pUoD\n5xRoSxiHu9JE/P1Z3OPrCpRLD2xzVjzINUyn8aRspoxhklvHb1RvjJvvHSlILXMa\nFe11KBxzeUNEWL5CoFH0O271uybblczJf4rInxiRoaoB8kDVt6Y612+5DmId0hdC\nAS8BJEwvD/nP5mmP0KQjwePu0uFYu2ZH1hOfFxCMRGS5sonKHEpISk+uQowqPrbY\niHyYabFS4OaeboMSAWlU3coFyT/DjZKU5ycFUi//n5NdwOtLeBg7IiImjeMqcEI0\nakeJmAteJoVyZTSI7Hz8h9qQLaty6iR/1+LdvnU3gug2wboFYdPYhXwLHqamcip9\nOvsN6D9yM+f+QMYs698sPvC4qiH/irXQfNMzF/XmUjFyFrAxvkUYjCm4KmPb1K1l\nIKURNMvFrWw2pMLihefWRBwzIzJ7DF5ZF0rtb0IOXo19VkkcQuU=\n=OhFF\n-----END PGP SIGNATURE-----"
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/978c05d58cea9f96f2713667663af35b43905701",
-          "sha": "978c05d58cea9f96f2713667663af35b43905701",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/978c05d58cea9f96f2713667663af35b43905701"
-        }
-      ],
-      "message": "scripted-diff: Rename FatalError to FatalErrorf\n\nThis is done in preparation for the next commit where a new FatalError\nfunction is introduced. FatalErrorf follows common convention to append\n'f' for functions accepting format arguments.\n\n-BEGIN VERIFY SCRIPT-\nsed -i 's/FatalError/FatalErrorf/g' $( git grep -l 'FatalError')\n-END VERIFY SCRIPT-",
-      "committer": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-31T08:12:21Z"
-      },
-      "author": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-14T17:21:50Z"
-      },
-      "sha": "8674e5e39961ba27b630a8b4c4993e503676f447"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDJkYjVkZGY1MmI0YjgxMDBiMDNjMTIzNWQzZTk0YTAwZDY2YTE2Y2I",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/2db5ddf52b4b8100b03c1235d3e94a00d66a16cb",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/2db5ddf52b4b8100b03c1235d3e94a00d66a16cb",
-      "tree": {
-        "sha": "1d09e75c1865fb5a95e6d9c3f03d622efb733caa",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/1d09e75c1865fb5a95e6d9c3f03d622efb733caa"
-      },
-      "verification": {
-        "verified": true,
-        "reason": "valid",
-        "payload": "tree 1d09e75c1865fb5a95e6d9c3f03d622efb733caa\nparent 8674e5e39961ba27b630a8b4c4993e503676f447\nauthor TheCharlatan <seb.kung@gmail.com> 1683623746 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1685520744 +0200\n\nkernel: Add fatalError method to notifications\n\nFatalError replaces what previously was the AbortNode function in\nshutdown.cpp.\n\nThis commit is part of the libbitcoinkernel project and removes the\nshutdown's and, more generally, the kernel library's dependency on\ninterface_ui with an options method. By removing interface_ui from the\nkernel library, its dependency on boost is reduced to just\nboost::multi_index.\n\nAlso add shutdown switch in node::KernelNotifications. This simplifies\ntesting of validation methods that may normally trigger a shutdown on a\nfatal error by leaving out the call to StartShutdown.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>\n",
-        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmR3AWgACgkQm3m0VpHb\nQXMA2hAAp22BVJWf5sSS6pbgJfHOt003LKqUUbVNexZJmUk7zkGKYcOjH2IS0Rwg\nOeDKDcqQoD/GEnMvEkRiQde2ByMxlZP6cnOeH0dXmNoLFF5IcPCjbK/QSA90bSJd\nSpvjUhyCuQam7My0SXz81z5Vb2OjzREK4mfkd8nY2aukgeUonPnU+LZHk8wKgPc8\ndWTdKFkMtIRVCK999NEvyRMcYO3eQf6BcN8G8wne4ufTwozELD/rZpmbX6Wi6UH9\nEijPkEqiktmSNiDnv2JtLMcs9avHyvzNe2h00gLi7YzAlZ1DX/brZ7B6KOtQ6HRk\n/qrIlrXNjXLP1XL6AJGqVKy/RLled00KJAQxv+oPePF+HZRBtNrS765OBkQcZrSS\nIW5jdhgxNgrPHDUmjp64R1UJsW2RACR14SJIn1e4G4PdEFJKXX1hBPXnrGC5oN5A\nrkan158slYy/dzbhE49AyMAsOqaTx3awOmYFz7oeEn73WBV2v/YqTfe6IBoVoIKM\ns3aaJHzwDEBbeBnkCgQJCYuw8Ms3CmoFy3LJwZxQycZ9K2TA6WP7FTIBffhNfKy4\nWx370IPFvNu2P+2QVKpfRRzQnuj3bc4XjEXQzsShonuHe+H7RjsQcgfw1DTgByE3\n5Fux4iqUD0q7ILGidtb31Z0/nLQ+dSmAJ/nPXN38NFQp11bL730=\n=wVD8\n-----END PGP SIGNATURE-----"
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8674e5e39961ba27b630a8b4c4993e503676f447",
-          "sha": "8674e5e39961ba27b630a8b4c4993e503676f447",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/8674e5e39961ba27b630a8b4c4993e503676f447"
-        }
-      ],
-      "message": "kernel: Add fatalError method to notifications\n\nFatalError replaces what previously was the AbortNode function in\nshutdown.cpp.\n\nThis commit is part of the libbitcoinkernel project and removes the\nshutdown's and, more generally, the kernel library's dependency on\ninterface_ui with an options method. By removing interface_ui from the\nkernel library, its dependency on boost is reduced to just\nboost::multi_index.\n\nAlso add shutdown switch in node::KernelNotifications. This simplifies\ntesting of validation methods that may normally trigger a shutdown on a\nfatal error by leaving out the call to StartShutdown.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>",
-      "committer": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-31T08:12:24Z"
-      },
-      "author": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-09T09:15:46Z"
-      },
-      "sha": "2db5ddf52b4b8100b03c1235d3e94a00d66a16cb"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGE2YTNjMzI0NTMwM2QwNTkxN2MwNDQ2MGU3MTc5MGUzMzI0MWYzYjU",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/a6a3c3245303d05917c04460e71790e33241f3b5",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/a6a3c3245303d05917c04460e71790e33241f3b5",
-      "tree": {
-        "sha": "6512a1d524babbcd6b61aa14a6233962ed8cc881",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/6512a1d524babbcd6b61aa14a6233962ed8cc881"
-      },
-      "verification": {
-        "verified": true,
-        "reason": "valid",
-        "payload": "tree 6512a1d524babbcd6b61aa14a6233962ed8cc881\nparent 2db5ddf52b4b8100b03c1235d3e94a00d66a16cb\nauthor TheCharlatan <seb.kung@gmail.com> 1684321383 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1685520746 +0200\n\nkernel: Remove shutdown from kernel library\n\nThis decouples the libbitcoinkernel library from the shutdown routines.\nAs a library, it should not directly rely on code that manages the\ntermination of processes.\n\nWhile touching the lines around StartShutdown, it became apparent that\nthere was no logging indicating the reason for a call to StartShutdown.\nAdd ShutdownReason enum to the startShutdown notification to communicate\nthis.\n",
-        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmR3AWoACgkQm3m0VpHb\nQXMthg//ZzxmbYszBg7KCjulqbh6KHmeGo3h/OZtP637BNPbf8n2f+Mh6Nsq2jdV\n4mALRXpchFXKFKqkY5rJUtmMno7B7z86hu5GXxg0hFEmdlzGSvWG5YA238IHjf5x\nG1n0YBSiv7S8i8cIJqHV0SDLcQE7uomfomtHTNB0Y5b/bM6l1i8k4fKIj8MZepSA\nBQ5LeGpuu6Hccb1rqMo9GAtjvFF/JohHZBYvX817FDXluZmuV02zQ1LWquNZTp+T\nyhODdPH5ylwy/ZmGfeXLpWn5tMXs5hLtvtuVNByu5/ZfHu9LZ2Stlslt2VJ3ZRWh\noc5YGSXPU/KTpFNQuyLFsxiMZyGRey4J2bx+7JxizqBlHZ4MGkqSCt+tZZ81SEc5\nPEeJYG1DaK9WljUh+36YDA//rdH7UpR7yPYYZ1I3ref6b2J0VJFSBvVtxZlE/tB+\n4rdlCQpWY7+q2XI2OXm+Iq7CW3WBhIWx74Y/0HVMTg8ITCHwsBTvQ8ZubMkRRF4h\nrJHRVueLj1SY78vVX/kPNtVaKG/8uHkkqFkQWiK+oTh73+PahfhbL4QiXeFQFbYN\njcN3sOT1swCBsY7I6L1Z0jdn84tRJfAJeFRQPT8eKFRswDmh3KXBtcAd/6Le1/jB\nW0pQEkg29aBT0wV39v2c4uLEqk6xKhukozkF+V9/uN0Cp/w7jm8=\n=dGm3\n-----END PGP SIGNATURE-----"
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/2db5ddf52b4b8100b03c1235d3e94a00d66a16cb",
-          "sha": "2db5ddf52b4b8100b03c1235d3e94a00d66a16cb",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/2db5ddf52b4b8100b03c1235d3e94a00d66a16cb"
-        }
-      ],
-      "message": "kernel: Remove shutdown from kernel library\n\nThis decouples the libbitcoinkernel library from the shutdown routines.\nAs a library, it should not directly rely on code that manages the\ntermination of processes.\n\nWhile touching the lines around StartShutdown, it became apparent that\nthere was no logging indicating the reason for a call to StartShutdown.\nAdd ShutdownReason enum to the startShutdown notification to communicate\nthis.",
-      "committer": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-31T08:12:26Z"
-      },
-      "author": {
-        "name": "TheCharlatan",
-        "email": "seb.kung@gmail.com",
-        "date": "2023-05-17T11:03:03Z"
-      },
-      "sha": "a6a3c3245303d05917c04460e71790e33241f3b5"
-    },
-    {
       "event": "head_ref_force_pushed",
       "id": 9386815304,
       "node_id": "HRFPE_lADOABII585mbbWMzwAAAAIvf29I",
@@ -1672,6 +1521,46 @@
       "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27711"
     },
     {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDhiM2FjN2Q5NTI1M2FjOWMxN2ZhZWUzZGYyOWYxMTE0NGU3OWY4YjQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8b3ac7d95253ac9c17faee3df29f11144e79f8b4",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/8b3ac7d95253ac9c17faee3df29f11144e79f8b4",
+      "tree": {
+        "sha": "88763b48b5ec166dfcaa50a779b39e1162f291f1",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/88763b48b5ec166dfcaa50a779b39e1162f291f1"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 88763b48b5ec166dfcaa50a779b39e1162f291f1\nparent 71300489af362c3fed4736de6bffab4d758b6a84\nauthor TheCharlatan <seb.kung@gmail.com> 1685652813 -0400\ncommitter TheCharlatan <seb.kung@gmail.com> 1685875343 +0200\n\nutil: Add SignalInterrupt class and use in shutdown.cpp\n\nThis change helps generalize shutdown code so an interrupt can be\nprovided to libbitcoinkernel callers. This may also be useful to\neventually de-globalize all of the shutdown code.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmR8apEACgkQm3m0VpHb\nQXNTZA//fC58roqt75d2lKKyMZtqojTddP8jOmUOZyyAmNEpaczV7CmPMtoHXxou\neK/VRTRLCmqR+vP7IkkKAxIm5AwtYiNffSEhC73+K+crqcHhPqK4P6j9SWqd2LPe\nYlG2MUM9SH/tmfcj1b01UMrN0kFFZU9hnsOSTmhzzt6UHSxUf8iIaXdIDEywZms/\nozG7ydRQ0hDxH24oF5cJd4NznDuglTWDTQGF2lyJujpu88SunvmmSSgzoG2mlFwZ\nONSICi8JcyMLSxRGXXtmMFmrWNCEnxZuS8583rBKJPgwNxbk0IugMLL4OSA/LT01\nyyYHm6zlIBS0JqPMJJM0r2UjuNbRVvzmcm0VZS2K1rf0LZmLGgeSN966ullwsit8\nS8ZqZleyKddR6umJnuHVFJDV66EPEsm+5C3Jkmx7zEbHEl8p1O78DXZfCAZBaWCI\nvGniJK9ZTTagBaVwugKo7W7O3SvkAWmmp/wMDsu41AVjTdodwNth451IzxrDfYko\nABGpJGiVKVkrPJDPGihU/AeeBBl9Qb8s7vBa/XkWIWoI/J4whQq50w63yWBLpxTj\nP4hgPVAHWyDVeeM7+TMtFAwwVTXJgh+UDxzTipqA0crA6KdFpixhY3kdKpVruyjD\n3ke9UR1P215vQAws/ANIrwNTSw4odruK9Gngh06fuK+aIiEPoag=\n=3c3/\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/71300489af362c3fed4736de6bffab4d758b6a84",
+          "sha": "71300489af362c3fed4736de6bffab4d758b6a84",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/71300489af362c3fed4736de6bffab4d758b6a84"
+        }
+      ],
+      "message": "util: Add SignalInterrupt class and use in shutdown.cpp\n\nThis change helps generalize shutdown code so an interrupt can be\nprovided to libbitcoinkernel callers. This may also be useful to\neventually de-globalize all of the shutdown code.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>",
+      "committer": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-04T10:42:23Z"
+      },
+      "author": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-01T20:53:33Z"
+      },
+      "sha": "8b3ac7d95253ac9c17faee3df29f11144e79f8b4"
+    },
+    {
       "event": "commented",
       "id": 1576836334,
       "node_id": "IC_kwDOABII585d_Jzu",
@@ -1778,6 +1667,565 @@
       },
       "html_url": "https://github.com/bitcoin/bitcoin/pull/27711#issuecomment-1576941978",
       "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27711"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDU3YTU3YmFlMDA4ODgxYTJjZWM5NDBmYzExNmVmNTMyNDQ5YTVlYmM",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/57a57bae008881a2cec940fc116ef532449a5ebc",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/57a57bae008881a2cec940fc116ef532449a5ebc",
+      "tree": {
+        "sha": "40efe0589c380eeffa7a72ab80582732fa79391c",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/40efe0589c380eeffa7a72ab80582732fa79391c"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 40efe0589c380eeffa7a72ab80582732fa79391c\nparent 8b3ac7d95253ac9c17faee3df29f11144e79f8b4\nauthor TheCharlatan <seb.kung@gmail.com> 1684320203 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1686125583 +0200\n\nkernel: Pass interrupt reference to chainman\n\nThis and the following commit seek to decouple the libbitcoinkernel\nlibrary from the shutdown code. As a library, it should it should have\nits own flexible interrupt infrastructure without relying on node-wide\nglobals.\n\nThe commit takes the first step towards this goal by de-globalising\n`ShutdownRequested` calls in kernel code.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmSAPA8ACgkQm3m0VpHb\nQXNYchAAm+QMErHQuzVGXyoecUeIhTSH3Cf5s61Z0+FWg7TjfDMf3BuDZOsScaZa\n7h3+J4H1PPPDeFlP1O67J/SolDDbWJkImg1ANPjACpoM8gxING4SjIAlAHtPVO3L\ndBi1hNQ0tWMyXClklqf7fH/S94KuxZMsQ4QoLJ9O/c3iX+YlfWwsGFGg7GKq6J8B\n9zbqleDOhOsYDsiPKrSoI5DQ/L/Gb8WgE5G8xwrQVQOT1rbpMPSbBSKUgzzWVtNc\nxwF71LH3gxOH+gHTJOiCzEGTRigIErBRj4wy5R5dNZGmReE/X3909cdEkyMDOmLz\nDEQHbHQeaja3l7jWZSzlEY2L1bL+GeVOr6BdxTMwGfycyxlC97ew/4Mi2LqkcoZs\n7jGCQkUalwPLtXMul0hbPIXNP2KdHWpR75oLVnS4AdV2Q/MiWYeq9Ee92LmnXkE0\n+KT0IWwgtitWTl+H5zi4z9rPWGLiZQV2MgYNoZsL9SZiG1Dvur2c4C2RasBEiWVm\n3qinTLKY5DYAzxqi5BvhMaQU0tQ3x5fNCoOzm9Cy9mfuvazSHjo0ZHffsS4u568L\n0019txhZ8BfGxwhJomW1AlWWVLBq6vsTVHKfXcjtzNGk0yZwfGoer827Exsj4kqr\nnsAPMHYpQ1IdFILJkL5KMY6qP+3JN/bOSUEqjYkaLpwZfmJtZY0=\n=ekLK\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8b3ac7d95253ac9c17faee3df29f11144e79f8b4",
+          "sha": "8b3ac7d95253ac9c17faee3df29f11144e79f8b4",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/8b3ac7d95253ac9c17faee3df29f11144e79f8b4"
+        }
+      ],
+      "message": "kernel: Pass interrupt reference to chainman\n\nThis and the following commit seek to decouple the libbitcoinkernel\nlibrary from the shutdown code. As a library, it should it should have\nits own flexible interrupt infrastructure without relying on node-wide\nglobals.\n\nThe commit takes the first step towards this goal by de-globalising\n`ShutdownRequested` calls in kernel code.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>",
+      "committer": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-07T08:13:03Z"
+      },
+      "author": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-05-17T10:43:23Z"
+      },
+      "sha": "57a57bae008881a2cec940fc116ef532449a5ebc"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDYwZjU0NjFlMTYwYzRlZjlhYTVlZThlMzRmNzBhNjQ1OWQxMmNhZTU",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/60f5461e160c4ef9aa5ee8e34f70a6459d12cae5",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/60f5461e160c4ef9aa5ee8e34f70a6459d12cae5",
+      "tree": {
+        "sha": "bfc8e65df4c8c974efa5c37385826f1157d092c5",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/bfc8e65df4c8c974efa5c37385826f1157d092c5"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree bfc8e65df4c8c974efa5c37385826f1157d092c5\nparent 57a57bae008881a2cec940fc116ef532449a5ebc\nauthor TheCharlatan <seb.kung@gmail.com> 1685653034 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1686125588 +0200\n\nblockstorage: Return on fatal flush errors\n\nBy returning if either `FlushUndoFile` or `FlushBlockFile` fail, we\nensure that no further write operations take place that may lead to an\ninconsistent database when crashing.\n\nPrior to this patch `FlushBlockFile` may have failed without returning\nin `Chainstate::FlushStateToDisk`, leading to a potential write from\n`WriteBlockIndexDB` that may refer to a block that is not fully\nflushed to disk yet.\n\nFunctions that have either `FlushUndoFile` or `FlushBlockFile` in their\ncall stack, need to handle these extra abort cases properly. Since\n`Chainstate::FlushStateToDisk` already produces an abort error in case\nof `WriteBlockIndexDB` failing, no extra logic for functions calling\n`Chainstate::FlushStateToDisk` is required.\n\nBesides `Chainstate::FlushStateToDisk`, `FlushBlockFile` is also called\nby `FindBlockPos`, which also already produces other potential abort\nfailures. FlushUndoFile is only called by `FlushBlockFile` and\n`WriteUndoDataForBlock`. Both already produce their own abort errors, so\nagain no extra handling of these cases in calling code is required.\n\nAdd [[nodiscard]] annotations to these cases such that they are not\nignored in future.\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmSAPBQACgkQm3m0VpHb\nQXO+nBAAx6ngS1mnNJEZWR+6rhRIUP6a7gUIA+mKNRBCXdCIgdnLbpGARy7We4vI\nGKDVSZk/LzNyd1sNJAMAjhIKNQdk1eq3qLECWbSoh0Ub3mRFVq0CXe7Y31ey1KNZ\naQDwyPEsf1AD9X1ZWgilUGC7x8Y5xy32K2Gtr96DhiPq6fHVHbKYf9Hm2WD9a4s8\n9xKQR9Rz47dnOzMESqckt9gLCifF5EKnAChLawupJuyuSKjO0CZq+U0BYd4w3Nsh\nQ9jAZ6ezZh0R5ni3VwJTrq4sqnremvFHHAmCxH5PIlTcqW6JnbfE3tBU1gC04UWj\ntURLzMHRrtjigIOzLHAfKVxBywerspJ/o8A2yKKme3zLyj7L5RfOBqnXxM/eRinX\nPUsbSxUXIZPxlGD8l86lRzHRN1uJ+0Y5bUyvUrE+TyyAzPUrsBLFPLQrKkCxHxJ0\nEsscKnSIrv5xCx00zs/5FcE7z+togYeADdQORBWqn1YAR4v21ANqsjHrjPeopQfq\npFSUTN51IHmtRI8WSp0Oi4xfnqZtFCdQ4fqNqC8dUgp5bCMw6PyBxXAhFbH6FfjG\nYp7ChdRdF87YKfSyhnC9h432nNLWoIIV96SLVJLD60ytsysYz4lPnh4wYEZ9IfCd\nAkE8CfsrC4IvsA+6+ftEVGpSQtp4OJnepb4d2YN783TuLSnjlAs=\n=DkOW\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/57a57bae008881a2cec940fc116ef532449a5ebc",
+          "sha": "57a57bae008881a2cec940fc116ef532449a5ebc",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/57a57bae008881a2cec940fc116ef532449a5ebc"
+        }
+      ],
+      "message": "blockstorage: Return on fatal flush errors\n\nBy returning if either `FlushUndoFile` or `FlushBlockFile` fail, we\nensure that no further write operations take place that may lead to an\ninconsistent database when crashing.\n\nPrior to this patch `FlushBlockFile` may have failed without returning\nin `Chainstate::FlushStateToDisk`, leading to a potential write from\n`WriteBlockIndexDB` that may refer to a block that is not fully\nflushed to disk yet.\n\nFunctions that have either `FlushUndoFile` or `FlushBlockFile` in their\ncall stack, need to handle these extra abort cases properly. Since\n`Chainstate::FlushStateToDisk` already produces an abort error in case\nof `WriteBlockIndexDB` failing, no extra logic for functions calling\n`Chainstate::FlushStateToDisk` is required.\n\nBesides `Chainstate::FlushStateToDisk`, `FlushBlockFile` is also called\nby `FindBlockPos`, which also already produces other potential abort\nfailures. FlushUndoFile is only called by `FlushBlockFile` and\n`WriteUndoDataForBlock`. Both already produce their own abort errors, so\nagain no extra handling of these cases in calling code is required.\n\nAdd [[nodiscard]] annotations to these cases such that they are not\nignored in future.",
+      "committer": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-07T08:13:08Z"
+      },
+      "author": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-01T20:57:14Z"
+      },
+      "sha": "60f5461e160c4ef9aa5ee8e34f70a6459d12cae5"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGJkY2EzYzc5ZmI4ZDAwNGIwZDg3ZDdmZTY2ZTcyZTAxZjhhNzRhMzg",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/bdca3c79fb8d004b0d87d7fe66e72e01f8a74a38",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/bdca3c79fb8d004b0d87d7fe66e72e01f8a74a38",
+      "tree": {
+        "sha": "ebea2f9bec368e271df5851fb3c3aa8e345a099a",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/ebea2f9bec368e271df5851fb3c3aa8e345a099a"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree ebea2f9bec368e271df5851fb3c3aa8e345a099a\nparent 60f5461e160c4ef9aa5ee8e34f70a6459d12cae5\nauthor TheCharlatan <seb.kung@gmail.com> 1684084910 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1686125693 +0200\n\nscripted-diff: Rename FatalError to FatalErrorf\n\nThis is done in preparation for the next commit where a new FatalError\nfunction is introduced. FatalErrorf follows common convention to append\n'f' for functions accepting format arguments.\n\n-BEGIN VERIFY SCRIPT-\nsed -i 's/FatalError/FatalErrorf/g' $( git grep -l 'FatalError')\n-END VERIFY SCRIPT-\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmSAPH0ACgkQm3m0VpHb\nQXOuqg/+N9+BBvw7FBdOl5AB1Wkvm9KmmE3kpv8MCOWR4SEMwOt7RGBbxpVB9Mr4\n8ty93K2t3PvVrdu4FPRekWmxago8VM9bMvLvV0BAPiPjvN0yvy7OHlKafHxaD/4w\nPWk5c/hxKCWy46iKSJBdRikPTLu3cQV8WS3NLcsYcwwBWLAjwNhJVNvRbO4c9ufn\nb39a7MPyx/adqtrSqwkPmp9i6th81egj4347PX86RQb9RghPQR9x+azwzQro9w21\n3C0dppaFIywaLukhlkSVDLObNbdFJox1gXa3+lgAvlF2e1XkiArT8hFa/9Wn9yq6\nx8eMb6PiQmOnGk0JwCTk4dN1Xc9XapQhI3+S+2aCB6LQiAWkCttqCayXM+EGEfjH\nB7HxIOZSXMIhQi9wVh47huBpe0JO+SUK6HA47paXl04DVlgIycrHD0tyN2rN1yZT\n4HqaNZxcWyWrRtzW9wj4VYTxELiTwWqFs2r44xB/I9zii6daww2MSbyMe3vNZeyC\nMFVnnZsX9hVjeiEVFBcG4upbGOvsaZGjZaCpAoTht/SeIH7g9FowEV2hmj9UI+b4\nbjj9nJEAhznxX5A14DcdPB7Ul+/IKb7OPAhWxe6C5jsM6LNUwrZnG5fRDK4C7pQB\nQvStbyQ3mP9KAPH8aLdZpxFXthwGnqW49oOhPabKhg0E4qtClGs=\n=6cec\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/60f5461e160c4ef9aa5ee8e34f70a6459d12cae5",
+          "sha": "60f5461e160c4ef9aa5ee8e34f70a6459d12cae5",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/60f5461e160c4ef9aa5ee8e34f70a6459d12cae5"
+        }
+      ],
+      "message": "scripted-diff: Rename FatalError to FatalErrorf\n\nThis is done in preparation for the next commit where a new FatalError\nfunction is introduced. FatalErrorf follows common convention to append\n'f' for functions accepting format arguments.\n\n-BEGIN VERIFY SCRIPT-\nsed -i 's/FatalError/FatalErrorf/g' $( git grep -l 'FatalError')\n-END VERIFY SCRIPT-",
+      "committer": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-07T08:14:53Z"
+      },
+      "author": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-05-14T17:21:50Z"
+      },
+      "sha": "bdca3c79fb8d004b0d87d7fe66e72e01f8a74a38"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDU5ZjAwZDVmY2Q0MGNmNmJkYjI2MDdlNDhhMjY0YzJjY2UwMGRhYTk",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/59f00d5fcd40cf6bdb2607e48a264c2cce00daa9",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/59f00d5fcd40cf6bdb2607e48a264c2cce00daa9",
+      "tree": {
+        "sha": "dab6441ea2513ee4182b0e1d5a65140d57b27382",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/dab6441ea2513ee4182b0e1d5a65140d57b27382"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree dab6441ea2513ee4182b0e1d5a65140d57b27382\nparent bdca3c79fb8d004b0d87d7fe66e72e01f8a74a38\nauthor TheCharlatan <seb.kung@gmail.com> 1683623746 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1686125702 +0200\n\nkernel: Add fatalError method to notifications\n\nFatalError replaces what previously was the AbortNode function in\nshutdown.cpp.\n\nThis commit is part of the libbitcoinkernel project and removes the\nshutdown's and, more generally, the kernel library's dependency on\ninterface_ui with a kernel notification method. By removing interface_ui\nfrom the kernel library, its dependency on boost is reduced to just\nboost::multi_index. At the same time it also takes a step towards\nde-globalising the interrupt infrastructure.\n\nAlso add an interrupt switch in chainman and blockman. This simplifies\ntesting of validation methods that may normally trigger an interrupt on a\nfatal error by leaving out the interrupt invocation.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmSAPIYACgkQm3m0VpHb\nQXMUzRAAv8yRVnLgrRfXDLzt9ROU8dVL5a0RLW4Z0lEofvdZ+4NhQ5DMhs3+l2zD\nEafIcuZn2Ql7+TtV1o0HZ/8Ex/OariBncTFMeiYw8Gcl71uiVk/BdyiwgPJp1Jaq\nLfe1VVU3GwW76Z2gbNWRDaMuf1qlWngtuvkbg/U9WiVbTRD+WCgxJneezR1+mQ7j\n/lS1AC+kPVbhu3lR3AkUpaPXEr+Zh8TT7ArQWG5dDmokHkhCJyYwqP/er02wj7y/\n/vbCDYx6q67rrTt2mezjKDkaRw7MEwqcb1d/uKuiSJ1CCPapz1HjWBrxc/4mnI4x\n6IKjZ02XlYnDQaREpEUuy2J8iYyl6cnpl8K44mE7Hil7P6dwi70xQ2hSN+rIsGFR\ncDvU0+DgvUyjFq3Y3HvBhEeSAI4ja/hTY+MmgHmUc0dcSJu2REIOYTm1rLE8fA6U\n60VllZzLLppLqNkLDLFlRIT1P+y1Yt9NdZ4CgCe1sxhO9UbJThOSUPjXXH8stnin\nmadk7HzqLkYzmgSuOgvTCdS/8L6LNhVfJKOo/aLTWV1t1F8iXO5jNiVmxzMb9I90\nkaUzAL5S1sATJc1FmlVAH1UvEzpXPdpXVPC0Lgb4FeulOLf8I8IwzEP3kfq38FzH\ntt7ccSKiew6Eknoe2JqNSbzrBAP1fWQ/qyCgN2HpPAVrWfWk/Kg=\n=LOqJ\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/bdca3c79fb8d004b0d87d7fe66e72e01f8a74a38",
+          "sha": "bdca3c79fb8d004b0d87d7fe66e72e01f8a74a38",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/bdca3c79fb8d004b0d87d7fe66e72e01f8a74a38"
+        }
+      ],
+      "message": "kernel: Add fatalError method to notifications\n\nFatalError replaces what previously was the AbortNode function in\nshutdown.cpp.\n\nThis commit is part of the libbitcoinkernel project and removes the\nshutdown's and, more generally, the kernel library's dependency on\ninterface_ui with a kernel notification method. By removing interface_ui\nfrom the kernel library, its dependency on boost is reduced to just\nboost::multi_index. At the same time it also takes a step towards\nde-globalising the interrupt infrastructure.\n\nAlso add an interrupt switch in chainman and blockman. This simplifies\ntesting of validation methods that may normally trigger an interrupt on a\nfatal error by leaving out the interrupt invocation.\n\nCo-authored-by: Russell Yanofsky <russ@yanofsky.org>\nCo-authored-by: TheCharlatan <seb.kung@gmail.com>",
+      "committer": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-07T08:15:02Z"
+      },
+      "author": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-05-09T09:15:46Z"
+      },
+      "sha": "59f00d5fcd40cf6bdb2607e48a264c2cce00daa9"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDc5YjU0OWFiZWU2MGQxM2VkY2Y4ZmU2YTRjODk5YzFiMGJkMDhmODg",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/79b549abee60d13edcf8fe6a4c899c1b0bd08f88",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/79b549abee60d13edcf8fe6a4c899c1b0bd08f88",
+      "tree": {
+        "sha": "9e7eef3834296e9ba154781b58479b2b112c5dcb",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/9e7eef3834296e9ba154781b58479b2b112c5dcb"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 9e7eef3834296e9ba154781b58479b2b112c5dcb\nparent 59f00d5fcd40cf6bdb2607e48a264c2cce00daa9\nauthor TheCharlatan <seb.kung@gmail.com> 1685781491 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1686125761 +0200\n\nblockstorage: Make failed to connect best block a FatalError\n\nThis is an error and we return on it, so treat it like one and don't\ncall the normal shutdown procedure.\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmSAPMEACgkQm3m0VpHb\nQXPSkw//dhRc47sI/K9pfnyiifRnyCKmwR6WS1aEKVo+qvid9aY31VAYyMkkeAvc\nHbzYmgBCadDzpiV+UDYUxud/Cpf+vAxLB0NNGUmvRr6/84E2EPnCr+DgAf49oYQv\nGm8/joluN/c+C0j4lnMLX0QQEk8yJdLr7PeQhkF2+DCElX3oLOT51ihDPBE8R1XX\nm5vFlBGCT0X4Z7kv78BqeoExPaUyqFcoSun9oLeHwXGQITKDHa4Yn0JSTwrkH0RT\nuo6uCmBAWKPogCTN2mQNO/k/D7PtyNXJVnSnDhB3KnOKc5IM1uo9d/TZlVBTvNFB\n4xCALxWv2VLolew40lkVKzNyMlfPAeIYpqNVVzvS0SwZnpbt69bdxkEM6POZEz7M\n4vJxu21Y25gNgv9dS6eKfaCyGXVdF3VYEXbnIxTjje2HCmuwbOHqsR578bi9YDlX\nhsnW9yUlaAkwh6hAWEo/yzcV6bvoNGlOS0+tSFyV8Pv3QLgJQUboHyz4PNFjl35C\nWV6XxQlQNouihYaF4ttmInjHAdAqo6jYagB7vhh/jE6LlkmgFpJlDtH1aI7RjCnM\nqnndE+Q0D5ZpAx/eitXJJlB9vWNGbGcFGY3R0mGBcYgCx5WI1JHkAKRwGj8AyYaW\nF9nA9b4ynPRnpNDDcQ9vHMFU9raTetdZ7dGeDK/ka+/PmvxXBQY=\n=QZLD\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/59f00d5fcd40cf6bdb2607e48a264c2cce00daa9",
+          "sha": "59f00d5fcd40cf6bdb2607e48a264c2cce00daa9",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/59f00d5fcd40cf6bdb2607e48a264c2cce00daa9"
+        }
+      ],
+      "message": "blockstorage: Make failed to connect best block a FatalError\n\nThis is an error and we return on it, so treat it like one and don't\ncall the normal shutdown procedure.",
+      "committer": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-07T08:16:01Z"
+      },
+      "author": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-03T08:38:11Z"
+      },
+      "sha": "79b549abee60d13edcf8fe6a4c899c1b0bd08f88"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGYxMzg4MGU4MzIwMGVjODI0ZDc1MjgwNjFmOTY3MDhkOTZiZjliZDQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/f13880e83200ec824d7528061f96708d96bf9bd4",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/f13880e83200ec824d7528061f96708d96bf9bd4",
+      "tree": {
+        "sha": "4e02d0e0163982027d0fed8b5eb51219fedd1e70",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/4e02d0e0163982027d0fed8b5eb51219fedd1e70"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 4e02d0e0163982027d0fed8b5eb51219fedd1e70\nparent 79b549abee60d13edcf8fe6a4c899c1b0bd08f88\nauthor TheCharlatan <seb.kung@gmail.com> 1684321383 +0200\ncommitter TheCharlatan <seb.kung@gmail.com> 1686125786 +0200\n\nkernel: Remove shutdown from kernel library\n\nThis decouples the libbitcoinkernel library from the shutdown routines.\nAs a library, it should it should have its own flexible interrupt\ninfrastructure without relying on node-wide globals.\n\nThis commit should achieve the final step towards this goal by replacing\ncalls to shutdown in kernel code with calls to interrupt. Since some\nkernel library user might not want to interrupt, but still receive the\nnotification, add a bool to control whether an interrupt is triggered\nupon reaching one of the trigger conditions.\n\nWhile touching the lines around StartShutdown, it became apparent that\nthere was no logging indicating the reason for a call to StartShutdown.\nAdd an InterruptReason enum to the interrupt notification to communicate\nthis.\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEE8s/Eq9C5nYN+67fQm3m0VpHbQXMFAmSAPNoACgkQm3m0VpHb\nQXOe7BAAmiMdAb93i+uqghN8V2CjoXNszaWMMkvvq3bJ5Yl14euTKf8kcA+6omKL\n81R+YBQ+1LdKFr7s3yZWNq8oURurs6Fe5862AKfFJVmaURzf772O/Uo/J5POOLQ/\nsN+T5UAzzKfVfaxK8amoq6/JPwfpCKvye5sMYyyco8kvptECiAwRZOJ4s0pKgsuG\noeqY6s7aHzWBr/bEsfvgMb+mF8D+jeZYTmb1DQib/2hFitwlAoJtjcsmg8EaPJRn\n2Fu+oEddC/gAX4yM1O41OsAnPRjs0CPdcXcXu3ShFyVSF+JJ2WCgWsFQdeB+rcTU\nsiggde4N9e6bxIq7H1IhCTrAhUXvYAkSxWCj+wxXVXaJ/LohTrhYNJvZHG1j5Mko\nJRnDWMnxw1YoITt/IRPDkhSOqYEd4YuWfBh7tKhFxlMJtdN3cP/25yh+0X/RoqG7\ng59QgTe8zDSWbI74ukzqDO8RtBTOpWv1iyJOKL5MvbD5ovCppfnzbnXMzZ+MbJqC\nv1v4DNMtYF91lBSUpaDV2oaKdbsdQMVARTnhpYs4+DbmU/wDO++4ZKwtnw0f8ZIV\nzdr0LmW0rAFSCp59Q8KirFjV9CeHloP62uKuszsdxeXGmhe3FnNWD9LAnSaXvgfU\nLCbjOXZOLi75d1BLh6eKXHPq0yFZXrnoYQLmar2l50xsOxZfZ5Y=\n=9XmD\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/79b549abee60d13edcf8fe6a4c899c1b0bd08f88",
+          "sha": "79b549abee60d13edcf8fe6a4c899c1b0bd08f88",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/79b549abee60d13edcf8fe6a4c899c1b0bd08f88"
+        }
+      ],
+      "message": "kernel: Remove shutdown from kernel library\n\nThis decouples the libbitcoinkernel library from the shutdown routines.\nAs a library, it should it should have its own flexible interrupt\ninfrastructure without relying on node-wide globals.\n\nThis commit should achieve the final step towards this goal by replacing\ncalls to shutdown in kernel code with calls to interrupt. Since some\nkernel library user might not want to interrupt, but still receive the\nnotification, add a bool to control whether an interrupt is triggered\nupon reaching one of the trigger conditions.\n\nWhile touching the lines around StartShutdown, it became apparent that\nthere was no logging indicating the reason for a call to StartShutdown.\nAdd an InterruptReason enum to the interrupt notification to communicate\nthis.",
+      "committer": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-06-07T08:16:26Z"
+      },
+      "author": {
+        "name": "TheCharlatan",
+        "email": "seb.kung@gmail.com",
+        "date": "2023-05-17T11:03:03Z"
+      },
+      "sha": "f13880e83200ec824d7528061f96708d96bf9bd4"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9456790224,
+      "node_id": "HRFPE_lADOABII585mbbWMzwAAAAIzqyrQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456790224",
+      "actor": {
+        "login": "TheCharlatan",
+        "id": 8421793,
+        "node_id": "MDQ6VXNlcjg0MjE3OTM=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8421793?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/TheCharlatan",
+        "html_url": "https://github.com/TheCharlatan",
+        "followers_url": "https://api.github.com/users/TheCharlatan/followers",
+        "following_url": "https://api.github.com/users/TheCharlatan/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/TheCharlatan/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/TheCharlatan/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/TheCharlatan/subscriptions",
+        "organizations_url": "https://api.github.com/users/TheCharlatan/orgs",
+        "repos_url": "https://api.github.com/users/TheCharlatan/repos",
+        "events_url": "https://api.github.com/users/TheCharlatan/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/TheCharlatan/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:02:21Z"
+    },
+    {
+      "event": "commented",
+      "id": 1580365465,
+      "node_id": "IC_kwDOABII585eMnaZ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1580365465",
+      "actor": {
+        "login": "TheCharlatan",
+        "id": 8421793,
+        "node_id": "MDQ6VXNlcjg0MjE3OTM=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8421793?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/TheCharlatan",
+        "html_url": "https://github.com/TheCharlatan",
+        "followers_url": "https://api.github.com/users/TheCharlatan/followers",
+        "following_url": "https://api.github.com/users/TheCharlatan/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/TheCharlatan/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/TheCharlatan/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/TheCharlatan/subscriptions",
+        "organizations_url": "https://api.github.com/users/TheCharlatan/orgs",
+        "repos_url": "https://api.github.com/users/TheCharlatan/repos",
+        "events_url": "https://api.github.com/users/TheCharlatan/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/TheCharlatan/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:02:56Z",
+      "updated_at": "2023-06-07T10:02:56Z",
+      "author_association": "MEMBER",
+      "body": "Thank you @theuni and @ryanofsky for the great discussion so far.\r\n\r\nUpdated a6a3c3245303d05917c04460e71790e33241f3b5 -> f13880e83200ec824d7528061f96708d96bf9bd4 ([rmKernelShutdown_0](https://github.com/TheCharlatan/bitcoin/commits/rmKernelShutdown_0) -> [rmKernelShutdown_1](https://github.com/TheCharlatan/bitcoin/commits/rmKernelShutdown_1), [compare](https://github.com/TheCharlatan/bitcoin/compare/rmKernelShutdown_0..rmKernelShutdown_1)).\r\n\r\nThis update reworks the existing logic in this pull request by integrating @ryanofsky's suggested [branch](https://github.com/ryanofsky/bitcoin/commits/review.27711.1-edit). \r\n\r\nInstead of getting rid of the shutdown logic in the kernel, the core logic is now retained, but de-globalized and wrapped into a more user-friendly and self-descriptive class (`SignalInterrupt`).\r\n\r\nAs an alternative to @ryanofsky's [suggestion](https://github.com/bitcoin/bitcoin/pull/27711#discussion_r1214568318) for dropping the commits handling `startShutdown` I added boolean options that can be set by users of the kernel to indicate whether it should terminate if either a `FatalError` or `Interrupt` should trigger an actual interrupt.\r\n\r\nAlso adds two new commits, one for making a failure connecting the best block a `FatalError` and another for making `FlushBlockFile` and `FlushUndoFile` return on calls to `FatalError`. Rationale for each of these is provided in the commit messages.\r\n\r\nThese patches now went through quite some evolution in terms of their scope and intention. I am pushing this patch set to show how I'd currently unify the feeback received so far. In terms of next steps I'd like to lay out the following options:\r\n\r\n1. Get the current patch set through review, completing the goal of removing the `ui_interface` and some of the boost headers from the kernel. Complete step 2 of this phase of the kernel project. Add another step in this phase of the kernel project for strictly typing any functions that may cause an interrupt. My current thinking is to use @ryanofsky's #25665 extension of the `Result` type to return either a result or these fatal errors. Each instance of an interrupt call will be replaced piecemeal in separate PR's to allow for clean review. I found that some of these cases get quite complicated, meaning simply returning on a fatal error may lead to bugs if surrounding code is not also adapted, and catching all nuances in a single, sprawling PR is probably too burdensome. Eventually this should lead to code where we'd only have to trigger a fatal interrupt at the edges of the library, and otherwise just push fatal errors to code using it. \r\n\r\n2. Revert to a more minimal patch set, basically containing the new interrupt class + the `FatalError` wrapper to remove the `ui_interface`. Then proceed as in step 1.\r\n\r\n3. Close this PR, then proceed as in step 1. Once all fatal interrupt cases are handled, circle back to the kernel interrupt handling for long-running functions and conditional interrupts (in other words those lines of code that currently call `StartShutdown`).\r\n\r\nOption 1 is what seems pragmatic to me currently, option 2 would be closest to the goals as laid out in the kernel tracking issue (first cleave unwanted functionality / dependencies, then improve interfaces and fix weirdness discovered during development). Option 3 is where my heart is, even if it might block progress for some time and would depend on a bunch of other improvements to be completed first.",
+      "user": {
+        "login": "TheCharlatan",
+        "id": 8421793,
+        "node_id": "MDQ6VXNlcjg0MjE3OTM=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8421793?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/TheCharlatan",
+        "html_url": "https://github.com/TheCharlatan",
+        "followers_url": "https://api.github.com/users/TheCharlatan/followers",
+        "following_url": "https://api.github.com/users/TheCharlatan/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/TheCharlatan/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/TheCharlatan/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/TheCharlatan/subscriptions",
+        "organizations_url": "https://api.github.com/users/TheCharlatan/orgs",
+        "repos_url": "https://api.github.com/users/TheCharlatan/repos",
+        "events_url": "https://api.github.com/users/TheCharlatan/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/TheCharlatan/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27711#issuecomment-1580365465",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27711"
+    },
+    {
+      "event": "mentioned",
+      "id": 9456797880,
+      "node_id": "MEE_lADOABII585mbbWMzwAAAAIzq0i4",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456797880",
+      "actor": {
+        "login": "theuni",
+        "id": 417043,
+        "node_id": "MDQ6VXNlcjQxNzA0Mw==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/417043?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/theuni",
+        "html_url": "https://github.com/theuni",
+        "followers_url": "https://api.github.com/users/theuni/followers",
+        "following_url": "https://api.github.com/users/theuni/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/theuni/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/theuni/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/theuni/subscriptions",
+        "organizations_url": "https://api.github.com/users/theuni/orgs",
+        "repos_url": "https://api.github.com/users/theuni/repos",
+        "events_url": "https://api.github.com/users/theuni/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/theuni/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:02:57Z"
+    },
+    {
+      "event": "subscribed",
+      "id": 9456797912,
+      "node_id": "SE_lADOABII585mbbWMzwAAAAIzq0jY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456797912",
+      "actor": {
+        "login": "theuni",
+        "id": 417043,
+        "node_id": "MDQ6VXNlcjQxNzA0Mw==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/417043?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/theuni",
+        "html_url": "https://github.com/theuni",
+        "followers_url": "https://api.github.com/users/theuni/followers",
+        "following_url": "https://api.github.com/users/theuni/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/theuni/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/theuni/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/theuni/subscriptions",
+        "organizations_url": "https://api.github.com/users/theuni/orgs",
+        "repos_url": "https://api.github.com/users/theuni/repos",
+        "events_url": "https://api.github.com/users/theuni/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/theuni/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:02:57Z"
+    },
+    {
+      "event": "mentioned",
+      "id": 9456797948,
+      "node_id": "MEE_lADOABII585mbbWMzwAAAAIzq0j8",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456797948",
+      "actor": {
+        "login": "ryanofsky",
+        "id": 7133040,
+        "node_id": "MDQ6VXNlcjcxMzMwNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7133040?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ryanofsky",
+        "html_url": "https://github.com/ryanofsky",
+        "followers_url": "https://api.github.com/users/ryanofsky/followers",
+        "following_url": "https://api.github.com/users/ryanofsky/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/ryanofsky/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/ryanofsky/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/ryanofsky/subscriptions",
+        "organizations_url": "https://api.github.com/users/ryanofsky/orgs",
+        "repos_url": "https://api.github.com/users/ryanofsky/repos",
+        "events_url": "https://api.github.com/users/ryanofsky/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/ryanofsky/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:02:57Z"
+    },
+    {
+      "event": "subscribed",
+      "id": 9456797967,
+      "node_id": "SE_lADOABII585mbbWMzwAAAAIzq0kP",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456797967",
+      "actor": {
+        "login": "ryanofsky",
+        "id": 7133040,
+        "node_id": "MDQ6VXNlcjcxMzMwNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7133040?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ryanofsky",
+        "html_url": "https://github.com/ryanofsky",
+        "followers_url": "https://api.github.com/users/ryanofsky/followers",
+        "following_url": "https://api.github.com/users/ryanofsky/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/ryanofsky/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/ryanofsky/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/ryanofsky/subscriptions",
+        "organizations_url": "https://api.github.com/users/ryanofsky/orgs",
+        "repos_url": "https://api.github.com/users/ryanofsky/repos",
+        "events_url": "https://api.github.com/users/ryanofsky/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/ryanofsky/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:02:57Z"
+    },
+    {
+      "event": "renamed",
+      "id": 9456804352,
+      "node_id": "RTE_lADOABII585mbbWMzwAAAAIzq2IA",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456804352",
+      "actor": {
+        "login": "TheCharlatan",
+        "id": 8421793,
+        "node_id": "MDQ6VXNlcjg0MjE3OTM=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8421793?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/TheCharlatan",
+        "html_url": "https://github.com/TheCharlatan",
+        "followers_url": "https://api.github.com/users/TheCharlatan/followers",
+        "following_url": "https://api.github.com/users/TheCharlatan/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/TheCharlatan/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/TheCharlatan/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/TheCharlatan/subscriptions",
+        "organizations_url": "https://api.github.com/users/TheCharlatan/orgs",
+        "repos_url": "https://api.github.com/users/TheCharlatan/repos",
+        "events_url": "https://api.github.com/users/TheCharlatan/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/TheCharlatan/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:03:20Z",
+      "rename": {
+        "from": "kernel: Remove shutdown from kernel library",
+        "to": "kernel:  Remove shutdown globals from kernel library"
+      }
+    },
+    {
+      "event": "labeled",
+      "id": 9457440822,
+      "node_id": "LE_lADOABII585mbbWMzwAAAAIztRg2",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9457440822",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T10:49:51Z",
+      "label": {
+        "name": "CI failed",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "commented",
+      "id": 1580779869,
+      "node_id": "IC_kwDOABII585eOMld",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1580779869",
+      "actor": {
+        "login": "ryanofsky",
+        "id": 7133040,
+        "node_id": "MDQ6VXNlcjcxMzMwNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7133040?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ryanofsky",
+        "html_url": "https://github.com/ryanofsky",
+        "followers_url": "https://api.github.com/users/ryanofsky/followers",
+        "following_url": "https://api.github.com/users/ryanofsky/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/ryanofsky/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/ryanofsky/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/ryanofsky/subscriptions",
+        "organizations_url": "https://api.github.com/users/ryanofsky/orgs",
+        "repos_url": "https://api.github.com/users/ryanofsky/repos",
+        "events_url": "https://api.github.com/users/ryanofsky/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/ryanofsky/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T13:07:05Z",
+      "updated_at": "2023-06-07T13:07:05Z",
+      "author_association": "MEMBER",
+      "body": "Thanks for following up and incorporating the feedback! \r\n\r\nOn the topic of how to move forward with these changes, I think we should see if we can find a way to avoid making temporary changes to validation code that are not desirable for the long term. Specifically:\r\n\r\n- Having `interrupt_on_fatal_error` and `interrupt_on_condition` ChainStateManager options which are complicated (and very confusing even to me!)\r\n- Giving ChainStateManager a mutable reference to the interrupt object instead of a const reference, and using the mutable reference to have it send interrupt signals to itself.\r\n\r\nIf temporary kludges are necessary to avoid having a PR that is too big to review, maybe that's a good tradeoff. But it would be better if we could see what the final code looks like before making that tradeoff. If this isn't possible, I think we should at least be able to add comments / documentation in the code saying which things are temporary and how they should be used in the meantime.\r\n\r\nIf you want to take time to iterate more on this code more, I think we could easily pull out parts of this PR right now that are pure improvements and could be reviewed and merged quickly. If you took the first commit here 8b3ac7d95253ac9c17faee3df29f11144e79f8b4 and the last two commits a4034e719c0dfa07bc8c267af3c2139d3b353757\r\nand bbfbcd0360e486d47025a412f2c0f4e8535ab255 that were previously part of #27636, I think we could quickly review and merge these in a separate PR as they are pure refactorings which do not change behavior or add temporary kludges to validation code.\r\n\r\nAfter that PR or alongside it commits 60f5461e160c4ef9aa5ee8e34f70a6459d12cae5 and 79b549abee60d13edcf8fe6a4c899c1b0bd08f88 from this PR also seem like good candidates for splitting off and being in their own PR so they could get more careful review as they do change behavior subtly.\r\n\r\nGreat to see more work here, though. I think there are still some tricky details to work out but most of the changes seem very good.",
+      "user": {
+        "login": "ryanofsky",
+        "id": 7133040,
+        "node_id": "MDQ6VXNlcjcxMzMwNDA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7133040?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ryanofsky",
+        "html_url": "https://github.com/ryanofsky",
+        "followers_url": "https://api.github.com/users/ryanofsky/followers",
+        "following_url": "https://api.github.com/users/ryanofsky/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/ryanofsky/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/ryanofsky/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/ryanofsky/subscriptions",
+        "organizations_url": "https://api.github.com/users/ryanofsky/orgs",
+        "repos_url": "https://api.github.com/users/ryanofsky/repos",
+        "events_url": "https://api.github.com/users/ryanofsky/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/ryanofsky/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27711#issuecomment-1580779869",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27711"
     }
   ],
   "comments": [
@@ -1788,9 +2236,9 @@
       "node_id": "PRRC_kwDOABII585IVDPW",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": null,
       "user": {
@@ -1829,7 +2277,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -1840,9 +2288,9 @@
       "node_id": "PRRC_kwDOABII585IVowi",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -1881,7 +2329,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -1892,9 +2340,9 @@
       "node_id": "PRRC_kwDOABII585IWKLg",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -1933,7 +2381,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -1944,9 +2392,9 @@
       "node_id": "PRRC_kwDOABII585IYAx7",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -1985,7 +2433,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -1996,9 +2444,9 @@
       "node_id": "PRRC_kwDOABII585IYWX6",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -2037,7 +2485,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -2048,9 +2496,9 @@
       "node_id": "PRRC_kwDOABII585IYolp",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -2089,7 +2537,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -2100,9 +2548,9 @@
       "node_id": "PRRC_kwDOABII585IZGJD",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -2141,7 +2589,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -2152,9 +2600,9 @@
       "node_id": "PRRC_kwDOABII585IZHya",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -2193,7 +2641,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     },
@@ -2204,9 +2652,9 @@
       "node_id": "PRRC_kwDOABII585IZNd-",
       "diff_hunk": "@@ -25,6 +26,7 @@ struct BlockManagerOpts {\n     bool fast_prune{false};\n     bool stop_after_block_import{DEFAULT_STOPAFTERBLOCKIMPORT};\n     const fs::path blocks_dir;\n+    std::atomic<bool>& shutdown_requested;",
       "path": "src/kernel/blockmanager_opts.h",
-      "position": 15,
+      "position": null,
       "original_position": 12,
-      "commit_id": "a6a3c3245303d05917c04460e71790e33241f3b5",
+      "commit_id": "f13880e83200ec824d7528061f96708d96bf9bd4",
       "original_commit_id": "978c05d58cea9f96f2713667663af35b43905701",
       "in_reply_to_id": 1213477846,
       "user": {
@@ -2245,7 +2693,7 @@
       "start_line": null,
       "original_start_line": null,
       "start_side": null,
-      "line": 30,
+      "line": null,
       "original_line": 29,
       "side": "RIGHT"
     }

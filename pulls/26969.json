@@ -12,7 +12,7 @@
     "review_comments_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/26969/comments",
     "review_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments%7B/number%7D",
     "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26969/comments",
-    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/355bc6098a7373feb1d59f9651a79e1477d22243",
+    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
     "number": 26969,
     "state": "open",
     "locked": false,
@@ -50,16 +50,39 @@
       }
     ],
     "created_at": "2023-01-25T21:11:30Z",
-    "updated_at": "2023-06-06T20:02:37Z",
-    "mergeable_state": "unknown",
-    "merge_commit_sha": "c9885bd306256299cd01db50f808049b6ced454e",
+    "updated_at": "2023-06-07T14:47:00Z",
+    "mergeable": true,
+    "mergeable_state": "blocked",
+    "merge_commit_sha": "db9eda9538c422c986ca6a402f55fd8bd25d4a88",
     "assignees": [],
-    "requested_reviewers": [],
+    "requested_reviewers": [
+      {
+        "login": "ajtowns",
+        "id": 127186,
+        "node_id": "MDQ6VXNlcjEyNzE4Ng==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/127186?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ajtowns",
+        "html_url": "https://github.com/ajtowns",
+        "followers_url": "https://api.github.com/users/ajtowns/followers",
+        "following_url": "https://api.github.com/users/ajtowns/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/ajtowns/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/ajtowns/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/ajtowns/subscriptions",
+        "organizations_url": "https://api.github.com/users/ajtowns/orgs",
+        "repos_url": "https://api.github.com/users/ajtowns/repos",
+        "events_url": "https://api.github.com/users/ajtowns/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/ajtowns/received_events",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
     "requested_teams": [],
+    "rebaseable": true,
     "head": {
       "label": "brunoerg:2023-01-netprocessing-txn",
       "ref": "2023-01-netprocessing-txn",
-      "sha": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "sha": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "user": {
         "login": "brunoerg",
         "id": 19480819,
@@ -155,7 +178,7 @@
         "forks_count": 0,
         "stargazers_count": 3,
         "watchers_count": 3,
-        "size": 219879,
+        "size": 220364,
         "default_branch": "master",
         "open_issues_count": 0,
         "is_template": false,
@@ -168,7 +191,7 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-01T21:41:01Z",
+        "pushed_at": "2023-06-07T14:43:21Z",
         "created_at": "2020-05-29T11:30:10Z",
         "updated_at": "2022-12-07T18:05:58Z",
         "license": {
@@ -191,7 +214,7 @@
     "base": {
       "label": "bitcoin:master",
       "ref": "master",
-      "sha": "51c050787fd6bcd016969dd7e245818ebd110b67",
+      "sha": "2026301405f83c925ca68db6a3cd5134ed619ca7",
       "user": {
         "login": "bitcoin",
         "id": 528860,
@@ -284,12 +307,12 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34325,
-        "stargazers_count": 69818,
-        "watchers_count": 69818,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
-        "open_issues_count": 626,
+        "open_issues_count": 627,
         "is_template": false,
         "topics": [
           "bitcoin",
@@ -306,9 +329,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T07:29:24Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T06:49:43Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -337,8 +360,8 @@
     "deletions": 91,
     "changed_files": 1,
     "commits": 1,
-    "review_comments": 15,
-    "comments": 16
+    "review_comments": 17,
+    "comments": 18
   },
   "events": [
     {
@@ -369,9 +392,9 @@
       "commit_id": null,
       "commit_url": null,
       "created_at": "2023-01-25T21:11:32Z",
-      "updated_at": "2023-06-06T20:02:35Z",
+      "updated_at": "2023-06-07T14:46:16Z",
       "author_association": "MEMBER",
-      "body": "<!--e57a25ab6845829454e8d69fc972939a-->\n\nThe following sections might be updated with supplementary metadata relevant to reviewers and maintainers.\n\n<!--021abf342d371248e50ceaed478a90ca-->\n### Reviews\nSee [the guideline](https://github.com/bitcoin/bitcoin/blob/master/CONTRIBUTING.md#code-review) for information on the review process.\n| Type | Reviewers |\n| ---- | --------- |\n| ACK | [instagibbs](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1561694264), [ajtowns](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1579369447) |\n| Concept ACK | [dergoegge](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1404241194), [Sjors](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1561716007) |\n\nIf your review is incorrectly listed, please react with 👎 to this comment and the bot will ignore it on the next update.\n<!--174a7506f384e20aa4161008e828411d-->\n### Conflicts\nReviewers, this pull request conflicts with the following ones:\n\n* [#27826](https://github.com/bitcoin/bitcoin/pull/27826) (validation: log which peer sent us a header by Sjors)\n* [#27675](https://github.com/bitcoin/bitcoin/pull/27675) (net_processing: Drop m_recently_announced_invs bloom filter by ajtowns)\n* [#27509](https://github.com/bitcoin/bitcoin/pull/27509) (Relay own transactions only via short-lived Tor or I2P connections by vasild)\n\nIf you consider this pull request important, please also help to review the conflicting pull requests. Ideally, start with the one that should be merged first.\n",
+      "body": "<!--e57a25ab6845829454e8d69fc972939a-->\n\nThe following sections might be updated with supplementary metadata relevant to reviewers and maintainers.\n\n<!--021abf342d371248e50ceaed478a90ca-->\n### Reviews\nSee [the guideline](https://github.com/bitcoin/bitcoin/blob/master/CONTRIBUTING.md#code-review) for information on the review process.\n| Type | Reviewers |\n| ---- | --------- |\n| ACK | [instagibbs](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1580978617) |\n| Concept ACK | [dergoegge](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1404241194), [Sjors](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1561716007) |\n| Stale ACK | [ajtowns](https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1579369447) |\n\nIf your review is incorrectly listed, please react with 👎 to this comment and the bot will ignore it on the next update.\n<!--174a7506f384e20aa4161008e828411d-->\n### Conflicts\nReviewers, this pull request conflicts with the following ones:\n\n* [#27826](https://github.com/bitcoin/bitcoin/pull/27826) (validation: log which peer sent us a header by Sjors)\n* [#27675](https://github.com/bitcoin/bitcoin/pull/27675) (net_processing: Drop m_recently_announced_invs bloom filter by ajtowns)\n* [#27509](https://github.com/bitcoin/bitcoin/pull/27509) (Relay own transactions only via short-lived Tor or I2P connections by vasild)\n\nIf you consider this pull request important, please also help to review the conflicting pull requests. Ideally, start with the one that should be merged first.\n",
       "user": {
         "login": "DrahtBot",
         "id": 39886733,
@@ -2011,46 +2034,6 @@
       }
     },
     {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDM1NWJjNjA5OGE3MzczZmViMWQ1OWY5NjUxYTc5ZTE0NzdkMjIyNDM",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/355bc6098a7373feb1d59f9651a79e1477d22243",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/355bc6098a7373feb1d59f9651a79e1477d22243",
-      "tree": {
-        "sha": "18db3aa557e20d73a09dc9d6da3a5bb17bc32442",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/18db3aa557e20d73a09dc9d6da3a5bb17bc32442"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/51c050787fd6bcd016969dd7e245818ebd110b67",
-          "sha": "51c050787fd6bcd016969dd7e245818ebd110b67",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/51c050787fd6bcd016969dd7e245818ebd110b67"
-        }
-      ],
-      "message": "net: net_processing, add `ProcessCompactBlockTxns`\n\nWhen processing `CMPCTBLOCK` message, at some moments\nwe can need to process cmpct block txns, since all messages\nare handled by ProcessMessage, we call ProcessMessage\nall over again. For this reason, it creates a function called\n`ProcessCompactBlockTxns` to process it.",
-      "committer": {
-        "name": "brunoerg",
-        "email": "brunoely.gc@gmail.com",
-        "date": "2023-05-24T14:08:17Z"
-      },
-      "author": {
-        "name": "brunoerg",
-        "email": "brunoely.gc@gmail.com",
-        "date": "2023-01-25T10:27:11Z"
-      },
-      "sha": "355bc6098a7373feb1d59f9651a79e1477d22243"
-    },
-    {
       "event": "unlabeled",
       "id": 9328900713,
       "node_id": "UNLE_lADOABII585c0iz_zwAAAAIsC7pp",
@@ -2613,6 +2596,287 @@
       },
       "html_url": "https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1579369447",
       "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26969"
+    },
+    {
+      "event": "reviewed",
+      "id": 1467657123,
+      "node_id": "PRR_kwDOABII585Xequj",
+      "url": null,
+      "actor": null,
+      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_url": null,
+      "created_at": null,
+      "author_association": "MEMBER",
+      "user": {
+        "login": "dergoegge",
+        "id": 8077169,
+        "node_id": "MDQ6VXNlcjgwNzcxNjk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8077169?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/dergoegge",
+        "html_url": "https://github.com/dergoegge",
+        "followers_url": "https://api.github.com/users/dergoegge/followers",
+        "following_url": "https://api.github.com/users/dergoegge/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/dergoegge/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/dergoegge/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/dergoegge/subscriptions",
+        "organizations_url": "https://api.github.com/users/dergoegge/orgs",
+        "repos_url": "https://api.github.com/users/dergoegge/repos",
+        "events_url": "https://api.github.com/users/dergoegge/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/dergoegge/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/26969#pullrequestreview-1467657123",
+      "submitted_at": "2023-06-07T13:21:54Z",
+      "state": "COMMENTED",
+      "pull_request_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/26969"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDY4NjYyOWQyYmU1NTQ1ZWY1OWNmMGU5N2Y0ZjNhNzRjNmNkZTJlZmE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
+      "tree": {
+        "sha": "c718262b3243b4a56936a6cfb781dcaf1fea36b8",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/c718262b3243b4a56936a6cfb781dcaf1fea36b8"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/2026301405f83c925ca68db6a3cd5134ed619ca7",
+          "sha": "2026301405f83c925ca68db6a3cd5134ed619ca7",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/2026301405f83c925ca68db6a3cd5134ed619ca7"
+        }
+      ],
+      "message": "net: net_processing, add `ProcessCompactBlockTxns`\n\nWhen processing `CMPCTBLOCK` message, at some moments\nwe can need to process cmpct block txns, since all messages\nare handled by ProcessMessage, we call ProcessMessage\nall over again. For this reason, it creates a function called\n`ProcessCompactBlockTxns` to process it.",
+      "committer": {
+        "name": "brunoerg",
+        "email": "brunoely.gc@gmail.com",
+        "date": "2023-06-07T14:30:31Z"
+      },
+      "author": {
+        "name": "brunoerg",
+        "email": "brunoely.gc@gmail.com",
+        "date": "2023-01-25T10:27:11Z"
+      },
+      "sha": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9460284765,
+      "node_id": "HRFPE_lADOABII585c0iz_zwAAAAIz4H1d",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9460284765",
+      "actor": {
+        "login": "brunoerg",
+        "id": 19480819,
+        "node_id": "MDQ6VXNlcjE5NDgwODE5",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19480819?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/brunoerg",
+        "html_url": "https://github.com/brunoerg",
+        "followers_url": "https://api.github.com/users/brunoerg/followers",
+        "following_url": "https://api.github.com/users/brunoerg/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/brunoerg/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/brunoerg/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/brunoerg/subscriptions",
+        "organizations_url": "https://api.github.com/users/brunoerg/orgs",
+        "repos_url": "https://api.github.com/users/brunoerg/repos",
+        "events_url": "https://api.github.com/users/brunoerg/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/brunoerg/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T14:43:33Z"
+    },
+    {
+      "event": "commented",
+      "id": 1580978617,
+      "node_id": "IC_kwDOABII585eO9G5",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1580978617",
+      "actor": {
+        "login": "instagibbs",
+        "id": 5767891,
+        "node_id": "MDQ6VXNlcjU3Njc4OTE=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5767891?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/instagibbs",
+        "html_url": "https://github.com/instagibbs",
+        "followers_url": "https://api.github.com/users/instagibbs/followers",
+        "following_url": "https://api.github.com/users/instagibbs/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/instagibbs/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/instagibbs/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/instagibbs/subscriptions",
+        "organizations_url": "https://api.github.com/users/instagibbs/orgs",
+        "repos_url": "https://api.github.com/users/instagibbs/repos",
+        "events_url": "https://api.github.com/users/instagibbs/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/instagibbs/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T14:46:13Z",
+      "updated_at": "2023-06-07T14:46:13Z",
+      "author_association": "MEMBER",
+      "body": "re ACK https://github.com/bitcoin/bitcoin/pull/26969/commits/686629d2be5545ef59cf0e97f4f3a74c6cde2efa\r\n\r\nonly differences beyond rebase is suggested changes for `ProcessCompactBlockTxns` argument ordering and const-ness of BlockTransactions arg.",
+      "user": {
+        "login": "instagibbs",
+        "id": 5767891,
+        "node_id": "MDQ6VXNlcjU3Njc4OTE=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5767891?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/instagibbs",
+        "html_url": "https://github.com/instagibbs",
+        "followers_url": "https://api.github.com/users/instagibbs/followers",
+        "following_url": "https://api.github.com/users/instagibbs/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/instagibbs/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/instagibbs/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/instagibbs/subscriptions",
+        "organizations_url": "https://api.github.com/users/instagibbs/orgs",
+        "repos_url": "https://api.github.com/users/instagibbs/repos",
+        "events_url": "https://api.github.com/users/instagibbs/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/instagibbs/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1580978617",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26969"
+    },
+    {
+      "event": "review_requested",
+      "id": 9460319233,
+      "node_id": "RRE_lADOABII585c0iz_zwAAAAIz4QQB",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9460319233",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T14:46:18Z",
+      "requested_reviewer": {
+        "login": "ajtowns",
+        "id": 127186,
+        "node_id": "MDQ6VXNlcjEyNzE4Ng==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/127186?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ajtowns",
+        "html_url": "https://github.com/ajtowns",
+        "followers_url": "https://api.github.com/users/ajtowns/followers",
+        "following_url": "https://api.github.com/users/ajtowns/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/ajtowns/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/ajtowns/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/ajtowns/subscriptions",
+        "organizations_url": "https://api.github.com/users/ajtowns/orgs",
+        "repos_url": "https://api.github.com/users/ajtowns/repos",
+        "events_url": "https://api.github.com/users/ajtowns/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/ajtowns/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "review_requester": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      }
+    },
+    {
+      "event": "commented",
+      "id": 1580980099,
+      "node_id": "IC_kwDOABII585eO9eD",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1580980099",
+      "actor": {
+        "login": "brunoerg",
+        "id": 19480819,
+        "node_id": "MDQ6VXNlcjE5NDgwODE5",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19480819?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/brunoerg",
+        "html_url": "https://github.com/brunoerg",
+        "followers_url": "https://api.github.com/users/brunoerg/followers",
+        "following_url": "https://api.github.com/users/brunoerg/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/brunoerg/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/brunoerg/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/brunoerg/subscriptions",
+        "organizations_url": "https://api.github.com/users/brunoerg/orgs",
+        "repos_url": "https://api.github.com/users/brunoerg/repos",
+        "events_url": "https://api.github.com/users/brunoerg/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/brunoerg/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T14:46:56Z",
+      "updated_at": "2023-06-07T14:46:56Z",
+      "author_association": "MEMBER",
+      "body": "Force-pushed addressing https://github.com/bitcoin/bitcoin/pull/26969#discussion_r1221594636\r\n\r\n",
+      "user": {
+        "login": "brunoerg",
+        "id": 19480819,
+        "node_id": "MDQ6VXNlcjE5NDgwODE5",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19480819?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/brunoerg",
+        "html_url": "https://github.com/brunoerg",
+        "followers_url": "https://api.github.com/users/brunoerg/followers",
+        "following_url": "https://api.github.com/users/brunoerg/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/brunoerg/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/brunoerg/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/brunoerg/subscriptions",
+        "organizations_url": "https://api.github.com/users/brunoerg/orgs",
+        "repos_url": "https://api.github.com/users/brunoerg/repos",
+        "events_url": "https://api.github.com/users/brunoerg/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/brunoerg/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/26969#issuecomment-1580980099",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26969"
     }
   ],
   "comments": [
@@ -2625,7 +2889,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 107,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "aa816de19c0aea05d5b10290c5cfcb84df5558ef",
       "in_reply_to_id": null,
       "user": {
@@ -2677,7 +2941,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 107,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "aa816de19c0aea05d5b10290c5cfcb84df5558ef",
       "in_reply_to_id": 1087309465,
       "user": {
@@ -2729,7 +2993,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 124,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "c17e71bdfb71026f2cb08c4551b19dde7028970b",
       "in_reply_to_id": null,
       "user": {
@@ -2781,7 +3045,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 124,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "c17e71bdfb71026f2cb08c4551b19dde7028970b",
       "in_reply_to_id": 1088064540,
       "user": {
@@ -2833,7 +3097,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 124,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "c17e71bdfb71026f2cb08c4551b19dde7028970b",
       "in_reply_to_id": 1088064540,
       "user": {
@@ -2885,7 +3149,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 110,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": null,
       "user": {
@@ -2937,7 +3201,7 @@
       "path": "src/net_processing.cpp",
       "position": 6,
       "original_position": 6,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": null,
       "user": {
@@ -2989,7 +3253,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 40,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": null,
       "user": {
@@ -3041,7 +3305,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 40,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": 1094127367,
       "user": {
@@ -3093,7 +3357,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 110,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": 1094122510,
       "user": {
@@ -3145,7 +3409,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 110,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": 1094122510,
       "user": {
@@ -3197,7 +3461,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 5,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "3cd45782f89c9a3f318141c73f7f6caffb1ce22b",
       "in_reply_to_id": null,
       "user": {
@@ -3249,7 +3513,7 @@
       "path": "src/net_processing.cpp",
       "position": 6,
       "original_position": 6,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": 1094123801,
       "user": {
@@ -3301,7 +3565,7 @@
       "path": "src/net_processing.cpp",
       "position": null,
       "original_position": 5,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "3cd45782f89c9a3f318141c73f7f6caffb1ce22b",
       "in_reply_to_id": 1121638358,
       "user": {
@@ -3353,7 +3617,7 @@
       "path": "src/net_processing.cpp",
       "position": 6,
       "original_position": 6,
-      "commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
       "original_commit_id": "fd27f29d836768f87de5e7882d2b673f7b45170b",
       "in_reply_to_id": 1094123801,
       "user": {
@@ -3394,6 +3658,110 @@
       "start_side": null,
       "line": 924,
       "original_line": 924,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221594636",
+      "pull_request_review_id": 1467657123,
+      "id": 1221594636,
+      "node_id": "PRRC_kwDOABII585I0A4M",
+      "diff_hunk": "@@ -919,6 +919,10 @@ class PeerManagerImpl final : public PeerManager\n     /** Process a new block. Perform any post-processing housekeeping */\n     void ProcessBlock(CNode& node, const std::shared_ptr<const CBlock>& block, bool force_processing, bool min_pow_checked);\n \n+    /** Process compact block txns  */\n+    void ProcessCompactBlockTxns(CNode& pfrom, BlockTransactions& block_transactions, Peer& peer)",
+      "path": "src/net_processing.cpp",
+      "position": null,
+      "original_position": 5,
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
+      "original_commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "in_reply_to_id": null,
+      "user": {
+        "login": "dergoegge",
+        "id": 8077169,
+        "node_id": "MDQ6VXNlcjgwNzcxNjk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8077169?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/dergoegge",
+        "html_url": "https://github.com/dergoegge",
+        "followers_url": "https://api.github.com/users/dergoegge/followers",
+        "following_url": "https://api.github.com/users/dergoegge/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/dergoegge/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/dergoegge/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/dergoegge/subscriptions",
+        "organizations_url": "https://api.github.com/users/dergoegge/orgs",
+        "repos_url": "https://api.github.com/users/dergoegge/repos",
+        "events_url": "https://api.github.com/users/dergoegge/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/dergoegge/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "```suggestion\r\n    void ProcessCompactBlockTxns(CNode& pfrom, Peer& peer, const BlockTransactions& block_transactions)\r\n```\r\n\r\nI would prefer this order of the params (matches the other methods) and the `BlockTransactions` should be marked const.",
+      "created_at": "2023-06-07T13:21:54Z",
+      "updated_at": "2023-06-07T13:21:54Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/26969#discussion_r1221594636",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221594636"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/26969"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": null,
+      "original_line": 923,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221729333",
+      "pull_request_review_id": 1467883097,
+      "id": 1221729333,
+      "node_id": "PRRC_kwDOABII585I0hw1",
+      "diff_hunk": "@@ -919,6 +919,10 @@ class PeerManagerImpl final : public PeerManager\n     /** Process a new block. Perform any post-processing housekeeping */\n     void ProcessBlock(CNode& node, const std::shared_ptr<const CBlock>& block, bool force_processing, bool min_pow_checked);\n \n+    /** Process compact block txns  */\n+    void ProcessCompactBlockTxns(CNode& pfrom, BlockTransactions& block_transactions, Peer& peer)",
+      "path": "src/net_processing.cpp",
+      "position": null,
+      "original_position": 5,
+      "commit_id": "686629d2be5545ef59cf0e97f4f3a74c6cde2efa",
+      "original_commit_id": "355bc6098a7373feb1d59f9651a79e1477d22243",
+      "in_reply_to_id": 1221594636,
+      "user": {
+        "login": "brunoerg",
+        "id": 19480819,
+        "node_id": "MDQ6VXNlcjE5NDgwODE5",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19480819?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/brunoerg",
+        "html_url": "https://github.com/brunoerg",
+        "followers_url": "https://api.github.com/users/brunoerg/followers",
+        "following_url": "https://api.github.com/users/brunoerg/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/brunoerg/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/brunoerg/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/brunoerg/subscriptions",
+        "organizations_url": "https://api.github.com/users/brunoerg/orgs",
+        "repos_url": "https://api.github.com/users/brunoerg/repos",
+        "events_url": "https://api.github.com/users/brunoerg/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/brunoerg/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "Make sense. I'm going to address it",
+      "created_at": "2023-06-07T14:46:17Z",
+      "updated_at": "2023-06-07T14:46:18Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/26969#discussion_r1221729333",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221729333"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/26969"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": null,
+      "original_line": 923,
       "side": "RIGHT"
     }
   ]

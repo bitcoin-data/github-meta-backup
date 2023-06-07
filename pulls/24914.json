@@ -12,7 +12,7 @@
     "review_comments_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/24914/comments",
     "review_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments%7B/number%7D",
     "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/24914/comments",
-    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/e085faab57732ffaf5115bb8045dbc5995fe29cf",
+    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
     "number": 24914,
     "state": "open",
     "locked": false,
@@ -59,10 +59,10 @@
       }
     ],
     "created_at": "2022-04-18T21:18:28Z",
-    "updated_at": "2023-06-03T02:27:53Z",
+    "updated_at": "2023-06-07T07:15:45Z",
     "mergeable": true,
     "mergeable_state": "blocked",
-    "merge_commit_sha": "823a81c895e17767dc61ef3778a25ad24c24cccc",
+    "merge_commit_sha": "f429afc5edb0e49aac2890df7e8dcbf7457fe6f7",
     "assignees": [],
     "requested_reviewers": [
       {
@@ -111,7 +111,7 @@
     "head": {
       "label": "achow101:wallet-load-order",
       "ref": "wallet-load-order",
-      "sha": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "sha": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "user": {
         "login": "achow101",
         "id": 3782274,
@@ -207,7 +207,7 @@
         "forks_count": 10,
         "stargazers_count": 34,
         "watchers_count": 34,
-        "size": 238743,
+        "size": 239097,
         "default_branch": "master",
         "open_issues_count": 0,
         "is_template": false,
@@ -220,7 +220,7 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-02T17:43:24Z",
+        "pushed_at": "2023-06-07T07:15:28Z",
         "created_at": "2015-10-27T00:20:28Z",
         "updated_at": "2023-05-16T00:18:41Z",
         "license": {
@@ -243,7 +243,7 @@
     "base": {
       "label": "bitcoin:master",
       "ref": "master",
-      "sha": "7f2019755d147e7e17c54f0bb61296211bb45262",
+      "sha": "8cc65f093c0cf7a27b3bfc6da90fd7a6ac8f5e48",
       "user": {
         "login": "bitcoin",
         "id": 528860,
@@ -336,10 +336,10 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34324,
-        "stargazers_count": 69819,
-        "watchers_count": 69819,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
         "open_issues_count": 627,
         "is_template": false,
@@ -358,9 +358,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T05:35:10Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T04:47:18Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -384,7 +384,7 @@
       }
     },
     "author_association": "MEMBER",
-    "draft": true,
+    "draft": false,
     "additions": 772,
     "deletions": 567,
     "changed_files": 3,
@@ -5332,606 +5332,6 @@
       }
     },
     {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDEwMmU0YWQwMmY1NzQyN2M1ZjFkNDg5M2JiZmU4MjFiNjgyYWJkOTI",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/102e4ad02f57427c5f1d4893bbfe821b682abd92",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/102e4ad02f57427c5f1d4893bbfe821b682abd92",
-      "tree": {
-        "sha": "8de3f03f253047a17a72971c09fa60f081aa94f7",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/8de3f03f253047a17a72971c09fa60f081aa94f7"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/7f2019755d147e7e17c54f0bb61296211bb45262",
-          "sha": "7f2019755d147e7e17c54f0bb61296211bb45262",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/7f2019755d147e7e17c54f0bb61296211bb45262"
-        }
-      ],
-      "message": "walletdb: Refactor minversion loading\n\nMove minversion loading to its own function in WalletBatch",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-12T15:35:22Z"
-      },
-      "sha": "102e4ad02f57427c5f1d4893bbfe821b682abd92"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDEyN2RmYzc5M2RhZWZiYzM2YWZiMWZjODY4ODJmZDkwYTQ2YWM2ZTE",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/127dfc793daefbc36afb1fc86882fd90a46ac6e1",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/127dfc793daefbc36afb1fc86882fd90a46ac6e1",
-      "tree": {
-        "sha": "ce6e92f04b2e4df18c17a858b7b8412eefd286c3",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/ce6e92f04b2e4df18c17a858b7b8412eefd286c3"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/102e4ad02f57427c5f1d4893bbfe821b682abd92",
-          "sha": "102e4ad02f57427c5f1d4893bbfe821b682abd92",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/102e4ad02f57427c5f1d4893bbfe821b682abd92"
-        }
-      ],
-      "message": "walletdb: Refactor wallet flags loading\n\nMove wallet flags loading to its own function in WalletBatch\n\nThe return value is changed to be TOO_NEW rather than CORRUPT when\nunknown flags are found.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-12T15:39:46Z"
-      },
-      "sha": "127dfc793daefbc36afb1fc86882fd90a46ac6e1"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDljNDg5YjA0YzQyMjdkNDM0MzMzMTM3YWYxZDRlMzNhYjBmNGJlN2Y",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c489b04c4227d434333137af1d4e33ab0f4be7f",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/9c489b04c4227d434333137af1d4e33ab0f4be7f",
-      "tree": {
-        "sha": "35282b77687c35d0d94450cb510912da9fffa613",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/35282b77687c35d0d94450cb510912da9fffa613"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/127dfc793daefbc36afb1fc86882fd90a46ac6e1",
-          "sha": "127dfc793daefbc36afb1fc86882fd90a46ac6e1",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/127dfc793daefbc36afb1fc86882fd90a46ac6e1"
-        }
-      ],
-      "message": "walletdb: Refactor key reading and loading to its own function",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-13T18:42:00Z"
-      },
-      "sha": "9c489b04c4227d434333137af1d4e33ab0f4be7f"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDhkOTU0MTJkMmZlM2Q2MjA3Mzk4Mzc0MjZhZjJhZTk4YjBlYzdmNjE",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8d95412d2fe3d620739837426af2ae98b0ec7f61",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/8d95412d2fe3d620739837426af2ae98b0ec7f61",
-      "tree": {
-        "sha": "4ff1583dad6af84cb3f2db3df12774048b65eedb",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/4ff1583dad6af84cb3f2db3df12774048b65eedb"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c489b04c4227d434333137af1d4e33ab0f4be7f",
-          "sha": "9c489b04c4227d434333137af1d4e33ab0f4be7f",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/9c489b04c4227d434333137af1d4e33ab0f4be7f"
-        }
-      ],
-      "message": "walletdb: Refactor crypted key loading to its own function",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-13T19:34:23Z"
-      },
-      "sha": "8d95412d2fe3d620739837426af2ae98b0ec7f61"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGJjMjJkNjk2ZTA4ZTkyNjMxMzM4ODY0ZmRiMTdlMjY3OTlkZDgyYzY",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/bc22d696e08e92631338864fdb17e26799dd82c6",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/bc22d696e08e92631338864fdb17e26799dd82c6",
-      "tree": {
-        "sha": "46156bcda7299c8d42a9e468995fd1ca4708ece9",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/46156bcda7299c8d42a9e468995fd1ca4708ece9"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8d95412d2fe3d620739837426af2ae98b0ec7f61",
-          "sha": "8d95412d2fe3d620739837426af2ae98b0ec7f61",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/8d95412d2fe3d620739837426af2ae98b0ec7f61"
-        }
-      ],
-      "message": "walletdb: Refactor encryption key loading to its own function",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-13T20:07:59Z"
-      },
-      "sha": "bc22d696e08e92631338864fdb17e26799dd82c6"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGMwNjM2Mjg3ZWQyYTViYmQ2MGYxYjExODIzMTg3NWQxOWI4ZWVkOTI",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c0636287ed2a5bbd60f1b118231875d19b8eed92",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/c0636287ed2a5bbd60f1b118231875d19b8eed92",
-      "tree": {
-        "sha": "60ef41e395cbb86c9dbaa9e7d1941c4db03ca771",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/60ef41e395cbb86c9dbaa9e7d1941c4db03ca771"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/bc22d696e08e92631338864fdb17e26799dd82c6",
-          "sha": "bc22d696e08e92631338864fdb17e26799dd82c6",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/bc22d696e08e92631338864fdb17e26799dd82c6"
-        }
-      ],
-      "message": "walletdb: Refactor hd chain loading to its own function",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-13T20:37:29Z"
-      },
-      "sha": "c0636287ed2a5bbd60f1b118231875d19b8eed92"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGM2MmE0ZjY4YTQ3ZDIyNzliMTQ0YzgyOWFkZjFlNzI2YTg3NmMyNzY",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c62a4f68a47d2279b144c829adf1e726a876c276",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/c62a4f68a47d2279b144c829adf1e726a876c276",
-      "tree": {
-        "sha": "91c8f4b74f8f3f423c7b82f4b271de12727a3d0b",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/91c8f4b74f8f3f423c7b82f4b271de12727a3d0b"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c0636287ed2a5bbd60f1b118231875d19b8eed92",
-          "sha": "c0636287ed2a5bbd60f1b118231875d19b8eed92",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/c0636287ed2a5bbd60f1b118231875d19b8eed92"
-        }
-      ],
-      "message": "salvage: Remove use of ReadKeyValue in salvage\n\nTo prepare to remove ReadKeyValue, change salvage to not use it",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-13T20:38:44Z"
-      },
-      "sha": "c62a4f68a47d2279b144c829adf1e726a876c276"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDk4NmE3Mzc0YWUwMWY4OGE2YzBmM2U3MThkYTBmNjgzNTIwZTBmZmI",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/986a7374ae01f88a6c0f3e718da0f683520e0ffb",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/986a7374ae01f88a6c0f3e718da0f683520e0ffb",
-      "tree": {
-        "sha": "3a876378bea8da69d208593b4a6810fa9d922d06",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/3a876378bea8da69d208593b4a6810fa9d922d06"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/c62a4f68a47d2279b144c829adf1e726a876c276",
-          "sha": "c62a4f68a47d2279b144c829adf1e726a876c276",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/c62a4f68a47d2279b144c829adf1e726a876c276"
-        }
-      ],
-      "message": "walletdb: Refactor legacy wallet record loading into its own function\n\nInstead of loading legacy wallet records as we come across them when\niterating the database, load them explicitly.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-12T18:27:39Z"
-      },
-      "sha": "986a7374ae01f88a6c0f3e718da0f683520e0ffb"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDUyODgzZTE3MDFmNjg1NTBjZDMxNTA3NzRkNGYzMDNmZTA4MGU4N2U",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/52883e1701f68550cd3150774d4f303fe080e87e",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/52883e1701f68550cd3150774d4f303fe080e87e",
-      "tree": {
-        "sha": "2f86aac2270fc7892b6cfaddcc1166766102d288",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/2f86aac2270fc7892b6cfaddcc1166766102d288"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/986a7374ae01f88a6c0f3e718da0f683520e0ffb",
-          "sha": "986a7374ae01f88a6c0f3e718da0f683520e0ffb",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/986a7374ae01f88a6c0f3e718da0f683520e0ffb"
-        }
-      ],
-      "message": "walletdb: Refactor descriptor wallet records loading\n\nInstead of loading descriptor wallet records as we come across them when\niterating the database, loading them explicitly.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-12T20:16:49Z"
-      },
-      "sha": "52883e1701f68550cd3150774d4f303fe080e87e"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDNkZTJmOTYyYWU2ZmEwNmRiYWFiZWYyNzZkZjQ2NWUzNGQ3NzkwYTc",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/3de2f962ae6fa06dbaabef276df465e34d7790a7",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/3de2f962ae6fa06dbaabef276df465e34d7790a7",
-      "tree": {
-        "sha": "97944141a4bb0e3c7a7d4cf8cbb8b61a54fe86e8",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/97944141a4bb0e3c7a7d4cf8cbb8b61a54fe86e8"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/52883e1701f68550cd3150774d4f303fe080e87e",
-          "sha": "52883e1701f68550cd3150774d4f303fe080e87e",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/52883e1701f68550cd3150774d4f303fe080e87e"
-        }
-      ],
-      "message": "walletdb: refactor address book loading\n\nInstead of loading address book records as we come across them when\niterating the database, load them explicitly",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-12T22:25:10Z"
-      },
-      "sha": "3de2f962ae6fa06dbaabef276df465e34d7790a7"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGFhNmNjYTQyYzY3NTVhNWJjNjEwMWU5ZGVkZjA1MDI3Y2FlNTg4NGQ",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aa6cca42c6755a5bc6101e9dedf05027cae5884d",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/aa6cca42c6755a5bc6101e9dedf05027cae5884d",
-      "tree": {
-        "sha": "d3489dbeea22a8c842a6d09f1373aa5e8dd18bdf",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d3489dbeea22a8c842a6d09f1373aa5e8dd18bdf"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/3de2f962ae6fa06dbaabef276df465e34d7790a7",
-          "sha": "3de2f962ae6fa06dbaabef276df465e34d7790a7",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/3de2f962ae6fa06dbaabef276df465e34d7790a7"
-        }
-      ],
-      "message": "walletdb: refactor tx loading\n\nInstead of loading tx records as we come across them when iterating the\ndatabase, load them explicitly.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-13T16:18:11Z"
-      },
-      "sha": "aa6cca42c6755a5bc6101e9dedf05027cae5884d"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDRkMTQ0MzFmYzViN2RhZWU0Y2U3NjRmMWU3MjQwOTExYTU5MTgwOTA",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/4d14431fc5b7daee4ce764f1e7240911a5918090",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/4d14431fc5b7daee4ce764f1e7240911a5918090",
-      "tree": {
-        "sha": "0bc2aaa633e8a959e370c5261cfe040e3e25737e",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/0bc2aaa633e8a959e370c5261cfe040e3e25737e"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aa6cca42c6755a5bc6101e9dedf05027cae5884d",
-          "sha": "aa6cca42c6755a5bc6101e9dedf05027cae5884d",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/aa6cca42c6755a5bc6101e9dedf05027cae5884d"
-        }
-      ],
-      "message": "walletdb: refactor active spkm loading\n\nInstead of loading active spkm records as we come across them when\niterating the database, load them explicitly.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-18T18:26:26Z"
-      },
-      "sha": "4d14431fc5b7daee4ce764f1e7240911a5918090"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKDljM2E3OWJjZmRjOGZmYjU2ZTEwZjllODAyZWE5YWNiNTc3NmFmMzc",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
-      "tree": {
-        "sha": "97ffe7b36c2dbf84867af1665e57b4207500142c",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/97ffe7b36c2dbf84867af1665e57b4207500142c"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/4d14431fc5b7daee4ce764f1e7240911a5918090",
-          "sha": "4d14431fc5b7daee4ce764f1e7240911a5918090",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/4d14431fc5b7daee4ce764f1e7240911a5918090"
-        }
-      ],
-      "message": "walletdb: refactor defaultkey and wkey loading\n\nInstead of dealing with these records when iterating the entire\ndatabase, find and handle them explicitly.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-18T18:43:52Z"
-      },
-      "sha": "9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGFlZTFiMGM2YzhkMDU4NDU0ZWNkN2JiZjIwZGNlOGFmNzY4Y2I1ZmE",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
-      "tree": {
-        "sha": "c87fde95636a4739b4f1fd03a676e09e948f80fa",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/c87fde95636a4739b4f1fd03a676e09e948f80fa"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
-          "sha": "9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/9c3a79bcfdc8ffb56e10f9e802ea9acb5776af37"
-        }
-      ],
-      "message": "walletdb: refactor decryption key loading\n\nInstead of loading decryption keys as we iterate the database, load them\nexplicitly.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-18T19:08:51Z"
-      },
-      "sha": "aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGUwODVmYWFiNTc3MzJmZmFmNTExNWJiODA0NWRiYzU5OTVmZTI5Y2Y",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/e085faab57732ffaf5115bb8045dbc5995fe29cf",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/e085faab57732ffaf5115bb8045dbc5995fe29cf",
-      "tree": {
-        "sha": "0ce510e38f3ff171148444cc169495f8dd02655e",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/0ce510e38f3ff171148444cc169495f8dd02655e"
-      },
-      "verification": {
-        "verified": false,
-        "reason": "unsigned",
-        "payload": null,
-        "signature": null
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
-          "sha": "aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/aee1b0c6c8d058454ecd7bbf20dce8af768cb5fa"
-        }
-      ],
-      "message": "walletdb: Remove loading code where the database is iterated\n\nInstead of iterating the database to load the wallet, we now load\nparticular kinds of records in an order that we want them to be loaded.\nSo it is no longer necessary to iterate the entire database to load the\nwallet.",
-      "committer": {
-        "name": "Andrew Chow",
-        "email": "github@achow101.com",
-        "date": "2023-06-02T17:36:24Z"
-      },
-      "author": {
-        "name": "Andrew Chow",
-        "email": "achow101-github@achow101.com",
-        "date": "2022-04-18T18:56:23Z"
-      },
-      "sha": "e085faab57732ffaf5115bb8045dbc5995fe29cf"
-    },
-    {
       "event": "head_ref_force_pushed",
       "id": 9416692883,
       "node_id": "HRFPE_lADOABII585H-G84zwAAAAIxR1ST",
@@ -6054,6 +5454,664 @@
       "commit_id": "1aa882af51f686d19f9e7d866ba6a2526e93de17",
       "commit_url": "https://api.github.com/repos/syscoin/syscoin/commits/1aa882af51f686d19f9e7d866ba6a2526e93de17",
       "created_at": "2023-06-02T20:16:55Z"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDZlNWIwZGMyZTY1OTIxMDFiMzI3YTU1MGI0ZWMzZGY5NTk5MzExOGE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/6e5b0dc2e6592101b327a550b4ec3df95993118a",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/6e5b0dc2e6592101b327a550b4ec3df95993118a",
+      "tree": {
+        "sha": "2033a747085dba971cc408714491164df505ce38",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/2033a747085dba971cc408714491164df505ce38"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/8cc65f093c0cf7a27b3bfc6da90fd7a6ac8f5e48",
+          "sha": "8cc65f093c0cf7a27b3bfc6da90fd7a6ac8f5e48",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/8cc65f093c0cf7a27b3bfc6da90fd7a6ac8f5e48"
+        }
+      ],
+      "message": "walletdb: Refactor minversion loading\n\nMove minversion loading to its own function in WalletBatch",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T15:35:22Z"
+      },
+      "sha": "6e5b0dc2e6592101b327a550b4ec3df95993118a"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDUyY2VhNmQ2OTU0MjY1OTI0MWU3OGFhZDY3ZGExNmFkMzA3OWNiZWE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/52cea6d69542659241e78aad67da16ad3079cbea",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/52cea6d69542659241e78aad67da16ad3079cbea",
+      "tree": {
+        "sha": "430c452502832f737bb398f2eaa5b3a428d4076c",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/430c452502832f737bb398f2eaa5b3a428d4076c"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/6e5b0dc2e6592101b327a550b4ec3df95993118a",
+          "sha": "6e5b0dc2e6592101b327a550b4ec3df95993118a",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/6e5b0dc2e6592101b327a550b4ec3df95993118a"
+        }
+      ],
+      "message": "walletdb: Refactor wallet flags loading\n\nMove wallet flags loading to its own function in WalletBatch\n\nThe return value is changed to be TOO_NEW rather than CORRUPT when\nunknown flags are found.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T15:39:46Z"
+      },
+      "sha": "52cea6d69542659241e78aad67da16ad3079cbea"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDVkMDdhNTM0MWMzYWQ1MDM5NTVkZDc4MjIzYzg2NzhiNWVkOWQ4MzU",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/5d07a5341c3ad503955dd78223c8678b5ed9d835",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/5d07a5341c3ad503955dd78223c8678b5ed9d835",
+      "tree": {
+        "sha": "0cb5eab08e819a6ca0337e5bcdf5f9cbe1c7af9a",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/0cb5eab08e819a6ca0337e5bcdf5f9cbe1c7af9a"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/52cea6d69542659241e78aad67da16ad3079cbea",
+          "sha": "52cea6d69542659241e78aad67da16ad3079cbea",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/52cea6d69542659241e78aad67da16ad3079cbea"
+        }
+      ],
+      "message": "walletdb: Refactor key reading and loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T18:42:00Z"
+      },
+      "sha": "5d07a5341c3ad503955dd78223c8678b5ed9d835"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDcwYjk4YzM5MDQ5ZmEzMTFlZWRlNjI4NzMyODYxOWFiYjE2ZjkxMGM",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/70b98c39049fa311eede6287328619abb16f910c",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/70b98c39049fa311eede6287328619abb16f910c",
+      "tree": {
+        "sha": "b5b7d7270f1a8f56954306e147da0647623cbc32",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/b5b7d7270f1a8f56954306e147da0647623cbc32"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/5d07a5341c3ad503955dd78223c8678b5ed9d835",
+          "sha": "5d07a5341c3ad503955dd78223c8678b5ed9d835",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/5d07a5341c3ad503955dd78223c8678b5ed9d835"
+        }
+      ],
+      "message": "walletdb: Refactor crypted key loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T19:34:23Z"
+      },
+      "sha": "70b98c39049fa311eede6287328619abb16f910c"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGE4OWJmYWI1OWMxNzEyNzFkN2QyMTg3ODE0OThjYjRmY2NmNGVhZGM",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/a89bfab59c171271d7d218781498cb4fccf4eadc",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/a89bfab59c171271d7d218781498cb4fccf4eadc",
+      "tree": {
+        "sha": "0480078c25b26dcb97009c94bea20f65f4120c2d",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/0480078c25b26dcb97009c94bea20f65f4120c2d"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/70b98c39049fa311eede6287328619abb16f910c",
+          "sha": "70b98c39049fa311eede6287328619abb16f910c",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/70b98c39049fa311eede6287328619abb16f910c"
+        }
+      ],
+      "message": "walletdb: Refactor encryption key loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T20:07:59Z"
+      },
+      "sha": "a89bfab59c171271d7d218781498cb4fccf4eadc"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDU0NWJhYmUxNTQ1NDIwNTljMDAyODIwODM0MGRiOTZlMWUwYWZmMzk",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/545babe154542059c0028208340db96e1e0aff39",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/545babe154542059c0028208340db96e1e0aff39",
+      "tree": {
+        "sha": "d2ac1c501b760956fc5470e60b3d34e10cd810a1",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d2ac1c501b760956fc5470e60b3d34e10cd810a1"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/a89bfab59c171271d7d218781498cb4fccf4eadc",
+          "sha": "a89bfab59c171271d7d218781498cb4fccf4eadc",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/a89bfab59c171271d7d218781498cb4fccf4eadc"
+        }
+      ],
+      "message": "walletdb: Refactor hd chain loading to its own function",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T20:37:29Z"
+      },
+      "sha": "545babe154542059c0028208340db96e1e0aff39"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGU2MzEwMzUwY2M5NTA1MGU4ZjVhYjM0YzMxZTU1YWE2YmFkNDQ3OTU",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/e6310350cc95050e8f5ab34c31e55aa6bad44795",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/e6310350cc95050e8f5ab34c31e55aa6bad44795",
+      "tree": {
+        "sha": "728b062336ffbea5964a834821b6c329d3c45a8a",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/728b062336ffbea5964a834821b6c329d3c45a8a"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/545babe154542059c0028208340db96e1e0aff39",
+          "sha": "545babe154542059c0028208340db96e1e0aff39",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/545babe154542059c0028208340db96e1e0aff39"
+        }
+      ],
+      "message": "salvage: Remove use of ReadKeyValue in salvage\n\nTo prepare to remove ReadKeyValue, change salvage to not use it",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T20:38:44Z"
+      },
+      "sha": "e6310350cc95050e8f5ab34c31e55aa6bad44795"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDA4OWM5ODcwY2UwNjhiNDVjYmY1OTJlNjJkMjZmZmJjZWQ4ZGUyMjE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/089c9870ce068b45cbf592e62d26ffbced8de221",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/089c9870ce068b45cbf592e62d26ffbced8de221",
+      "tree": {
+        "sha": "586b2f43af48a89961ed6e01945eac7be8d6fa1c",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/586b2f43af48a89961ed6e01945eac7be8d6fa1c"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/e6310350cc95050e8f5ab34c31e55aa6bad44795",
+          "sha": "e6310350cc95050e8f5ab34c31e55aa6bad44795",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/e6310350cc95050e8f5ab34c31e55aa6bad44795"
+        }
+      ],
+      "message": "walletdb: Refactor legacy wallet record loading into its own function\n\nInstead of loading legacy wallet records as we come across them when\niterating the database, load them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T18:27:39Z"
+      },
+      "sha": "089c9870ce068b45cbf592e62d26ffbced8de221"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGNjNmY5MzI1ZDk0NDNmNTFjMzYxMDgxNzYyZTNmNWFkYzc4NmI2N2Q",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/cc6f9325d9443f51c361081762e3f5adc786b67d",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/cc6f9325d9443f51c361081762e3f5adc786b67d",
+      "tree": {
+        "sha": "de81ff80629f806d0b3af2741d7e94494a24c588",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/de81ff80629f806d0b3af2741d7e94494a24c588"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/089c9870ce068b45cbf592e62d26ffbced8de221",
+          "sha": "089c9870ce068b45cbf592e62d26ffbced8de221",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/089c9870ce068b45cbf592e62d26ffbced8de221"
+        }
+      ],
+      "message": "walletdb: Refactor descriptor wallet records loading\n\nInstead of loading descriptor wallet records as we come across them when\niterating the database, loading them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T20:16:49Z"
+      },
+      "sha": "cc6f9325d9443f51c361081762e3f5adc786b67d"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDdmNTU2YThlYjE0MmEzODgxY2U1ZTEwMDgwMTZjY2E4NzkyNDhlOTI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/7f556a8eb142a3881ce5e1008016cca879248e92",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/7f556a8eb142a3881ce5e1008016cca879248e92",
+      "tree": {
+        "sha": "d4f4d8df75baf8bfb311b03fb08654cc65fc870b",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d4f4d8df75baf8bfb311b03fb08654cc65fc870b"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/cc6f9325d9443f51c361081762e3f5adc786b67d",
+          "sha": "cc6f9325d9443f51c361081762e3f5adc786b67d",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/cc6f9325d9443f51c361081762e3f5adc786b67d"
+        }
+      ],
+      "message": "walletdb: refactor address book loading\n\nInstead of loading address book records as we come across them when\niterating the database, load them explicitly",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-12T22:25:10Z"
+      },
+      "sha": "7f556a8eb142a3881ce5e1008016cca879248e92"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGVmYTMzMDA0NjIxMzBmZGE1NjkyYjUyN2U3ZjZhN2U0Nzc1MjYxMzA",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/efa3300462130fda5692b527e7f6a7e477526130",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/efa3300462130fda5692b527e7f6a7e477526130",
+      "tree": {
+        "sha": "6705cbd83391edf284cd6dd309f96d6d5018e8d7",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/6705cbd83391edf284cd6dd309f96d6d5018e8d7"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/7f556a8eb142a3881ce5e1008016cca879248e92",
+          "sha": "7f556a8eb142a3881ce5e1008016cca879248e92",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/7f556a8eb142a3881ce5e1008016cca879248e92"
+        }
+      ],
+      "message": "walletdb: refactor tx loading\n\nInstead of loading tx records as we come across them when iterating the\ndatabase, load them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-13T16:18:11Z"
+      },
+      "sha": "efa3300462130fda5692b527e7f6a7e477526130"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDQ5NWRhZjcwZGJmNzYzZTkxNzljZjkwNmMxMmNmMjk1YzU3OGRlZDI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/495daf70dbf763e9179cf906c12cf295c578ded2",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/495daf70dbf763e9179cf906c12cf295c578ded2",
+      "tree": {
+        "sha": "382aa43af5e5c4575ed2e7f67cba2d663ef77e19",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/382aa43af5e5c4575ed2e7f67cba2d663ef77e19"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/efa3300462130fda5692b527e7f6a7e477526130",
+          "sha": "efa3300462130fda5692b527e7f6a7e477526130",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/efa3300462130fda5692b527e7f6a7e477526130"
+        }
+      ],
+      "message": "walletdb: refactor active spkm loading\n\nInstead of loading active spkm records as we come across them when\niterating the database, load them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:22Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T18:26:26Z"
+      },
+      "sha": "495daf70dbf763e9179cf906c12cf295c578ded2"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGQxZmQ5Mzc0M2I5MDJiOWZkNTFiYzdkNTMwYWEwYmIwYTY5Mjk0NDI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/d1fd93743b902b9fd51bc7d530aa0bb0a6929442",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/d1fd93743b902b9fd51bc7d530aa0bb0a6929442",
+      "tree": {
+        "sha": "9bb158c66e18183bd54a8e830df7f63244837de6",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/9bb158c66e18183bd54a8e830df7f63244837de6"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/495daf70dbf763e9179cf906c12cf295c578ded2",
+          "sha": "495daf70dbf763e9179cf906c12cf295c578ded2",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/495daf70dbf763e9179cf906c12cf295c578ded2"
+        }
+      ],
+      "message": "walletdb: refactor defaultkey and wkey loading\n\nInstead of dealing with these records when iterating the entire\ndatabase, find and handle them explicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:23Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T18:43:52Z"
+      },
+      "sha": "d1fd93743b902b9fd51bc7d530aa0bb0a6929442"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDI4OGUxOGEyOWM3ODc1YTIzZjQyNDI4MWQwMmQxMzJkMGQwYmRjYTg",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/288e18a29c7875a23f424281d02d132d0d0bdca8",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/288e18a29c7875a23f424281d02d132d0d0bdca8",
+      "tree": {
+        "sha": "b993a9d305739f19e2636c1395b469f51f6b27d1",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/b993a9d305739f19e2636c1395b469f51f6b27d1"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/d1fd93743b902b9fd51bc7d530aa0bb0a6929442",
+          "sha": "d1fd93743b902b9fd51bc7d530aa0bb0a6929442",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/d1fd93743b902b9fd51bc7d530aa0bb0a6929442"
+        }
+      ],
+      "message": "walletdb: refactor decryption key loading\n\nInstead of loading decryption keys as we iterate the database, load them\nexplicitly.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:23Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T19:08:51Z"
+      },
+      "sha": "288e18a29c7875a23f424281d02d132d0d0bdca8"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDFhN2YwYjAxNGJkNmU3YmY1ZmVlYjM2Y2QxNDkwYjg3NmY5MmM0ZmE",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
+      "tree": {
+        "sha": "364233ce8811f1ad1bd3c0f8c8e50e1ddf068074",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/364233ce8811f1ad1bd3c0f8c8e50e1ddf068074"
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "payload": null,
+        "signature": null
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/288e18a29c7875a23f424281d02d132d0d0bdca8",
+          "sha": "288e18a29c7875a23f424281d02d132d0d0bdca8",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/288e18a29c7875a23f424281d02d132d0d0bdca8"
+        }
+      ],
+      "message": "walletdb: Remove loading code where the database is iterated\n\nInstead of iterating the database to load the wallet, we now load\nparticular kinds of records in an order that we want them to be loaded.\nSo it is no longer necessary to iterate the entire database to load the\nwallet.",
+      "committer": {
+        "name": "Andrew Chow",
+        "email": "github@achow101.com",
+        "date": "2023-06-07T07:15:23Z"
+      },
+      "author": {
+        "name": "Andrew Chow",
+        "email": "achow101-github@achow101.com",
+        "date": "2022-04-18T18:56:23Z"
+      },
+      "sha": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa"
+    },
+    {
+      "event": "ready_for_review",
+      "id": 9454606779,
+      "node_id": "RFRE_lADOABII585H-G84zwAAAAIzidm7",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9454606779",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T07:15:38Z"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9454612257,
+      "node_id": "HRFPE_lADOABII585H-G84zwAAAAIzie8h",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9454612257",
+      "actor": {
+        "login": "achow101",
+        "id": 3782274,
+        "node_id": "MDQ6VXNlcjM3ODIyNzQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3782274?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/achow101",
+        "html_url": "https://github.com/achow101",
+        "followers_url": "https://api.github.com/users/achow101/followers",
+        "following_url": "https://api.github.com/users/achow101/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/achow101/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/achow101/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/achow101/subscriptions",
+        "organizations_url": "https://api.github.com/users/achow101/orgs",
+        "repos_url": "https://api.github.com/users/achow101/repos",
+        "events_url": "https://api.github.com/users/achow101/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/achow101/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T07:15:45Z"
     }
   ],
   "comments": [
@@ -6066,7 +6124,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 105,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "3a27791244e75dd9836f18d58ffd2355e5ea4f88",
       "in_reply_to_id": null,
       "user": {
@@ -6118,7 +6176,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 100,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "3a27791244e75dd9836f18d58ffd2355e5ea4f88",
       "in_reply_to_id": null,
       "user": {
@@ -6158,7 +6216,7 @@
       "original_start_line": 529,
       "start_side": "RIGHT",
       "line": null,
-      "original_line": 564,
+      "original_line": 586,
       "side": "RIGHT"
     },
     {
@@ -6170,7 +6228,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 47,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "950c94f5ccc024c633410d624e11f874f857543d",
       "in_reply_to_id": null,
       "user": {
@@ -6222,7 +6280,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 23,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "950c94f5ccc024c633410d624e11f874f857543d",
       "in_reply_to_id": null,
       "user": {
@@ -6274,7 +6332,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "040fa33fcce7cb0ec00405ca750de01880c19b8a",
       "in_reply_to_id": null,
       "user": {
@@ -6326,7 +6384,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "040fa33fcce7cb0ec00405ca750de01880c19b8a",
       "in_reply_to_id": 893783634,
       "user": {
@@ -6378,7 +6436,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 184,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a1d8d563d0f2ae12889bcc9002f1a532fadc9acc",
       "in_reply_to_id": null,
       "user": {
@@ -6430,7 +6488,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 169,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a1d8d563d0f2ae12889bcc9002f1a532fadc9acc",
       "in_reply_to_id": null,
       "user": {
@@ -6482,7 +6540,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 196,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a1d8d563d0f2ae12889bcc9002f1a532fadc9acc",
       "in_reply_to_id": null,
       "user": {
@@ -6534,7 +6592,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 184,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a1d8d563d0f2ae12889bcc9002f1a532fadc9acc",
       "in_reply_to_id": 902769522,
       "user": {
@@ -6586,7 +6644,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 47,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "950c94f5ccc024c633410d624e11f874f857543d",
       "in_reply_to_id": 893727842,
       "user": {
@@ -6638,7 +6696,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 23,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "950c94f5ccc024c633410d624e11f874f857543d",
       "in_reply_to_id": 893736353,
       "user": {
@@ -6690,7 +6748,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 169,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a1d8d563d0f2ae12889bcc9002f1a532fadc9acc",
       "in_reply_to_id": 902777349,
       "user": {
@@ -6742,7 +6800,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 196,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a1d8d563d0f2ae12889bcc9002f1a532fadc9acc",
       "in_reply_to_id": 902777939,
       "user": {
@@ -6794,7 +6852,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 42,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": null,
       "user": {
@@ -6846,7 +6904,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 58,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": null,
       "user": {
@@ -6898,7 +6956,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 38,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": null,
       "user": {
@@ -6950,7 +7008,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 7,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": null,
       "user": {
@@ -7002,7 +7060,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 66,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": null,
       "user": {
@@ -7054,7 +7112,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 72,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": null,
       "user": {
@@ -7094,7 +7152,7 @@
       "original_start_line": null,
       "start_side": null,
       "line": null,
-      "original_line": 574,
+      "original_line": 596,
       "side": "RIGHT"
     },
     {
@@ -7106,7 +7164,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 6,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "72089765046bff6ade39f2c4f7763da9467b1494",
       "in_reply_to_id": null,
       "user": {
@@ -7158,7 +7216,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 35,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "72089765046bff6ade39f2c4f7763da9467b1494",
       "in_reply_to_id": null,
       "user": {
@@ -7210,7 +7268,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 7,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": 915208527,
       "user": {
@@ -7262,7 +7320,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 38,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": 915204516,
       "user": {
@@ -7314,7 +7372,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 42,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": 915201717,
       "user": {
@@ -7366,7 +7424,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 58,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": 915202937,
       "user": {
@@ -7418,7 +7476,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 66,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": 915211634,
       "user": {
@@ -7470,7 +7528,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 72,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": 915214759,
       "user": {
@@ -7510,7 +7568,7 @@
       "original_start_line": null,
       "start_side": null,
       "line": null,
-      "original_line": 574,
+      "original_line": 596,
       "side": "RIGHT"
     },
     {
@@ -7522,7 +7580,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 6,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "72089765046bff6ade39f2c4f7763da9467b1494",
       "in_reply_to_id": 915838986,
       "user": {
@@ -7574,7 +7632,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 35,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "72089765046bff6ade39f2c4f7763da9467b1494",
       "in_reply_to_id": 915997364,
       "user": {
@@ -7626,7 +7684,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 41,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c704f8348820eeabf8e1230d81e026a14fd8b3fc",
       "in_reply_to_id": null,
       "user": {
@@ -7678,7 +7736,7 @@
       "path": "src/wallet/bdb.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c704f8348820eeabf8e1230d81e026a14fd8b3fc",
       "in_reply_to_id": null,
       "user": {
@@ -7730,7 +7788,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 155,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ba1d48a2939570ea369554ff790c12300e9fd7b1",
       "in_reply_to_id": null,
       "user": {
@@ -7782,7 +7840,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 217,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ba1d48a2939570ea369554ff790c12300e9fd7b1",
       "in_reply_to_id": null,
       "user": {
@@ -7834,7 +7892,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 509,
       "original_position": 196,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ba1d48a2939570ea369554ff790c12300e9fd7b1",
       "in_reply_to_id": null,
       "user": {
@@ -7886,7 +7944,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 229,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "369a042c738f71c88038584ff392f4ac8121b087",
       "in_reply_to_id": null,
       "user": {
@@ -7938,7 +7996,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 281,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "369a042c738f71c88038584ff392f4ac8121b087",
       "in_reply_to_id": null,
       "user": {
@@ -7990,7 +8048,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 292,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "369a042c738f71c88038584ff392f4ac8121b087",
       "in_reply_to_id": null,
       "user": {
@@ -8042,7 +8100,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 98,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "7ed39f6d344516cef2023fbfaeb99444b8c5c6d0",
       "in_reply_to_id": null,
       "user": {
@@ -8094,7 +8152,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 509,
       "original_position": 196,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ba1d48a2939570ea369554ff790c12300e9fd7b1",
       "in_reply_to_id": 922403557,
       "user": {
@@ -8146,7 +8204,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 41,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c704f8348820eeabf8e1230d81e026a14fd8b3fc",
       "in_reply_to_id": 922170911,
       "user": {
@@ -8198,7 +8256,7 @@
       "path": "src/wallet/bdb.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c704f8348820eeabf8e1230d81e026a14fd8b3fc",
       "in_reply_to_id": 922172352,
       "user": {
@@ -8250,7 +8308,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 155,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ba1d48a2939570ea369554ff790c12300e9fd7b1",
       "in_reply_to_id": 922394666,
       "user": {
@@ -8302,7 +8360,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 217,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ba1d48a2939570ea369554ff790c12300e9fd7b1",
       "in_reply_to_id": 922401748,
       "user": {
@@ -8354,7 +8412,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 281,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "369a042c738f71c88038584ff392f4ac8121b087",
       "in_reply_to_id": 922440904,
       "user": {
@@ -8406,7 +8464,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 292,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "369a042c738f71c88038584ff392f4ac8121b087",
       "in_reply_to_id": 922442482,
       "user": {
@@ -8458,7 +8516,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 98,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "7ed39f6d344516cef2023fbfaeb99444b8c5c6d0",
       "in_reply_to_id": 922475618,
       "user": {
@@ -8510,7 +8568,7 @@
       "path": "src/wallet/db.h",
       "position": null,
       "original_position": 32,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "94584601f12c51b3a781c84536f6b56be1ea8077",
       "in_reply_to_id": null,
       "user": {
@@ -8562,7 +8620,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 73,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8614,7 +8672,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 108,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8666,7 +8724,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8718,7 +8776,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 15,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8770,7 +8828,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 264,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8822,7 +8880,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 636,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8874,7 +8932,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 666,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8926,7 +8984,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 674,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -8978,7 +9036,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 1153,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -9030,7 +9088,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 106,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": null,
       "user": {
@@ -9070,7 +9128,7 @@
       "original_start_line": 536,
       "start_side": "RIGHT",
       "line": null,
-      "original_line": 564,
+      "original_line": 586,
       "side": "RIGHT"
     },
     {
@@ -9082,7 +9140,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 72,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "d1316204a783a1eed1ef6b7d7fe0680c5b6368d3",
       "in_reply_to_id": 915214759,
       "user": {
@@ -9122,7 +9180,7 @@
       "original_start_line": null,
       "start_side": null,
       "line": null,
-      "original_line": 574,
+      "original_line": 596,
       "side": "RIGHT"
     },
     {
@@ -9134,7 +9192,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 106,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980171004,
       "user": {
@@ -9174,7 +9232,7 @@
       "original_start_line": 536,
       "start_side": "RIGHT",
       "line": null,
-      "original_line": 564,
+      "original_line": 586,
       "side": "RIGHT"
     },
     {
@@ -9186,7 +9244,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 50,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": null,
       "user": {
@@ -9238,7 +9296,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 106,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980171004,
       "user": {
@@ -9278,7 +9336,7 @@
       "original_start_line": 536,
       "start_side": "RIGHT",
       "line": null,
-      "original_line": 564,
+      "original_line": 586,
       "side": "RIGHT"
     },
     {
@@ -9290,7 +9348,7 @@
       "path": "src/wallet/db.h",
       "position": null,
       "original_position": 33,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "10cf25c112ff4ac7bcece87a821996004cec2b24",
       "in_reply_to_id": null,
       "user": {
@@ -9342,7 +9400,7 @@
       "path": "src/wallet/db.h",
       "position": null,
       "original_position": 4,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": null,
       "user": {
@@ -9394,7 +9452,7 @@
       "path": "src/wallet/wallet.cpp",
       "position": null,
       "original_position": 17,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "5a8b0f16681bf8f755e84567e7ecee2feb28336c",
       "in_reply_to_id": null,
       "user": {
@@ -9446,7 +9504,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": null,
       "user": {
@@ -9498,7 +9556,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 15,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": null,
       "user": {
@@ -9550,7 +9608,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 15,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": 987226534,
       "user": {
@@ -9602,7 +9660,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 73,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980023946,
       "user": {
@@ -9654,7 +9712,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 108,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980025026,
       "user": {
@@ -9706,7 +9764,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980028053,
       "user": {
@@ -9758,7 +9816,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 15,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980029822,
       "user": {
@@ -9810,7 +9868,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 264,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980030921,
       "user": {
@@ -9862,7 +9920,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 636,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980034855,
       "user": {
@@ -9914,7 +9972,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 666,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980036012,
       "user": {
@@ -9966,7 +10024,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 674,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980038494,
       "user": {
@@ -10018,7 +10076,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 1153,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b7167d0d65363780615d7b2442ca46816126ad50",
       "in_reply_to_id": 980044405,
       "user": {
@@ -10070,7 +10128,7 @@
       "path": "src/wallet/db.h",
       "position": null,
       "original_position": 33,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "10cf25c112ff4ac7bcece87a821996004cec2b24",
       "in_reply_to_id": 986358462,
       "user": {
@@ -10122,7 +10180,7 @@
       "path": "src/wallet/wallet.cpp",
       "position": null,
       "original_position": 17,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "5a8b0f16681bf8f755e84567e7ecee2feb28336c",
       "in_reply_to_id": 987183146,
       "user": {
@@ -10174,7 +10232,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 15,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": 987226534,
       "user": {
@@ -10226,7 +10284,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 15,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": 987226534,
       "user": {
@@ -10278,7 +10336,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 50,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": 984911106,
       "user": {
@@ -10330,7 +10388,7 @@
       "path": "src/wallet/db.h",
       "position": null,
       "original_position": 4,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": 987171148,
       "user": {
@@ -10382,7 +10440,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": 987194757,
       "user": {
@@ -10434,7 +10492,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 239,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "6106b02d7c02c235e72738a4cadb81a82903e8d8",
       "in_reply_to_id": null,
       "user": {
@@ -10486,7 +10544,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 284,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "6106b02d7c02c235e72738a4cadb81a82903e8d8",
       "in_reply_to_id": null,
       "user": {
@@ -10538,7 +10596,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 314,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "541cc8a772a67f6362b4f9137498acff173f4014",
       "in_reply_to_id": null,
       "user": {
@@ -10590,7 +10648,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 905,
       "original_position": 234,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "6106b02d7c02c235e72738a4cadb81a82903e8d8",
       "in_reply_to_id": null,
       "user": {
@@ -10642,7 +10700,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 239,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "6106b02d7c02c235e72738a4cadb81a82903e8d8",
       "in_reply_to_id": 1009538582,
       "user": {
@@ -10694,7 +10752,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 284,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "6106b02d7c02c235e72738a4cadb81a82903e8d8",
       "in_reply_to_id": 1009540762,
       "user": {
@@ -10746,7 +10804,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 314,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "541cc8a772a67f6362b4f9137498acff173f4014",
       "in_reply_to_id": 1009626693,
       "user": {
@@ -10798,7 +10856,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 905,
       "original_position": 234,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "6106b02d7c02c235e72738a4cadb81a82903e8d8",
       "in_reply_to_id": 1009792108,
       "user": {
@@ -10850,7 +10908,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 23,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a0bc6bda272e7336deb55bdbf535534ed3a40306",
       "in_reply_to_id": null,
       "user": {
@@ -10902,7 +10960,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 23,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "a0bc6bda272e7336deb55bdbf535534ed3a40306",
       "in_reply_to_id": 1020827933,
       "user": {
@@ -10954,7 +11012,7 @@
       "path": "src/wallet/test/wallet_tests.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "f91be0848d82a67ab7917e9e199ec145998e5222",
       "in_reply_to_id": null,
       "user": {
@@ -11006,7 +11064,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 303,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b51b3fb4585ebf01f6d7eca3e80c57ed6ed8d587",
       "in_reply_to_id": null,
       "user": {
@@ -11058,7 +11116,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 152,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "327dfbfd9799e516ae25a513396e496013abd2b2",
       "in_reply_to_id": null,
       "user": {
@@ -11110,7 +11168,7 @@
       "path": "src/wallet/test/wallet_tests.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "f91be0848d82a67ab7917e9e199ec145998e5222",
       "in_reply_to_id": 1027288086,
       "user": {
@@ -11162,7 +11220,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 303,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b51b3fb4585ebf01f6d7eca3e80c57ed6ed8d587",
       "in_reply_to_id": 1027291138,
       "user": {
@@ -11214,7 +11272,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 152,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "327dfbfd9799e516ae25a513396e496013abd2b2",
       "in_reply_to_id": 1027292254,
       "user": {
@@ -11266,7 +11324,7 @@
       "path": "src/wallet/test/wallet_tests.cpp",
       "position": null,
       "original_position": 7,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8dca1bd8321711c3638e2391274385f9d9a1ca70",
       "in_reply_to_id": null,
       "user": {
@@ -11318,7 +11376,7 @@
       "path": "src/wallet/dump.cpp",
       "position": null,
       "original_position": 12,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c8c9b74fd415ef82fe3e598b971a29a8fd7bc093",
       "in_reply_to_id": null,
       "user": {
@@ -11370,7 +11428,7 @@
       "path": "src/wallet/dump.cpp",
       "position": null,
       "original_position": 12,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c8c9b74fd415ef82fe3e598b971a29a8fd7bc093",
       "in_reply_to_id": 1041506907,
       "user": {
@@ -11422,7 +11480,7 @@
       "path": "src/wallet/db.h",
       "position": null,
       "original_position": 56,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "2c7b214cbc06ac07311add940925683c779e49b4",
       "in_reply_to_id": null,
       "user": {
@@ -11474,7 +11532,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 23,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "950c94f5ccc024c633410d624e11f874f857543d",
       "in_reply_to_id": 893736353,
       "user": {
@@ -11526,7 +11584,7 @@
       "path": "src/wallet/test/wallet_tests.cpp",
       "position": null,
       "original_position": 20,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "2c7b214cbc06ac07311add940925683c779e49b4",
       "in_reply_to_id": null,
       "user": {
@@ -11578,7 +11636,7 @@
       "path": "src/wallet/db.h",
       "position": null,
       "original_position": 56,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "2c7b214cbc06ac07311add940925683c779e49b4",
       "in_reply_to_id": 1045285161,
       "user": {
@@ -11630,7 +11688,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 24,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "0e45584e4e7345846b2b8e115d3b549a0b1a694d",
       "in_reply_to_id": null,
       "user": {
@@ -11682,7 +11740,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 55,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "0e45584e4e7345846b2b8e115d3b549a0b1a694d",
       "in_reply_to_id": null,
       "user": {
@@ -11734,7 +11792,7 @@
       "path": "src/wallet/salvage.cpp",
       "position": null,
       "original_position": 12,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "414457710d6efc2943803c3d4b018c49d10db9e1",
       "in_reply_to_id": null,
       "user": {
@@ -11786,7 +11844,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 391,
       "original_position": 169,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "9bd810a3948bf18b51d35f38195e06e07c67749e",
       "in_reply_to_id": null,
       "user": {
@@ -11838,7 +11896,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 391,
       "original_position": 169,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "9bd810a3948bf18b51d35f38195e06e07c67749e",
       "in_reply_to_id": 1101501646,
       "user": {
@@ -11890,7 +11948,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 24,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "0e45584e4e7345846b2b8e115d3b549a0b1a694d",
       "in_reply_to_id": 1101461382,
       "user": {
@@ -11942,7 +12000,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 55,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "0e45584e4e7345846b2b8e115d3b549a0b1a694d",
       "in_reply_to_id": 1101471335,
       "user": {
@@ -11994,7 +12052,7 @@
       "path": "src/wallet/salvage.cpp",
       "position": null,
       "original_position": 12,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "414457710d6efc2943803c3d4b018c49d10db9e1",
       "in_reply_to_id": 1101489903,
       "user": {
@@ -12046,7 +12104,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 391,
       "original_position": 169,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "9bd810a3948bf18b51d35f38195e06e07c67749e",
       "in_reply_to_id": 1101501646,
       "user": {
@@ -12098,7 +12156,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 216,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "4f83673a5bff56b9742553248837bc7b9602dec3",
       "in_reply_to_id": null,
       "user": {
@@ -12150,7 +12208,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 849,
       "original_position": 188,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "cf4a765eb00d7ccb9ad709b004c79869f33cce89",
       "in_reply_to_id": null,
       "user": {
@@ -12202,7 +12260,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 76,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "890143f2ec66718f6a1681a6c6e1f364f51630e0",
       "in_reply_to_id": null,
       "user": {
@@ -12254,7 +12312,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 849,
       "original_position": 188,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "cf4a765eb00d7ccb9ad709b004c79869f33cce89",
       "in_reply_to_id": 1102834540,
       "user": {
@@ -12306,7 +12364,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 216,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "4f83673a5bff56b9742553248837bc7b9602dec3",
       "in_reply_to_id": 1102801460,
       "user": {
@@ -12358,7 +12416,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 76,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "890143f2ec66718f6a1681a6c6e1f364f51630e0",
       "in_reply_to_id": 1102853448,
       "user": {
@@ -12410,7 +12468,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 849,
       "original_position": 188,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "cf4a765eb00d7ccb9ad709b004c79869f33cce89",
       "in_reply_to_id": 1102834540,
       "user": {
@@ -12462,7 +12520,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 15,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9b3bcb411b5742d6579d95b5e6aa2ad3f7592be",
       "in_reply_to_id": 987226534,
       "user": {
@@ -12514,7 +12572,7 @@
       "path": "src/wallet/bdb.h",
       "position": null,
       "original_position": 6,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "f76830e546bdcb45bd03dbfd102d6f6837c97e3d",
       "in_reply_to_id": null,
       "user": {
@@ -12566,7 +12624,7 @@
       "path": "src/wallet/bdb.h",
       "position": null,
       "original_position": 6,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "f76830e546bdcb45bd03dbfd102d6f6837c97e3d",
       "in_reply_to_id": 1183773763,
       "user": {
@@ -12618,7 +12676,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 52,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "543d23fa5d4b4459069f29eee9ecdc47e11f3163",
       "in_reply_to_id": null,
       "user": {
@@ -12670,7 +12728,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 52,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "543d23fa5d4b4459069f29eee9ecdc47e11f3163",
       "in_reply_to_id": 1183848909,
       "user": {
@@ -12722,7 +12780,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": null,
       "user": {
@@ -12762,7 +12820,7 @@
       "original_start_line": null,
       "start_side": null,
       "line": null,
-      "original_line": 519,
+      "original_line": 541,
       "side": "RIGHT"
     },
     {
@@ -12774,7 +12832,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 42,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": null,
       "user": {
@@ -12826,7 +12884,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 18,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": null,
       "user": {
@@ -12878,7 +12936,7 @@
       "path": "src/wallet/test/util.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": null,
       "user": {
@@ -12930,7 +12988,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194474475,
       "user": {
@@ -12970,7 +13028,7 @@
       "original_start_line": null,
       "start_side": null,
       "line": null,
-      "original_line": 519,
+      "original_line": 541,
       "side": "RIGHT"
     },
     {
@@ -12982,7 +13040,7 @@
       "path": "src/wallet/test/util.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194511676,
       "user": {
@@ -13034,7 +13092,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 42,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194486646,
       "user": {
@@ -13086,7 +13144,7 @@
       "path": "src/wallet/sqlite.h",
       "position": null,
       "original_position": 18,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194495172,
       "user": {
@@ -13138,7 +13196,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194474475,
       "user": {
@@ -13178,7 +13236,7 @@
       "original_start_line": null,
       "start_side": null,
       "line": null,
-      "original_line": 519,
+      "original_line": 541,
       "side": "RIGHT"
     },
     {
@@ -13190,7 +13248,7 @@
       "path": "src/wallet/test/util.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194511676,
       "user": {
@@ -13242,7 +13300,7 @@
       "path": "src/wallet/test/db_tests.cpp",
       "position": null,
       "original_position": 42,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "83b4e50291a0bd2c45f370cb18bb479d8f73bc71",
       "in_reply_to_id": null,
       "user": {
@@ -13294,7 +13352,7 @@
       "path": "src/wallet/test/db_tests.cpp",
       "position": null,
       "original_position": 26,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "83b4e50291a0bd2c45f370cb18bb479d8f73bc71",
       "in_reply_to_id": null,
       "user": {
@@ -13346,7 +13404,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "040fa33fcce7cb0ec00405ca750de01880c19b8a",
       "in_reply_to_id": 893783634,
       "user": {
@@ -13398,7 +13456,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 96,
       "original_position": 19,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "1a91609e508a5a19d05691e3c2f1ef3bafc4c57e",
       "in_reply_to_id": null,
       "user": {
@@ -13450,7 +13508,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 228,
       "original_position": 29,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "59ac3bccffe3fda352dc068fa3a0b507ed9a73d6",
       "in_reply_to_id": null,
       "user": {
@@ -13502,7 +13560,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c48aa9d0df7e34493a666c55e060304ef262d4b9",
       "in_reply_to_id": null,
       "user": {
@@ -13554,7 +13612,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 146,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": null,
       "user": {
@@ -13606,7 +13664,7 @@
       "path": "src/wallet/walletdb.h",
       "position": 9,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": null,
       "user": {
@@ -13658,7 +13716,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 17,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": null,
       "user": {
@@ -13710,7 +13768,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 391,
       "original_position": 169,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "9bd810a3948bf18b51d35f38195e06e07c67749e",
       "in_reply_to_id": 1101501646,
       "user": {
@@ -13762,7 +13820,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 146,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": 1199487534,
       "user": {
@@ -13814,7 +13872,7 @@
       "path": "src/wallet/sqlite.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194474475,
       "user": {
@@ -13854,7 +13912,7 @@
       "original_start_line": null,
       "start_side": null,
       "line": null,
-      "original_line": 519,
+      "original_line": 541,
       "side": "RIGHT"
     },
     {
@@ -13866,7 +13924,7 @@
       "path": "src/wallet/test/util.cpp",
       "position": null,
       "original_position": 22,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "42cce1d43be0e662783abf4af60283c352297eac",
       "in_reply_to_id": 1194511676,
       "user": {
@@ -13918,7 +13976,7 @@
       "path": "src/wallet/test/db_tests.cpp",
       "position": null,
       "original_position": 42,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "83b4e50291a0bd2c45f370cb18bb479d8f73bc71",
       "in_reply_to_id": 1198931499,
       "user": {
@@ -13970,7 +14028,7 @@
       "path": "src/wallet/test/db_tests.cpp",
       "position": null,
       "original_position": 26,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "83b4e50291a0bd2c45f370cb18bb479d8f73bc71",
       "in_reply_to_id": 1198934920,
       "user": {
@@ -14022,7 +14080,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "040fa33fcce7cb0ec00405ca750de01880c19b8a",
       "in_reply_to_id": 893783634,
       "user": {
@@ -14074,7 +14132,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 96,
       "original_position": 19,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "1a91609e508a5a19d05691e3c2f1ef3bafc4c57e",
       "in_reply_to_id": 1198953172,
       "user": {
@@ -14126,7 +14184,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 228,
       "original_position": 29,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "59ac3bccffe3fda352dc068fa3a0b507ed9a73d6",
       "in_reply_to_id": 1198957038,
       "user": {
@@ -14178,7 +14236,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "c48aa9d0df7e34493a666c55e060304ef262d4b9",
       "in_reply_to_id": 1198965953,
       "user": {
@@ -14230,7 +14288,7 @@
       "path": "src/wallet/walletdb.h",
       "position": 9,
       "original_position": 5,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": 1199488667,
       "user": {
@@ -14282,7 +14340,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 17,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": 1199490724,
       "user": {
@@ -14334,7 +14392,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 146,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": 1199487534,
       "user": {
@@ -14386,7 +14444,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 146,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8648511b567dfcdea7ffa5ac4595a43a768f5525",
       "in_reply_to_id": 1199487534,
       "user": {
@@ -14438,7 +14496,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 51,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "422a8436089c844934903a61fcec6b7b93995c07",
       "in_reply_to_id": null,
       "user": {
@@ -14490,7 +14548,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 88,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "82e025297ba8939660b15fad738be723d783165e",
       "in_reply_to_id": null,
       "user": {
@@ -14542,7 +14600,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 4,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "f079b7580d4e7fa0d373decd1ffd7144abb83bab",
       "in_reply_to_id": null,
       "user": {
@@ -14594,7 +14652,7 @@
       "path": "src/wallet/salvage.cpp",
       "position": null,
       "original_position": 32,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9d974b7f4136c04f35091438f5e78e17d77299b",
       "in_reply_to_id": null,
       "user": {
@@ -14646,7 +14704,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 431,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b3425cc31feba14c5a0b0c4532437f12b5a901ff",
       "in_reply_to_id": null,
       "user": {
@@ -14698,7 +14756,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 1141,
       "original_position": 1131,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "3c51e44380ba8041e5d6c4cb29b9b2c54fad0b4b",
       "in_reply_to_id": null,
       "user": {
@@ -14750,7 +14808,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 827,
       "original_position": 168,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "51518daa60952f31c34013c643feb8fe11c9777e",
       "in_reply_to_id": null,
       "user": {
@@ -14802,7 +14860,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ede0c95237e47de8a93af229f33f0cbedf5780fd",
       "in_reply_to_id": null,
       "user": {
@@ -14854,7 +14912,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 507,
       "original_position": 213,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b3425cc31feba14c5a0b0c4532437f12b5a901ff",
       "in_reply_to_id": null,
       "user": {
@@ -14906,7 +14964,7 @@
       "path": "src/wallet/salvage.cpp",
       "position": null,
       "original_position": 35,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9d974b7f4136c04f35091438f5e78e17d77299b",
       "in_reply_to_id": null,
       "user": {
@@ -14958,7 +15016,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 1179,
       "original_position": 28,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8a4362f9bcf213164f43395faa164e50aab9363b",
       "in_reply_to_id": null,
       "user": {
@@ -15010,7 +15068,7 @@
       "path": "src/wallet/bdb.cpp",
       "position": null,
       "original_position": 51,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "422a8436089c844934903a61fcec6b7b93995c07",
       "in_reply_to_id": 1204298801,
       "user": {
@@ -15062,7 +15120,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 4,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "f079b7580d4e7fa0d373decd1ffd7144abb83bab",
       "in_reply_to_id": 1204957277,
       "user": {
@@ -15114,7 +15172,7 @@
       "path": "src/wallet/salvage.cpp",
       "position": null,
       "original_position": 32,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9d974b7f4136c04f35091438f5e78e17d77299b",
       "in_reply_to_id": 1205489696,
       "user": {
@@ -15166,7 +15224,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 431,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b3425cc31feba14c5a0b0c4532437f12b5a901ff",
       "in_reply_to_id": 1205886280,
       "user": {
@@ -15218,7 +15276,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 1141,
       "original_position": 1131,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "3c51e44380ba8041e5d6c4cb29b9b2c54fad0b4b",
       "in_reply_to_id": 1206093314,
       "user": {
@@ -15270,7 +15328,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 827,
       "original_position": 168,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "51518daa60952f31c34013c643feb8fe11c9777e",
       "in_reply_to_id": 1206095209,
       "user": {
@@ -15322,7 +15380,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": null,
       "original_position": 11,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "ede0c95237e47de8a93af229f33f0cbedf5780fd",
       "in_reply_to_id": 1206097033,
       "user": {
@@ -15374,7 +15432,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 507,
       "original_position": 213,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "b3425cc31feba14c5a0b0c4532437f12b5a901ff",
       "in_reply_to_id": 1210572680,
       "user": {
@@ -15426,7 +15484,7 @@
       "path": "src/wallet/salvage.cpp",
       "position": null,
       "original_position": 35,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "e9d974b7f4136c04f35091438f5e78e17d77299b",
       "in_reply_to_id": 1210761024,
       "user": {
@@ -15478,7 +15536,7 @@
       "path": "src/wallet/walletdb.cpp",
       "position": 1179,
       "original_position": 28,
-      "commit_id": "e085faab57732ffaf5115bb8045dbc5995fe29cf",
+      "commit_id": "1a7f0b014bd6e7bf5feeb36cd1490b876f92c4fa",
       "original_commit_id": "8a4362f9bcf213164f43395faa164e50aab9363b",
       "in_reply_to_id": 1210777446,
       "user": {

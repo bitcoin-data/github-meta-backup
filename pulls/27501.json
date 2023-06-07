@@ -58,7 +58,7 @@
       }
     ],
     "created_at": "2023-04-20T15:01:04Z",
-    "updated_at": "2023-06-07T07:39:06Z",
+    "updated_at": "2023-06-07T13:38:18Z",
     "closed_at": "2023-06-07T07:29:52Z",
     "mergeable": false,
     "mergeable_state": "dirty",
@@ -167,7 +167,7 @@
         "forks_count": 1,
         "stargazers_count": 7,
         "watchers_count": 7,
-        "size": 225090,
+        "size": 225334,
         "default_branch": "master",
         "open_issues_count": 1,
         "is_template": false,
@@ -296,12 +296,12 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34325,
-        "stargazers_count": 69819,
-        "watchers_count": 69819,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
-        "open_issues_count": 626,
+        "open_issues_count": 627,
         "is_template": false,
         "topics": [
           "bitcoin",
@@ -318,9 +318,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T07:29:24Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T07:34:31Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -349,7 +349,7 @@
     "deletions": 2,
     "changed_files": 7,
     "commits": 5,
-    "review_comments": 55,
+    "review_comments": 58,
     "comments": 5
   },
   "events": [
@@ -4728,6 +4728,162 @@
       "start_side": null,
       "line": 493,
       "original_line": 493,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221581710",
+      "pull_request_review_id": 1467639356,
+      "id": 1221581710,
+      "node_id": "PRRC_kwDOABII585Iz9uO",
+      "diff_hunk": "@@ -516,6 +516,19 @@ class CTxMemPool\n     void ApplyDelta(const uint256& hash, CAmount &nFeeDelta) const EXCLUSIVE_LOCKS_REQUIRED(cs);\n     void ClearPrioritisation(const uint256& hash) EXCLUSIVE_LOCKS_REQUIRED(cs);\n \n+    struct delta_info {\n+        /** Whether this transaction is in the mempool. */\n+        const bool in_mempool;",
+      "path": "src/txmempool.h",
+      "position": 6,
+      "original_position": 6,
+      "commit_id": "67b7fecacd0489809690982c89ba2d0acdca938c",
+      "original_commit_id": "67b7fecacd0489809690982c89ba2d0acdca938c",
+      "in_reply_to_id": 1220309713,
+      "user": {
+        "login": "MarcoFalke",
+        "id": 6399679,
+        "node_id": "MDQ6VXNlcjYzOTk2Nzk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6399679?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MarcoFalke",
+        "html_url": "https://github.com/MarcoFalke",
+        "followers_url": "https://api.github.com/users/MarcoFalke/followers",
+        "following_url": "https://api.github.com/users/MarcoFalke/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/MarcoFalke/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/MarcoFalke/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/MarcoFalke/subscriptions",
+        "organizations_url": "https://api.github.com/users/MarcoFalke/orgs",
+        "repos_url": "https://api.github.com/users/MarcoFalke/repos",
+        "events_url": "https://api.github.com/users/MarcoFalke/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/MarcoFalke/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "I think `const` in this context is mainly used to force the designated initializer to initialize the field, because no constructor exists and otherwise this may end up being uninitialized?",
+      "created_at": "2023-06-07T13:17:25Z",
+      "updated_at": "2023-06-07T13:17:25Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27501#discussion_r1221581710",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221581710"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27501"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 521,
+      "original_line": 521,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221598752",
+      "pull_request_review_id": 1467663850,
+      "id": 1221598752,
+      "node_id": "PRRC_kwDOABII585I0B4g",
+      "diff_hunk": "@@ -480,6 +480,40 @@ static RPCHelpMan prioritisetransaction()\n     };\n }\n \n+static RPCHelpMan getprioritisedtransactions()\n+{\n+    return RPCHelpMan{\"getprioritisedtransactions\",\n+        \"Returns a map of all user-created (see prioritisetransaction) fee deltas by txid, and whether the tx is present in mempool.\",\n+        {},\n+        RPCResult{\n+            RPCResult::Type::OBJ_DYN, \"prioritisation-map\", \"prioritisation keyed by txid\",",
+      "path": "src/rpc/mining.cpp",
+      "position": 10,
+      "original_position": 10,
+      "commit_id": "67b7fecacd0489809690982c89ba2d0acdca938c",
+      "original_commit_id": "67b7fecacd0489809690982c89ba2d0acdca938c",
+      "in_reply_to_id": 1220320231,
+      "user": {
+        "login": "MarcoFalke",
+        "id": 6399679,
+        "node_id": "MDQ6VXNlcjYzOTk2Nzk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6399679?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MarcoFalke",
+        "html_url": "https://github.com/MarcoFalke",
+        "followers_url": "https://api.github.com/users/MarcoFalke/followers",
+        "following_url": "https://api.github.com/users/MarcoFalke/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/MarcoFalke/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/MarcoFalke/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/MarcoFalke/subscriptions",
+        "organizations_url": "https://api.github.com/users/MarcoFalke/orgs",
+        "repos_url": "https://api.github.com/users/MarcoFalke/repos",
+        "events_url": "https://api.github.com/users/MarcoFalke/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/MarcoFalke/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "Yes, the string is eaten by the help generator either way",
+      "created_at": "2023-06-07T13:24:49Z",
+      "updated_at": "2023-06-07T13:24:49Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27501#discussion_r1221598752",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221598752"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27501"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 489,
+      "original_line": 489,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221620278",
+      "pull_request_review_id": 1467702527,
+      "id": 1221620278,
+      "node_id": "PRRC_kwDOABII585I0HI2",
+      "diff_hunk": "@@ -516,6 +516,19 @@ class CTxMemPool\n     void ApplyDelta(const uint256& hash, CAmount &nFeeDelta) const EXCLUSIVE_LOCKS_REQUIRED(cs);\n     void ClearPrioritisation(const uint256& hash) EXCLUSIVE_LOCKS_REQUIRED(cs);\n \n+    struct delta_info {\n+        /** Whether this transaction is in the mempool. */\n+        const bool in_mempool;",
+      "path": "src/txmempool.h",
+      "position": 6,
+      "original_position": 6,
+      "commit_id": "67b7fecacd0489809690982c89ba2d0acdca938c",
+      "original_commit_id": "67b7fecacd0489809690982c89ba2d0acdca938c",
+      "in_reply_to_id": 1220309713,
+      "user": {
+        "login": "ajtowns",
+        "id": 127186,
+        "node_id": "MDQ6VXNlcjEyNzE4Ng==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/127186?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/ajtowns",
+        "html_url": "https://github.com/ajtowns",
+        "followers_url": "https://api.github.com/users/ajtowns/followers",
+        "following_url": "https://api.github.com/users/ajtowns/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/ajtowns/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/ajtowns/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/ajtowns/subscriptions",
+        "organizations_url": "https://api.github.com/users/ajtowns/orgs",
+        "repos_url": "https://api.github.com/users/ajtowns/repos",
+        "events_url": "https://api.github.com/users/ajtowns/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/ajtowns/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "Seems like it would be better to explicitly specify defaults (`false` and `0`?) in that case? If you want to delete the default constructor to force aggregate initialization, then `delta_info() = delete;` seems more direct?",
+      "created_at": "2023-06-07T13:38:17Z",
+      "updated_at": "2023-06-07T13:38:17Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27501#discussion_r1221620278",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221620278"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27501"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 521,
+      "original_line": 521,
       "side": "RIGHT"
     }
   ]

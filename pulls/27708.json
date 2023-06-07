@@ -12,7 +12,7 @@
     "review_comments_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27708/comments",
     "review_comment_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments%7B/number%7D",
     "comments_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27708/comments",
-    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/d44dd73bcabc694880dfc966fad21980cd3b4c64",
+    "statuses_url": "https://api.github.com/repos/bitcoin/bitcoin/statuses/292a610cff7db9f03a0beb584a08753e5e5e35ed",
     "number": 27708,
     "state": "open",
     "locked": false,
@@ -39,12 +39,22 @@
       "site_admin": false
     },
     "body": "It seems odd to return `EXIT_SUCCESS` when the node aborted execution due a fatal internal error\r\nor any post-init problem that triggers an unrequested shutdown.\r\n\r\ne.g. blocks or coins db I/O errors, disconnect block failure, failure during thread import (external\r\nblocks loading process error), among others.",
-    "labels": [],
+    "labels": [
+      {
+        "id": 5334691551,
+        "node_id": "LA_kwDOABII588AAAABPfju3w",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/CI%20failed",
+        "name": "CI failed",
+        "description": "",
+        "color": "cccccc",
+        "default": false
+      }
+    ],
     "created_at": "2023-05-20T15:04:25Z",
-    "updated_at": "2023-06-06T22:20:36Z",
+    "updated_at": "2023-06-07T16:01:27Z",
     "mergeable": true,
     "mergeable_state": "blocked",
-    "merge_commit_sha": "6b9e6942527a9b88a660e691e13f6e6a5b2fdd79",
+    "merge_commit_sha": "52b5f1e14567864e379c4570c26e934b7de0b281",
     "assignees": [],
     "requested_reviewers": [],
     "requested_teams": [],
@@ -52,7 +62,7 @@
     "head": {
       "label": "furszy:2023_main_exit_failure",
       "ref": "2023_main_exit_failure",
-      "sha": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "sha": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "user": {
         "login": "furszy",
         "id": 5377650,
@@ -148,7 +158,7 @@
         "forks_count": 2,
         "stargazers_count": 1,
         "watchers_count": 1,
-        "size": 380259,
+        "size": 380364,
         "default_branch": "master",
         "open_issues_count": 0,
         "is_template": false,
@@ -161,7 +171,7 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-06T20:18:24Z",
+        "pushed_at": "2023-06-07T14:04:15Z",
         "created_at": "2018-08-05T15:28:43Z",
         "updated_at": "2023-02-27T18:01:49Z",
         "license": {
@@ -184,7 +194,7 @@
     "base": {
       "label": "bitcoin:master",
       "ref": "master",
-      "sha": "6cf47a8f44f96099a84e5c6e628e3499045e024d",
+      "sha": "2026301405f83c925ca68db6a3cd5134ed619ca7",
       "user": {
         "login": "bitcoin",
         "id": 528860,
@@ -277,12 +287,12 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34325,
-        "stargazers_count": 69819,
-        "watchers_count": 69819,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
-        "open_issues_count": 626,
+        "open_issues_count": 627,
         "is_template": false,
         "topics": [
           "bitcoin",
@@ -299,9 +309,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T07:29:24Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T07:34:31Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -326,12 +336,12 @@
     },
     "author_association": "MEMBER",
     "draft": false,
-    "additions": 41,
-    "deletions": 27,
-    "changed_files": 6,
-    "commits": 3,
+    "additions": 42,
+    "deletions": 32,
+    "changed_files": 7,
+    "commits": 4,
     "review_comments": 12,
-    "comments": 4
+    "comments": 5
   },
   "events": [
     {
@@ -548,46 +558,6 @@
       "sha": "57ab48624446c72bcf73905133ee6bce02028b37"
     },
     {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGVhN2ZkYmZjMjg3MjBiMTc1MGZhNmFkYmU3MWU3NWY2NDg2YTQ5YjI",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/ea7fdbfc28720b1750fa6adbe71e75f6486a49b2",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/ea7fdbfc28720b1750fa6adbe71e75f6486a49b2",
-      "tree": {
-        "sha": "5d636c3aa9c4681af2ecbd3c3c3be540576a15ab",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/5d636c3aa9c4681af2ecbd3c3c3be540576a15ab"
-      },
-      "verification": {
-        "verified": true,
-        "reason": "valid",
-        "payload": "tree 5d636c3aa9c4681af2ecbd3c3c3be540576a15ab\nparent 57ab48624446c72bcf73905133ee6bce02028b37\nauthor furszy <matiasfurszyfer@protonmail.com> 1685397026 -0300\ncommitter furszy <matiasfurszyfer@protonmail.com> 1685397493 -0300\n\nrefactor: move 'AbortNode' after 'StartShutdown'\n\nrequired for the next commit, where 'StartErrorShutdown'\nis introduced.\n\nno behavior change.\n",
-        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEA++0fqwRHQpmlZfQXdI8zGhqpiMFAmR1H/UACgkQXdI8zGhq\npiNtTQ/7BdTqq5nglQvtW3x/EiOZMPGjULd/HblYjzoQM2Oci7g8hQX56n0kXpKg\nORT5AVnRnLBsqV/DyQHkNx5zULz/DR6XrxZVy4ERkCq9ZQHRSk3kXnREC7y1oZxR\nV1/3NAF3TXKohLv57pnT+EHfPVSq70RllIxKl3Rgq8bzHT3YjwDgrF1VN98QShMc\nnM6wFKKwtr6gR8kWk/csKTGgfb8H5jz5hkFtHOEXeSt7oorV/pO87ku9PvZBnum6\n3GTsxfhbfboMj84D59ED/cwsT7qImRcmOlLR+g0fB0kjd/PCmOLMT2p3O89Tv13b\nxXAVqGdvqNKr/2cb8KAFKOWHjjVED60j3XtjVOg93y3p3mVpLTMj0hlxOzqi4Kz5\nIVXaz2Kr51qBqWCnUzqtq1AFo7L3gMKILYz5wHFAhn307xK7urecezGdGHQd+HyI\nLbD0RfJ++sZThTGENlYbgbewDXQs/QBRUGCOX7kpK60h4ZcjZahs6eR/P+4PrR49\nZMzBFdAgn/vA0395l+XFzy/+XLBT1Lnwf9soVvodYX+vQlZaHLpBBSe0qYob+VtQ\nAkET6zwLvfNuFK4k5t14Z4dcP0ca7+N/5Xvcn73ljWVTN5+ooy+LIXvKJ46jyu/T\nZvVUmsCIJ0RtfywNf/TPOTtgXAaG20wMkU7sT3JPU8p99J2xuoM=\n=sLle\n-----END PGP SIGNATURE-----"
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/57ab48624446c72bcf73905133ee6bce02028b37",
-          "sha": "57ab48624446c72bcf73905133ee6bce02028b37",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/57ab48624446c72bcf73905133ee6bce02028b37"
-        }
-      ],
-      "message": "refactor: move 'AbortNode' after 'StartShutdown'\n\nrequired for the next commit, where 'StartErrorShutdown'\nis introduced.\n\nno behavior change.",
-      "committer": {
-        "name": "furszy",
-        "email": "matiasfurszyfer@protonmail.com",
-        "date": "2023-05-29T21:58:13Z"
-      },
-      "author": {
-        "name": "furszy",
-        "email": "matiasfurszyfer@protonmail.com",
-        "date": "2023-05-29T21:50:26Z"
-      },
-      "sha": "ea7fdbfc28720b1750fa6adbe71e75f6486a49b2"
-    },
-    {
       "event": "head_ref_force_pushed",
       "id": 9372015858,
       "node_id": "HRFPE_lADOABII585maZ9VzwAAAAIunZzy",
@@ -615,46 +585,6 @@
       "commit_id": null,
       "commit_url": null,
       "created_at": "2023-05-29T21:58:31Z"
-    },
-    {
-      "event": "committed",
-      "id": null,
-      "node_id": "C_kwDOABII59oAKGQ0NGRkNzNiY2FiYzY5NDg4MGRmYzk2NmZhZDIxOTgwY2QzYjRjNjQ",
-      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/d44dd73bcabc694880dfc966fad21980cd3b4c64",
-      "actor": null,
-      "commit_id": null,
-      "commit_url": null,
-      "created_at": null,
-      "html_url": "https://github.com/bitcoin/bitcoin/commit/d44dd73bcabc694880dfc966fad21980cd3b4c64",
-      "tree": {
-        "sha": "bce578209a9c9b47ca9f74fe38269b0d1de8ca72",
-        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/bce578209a9c9b47ca9f74fe38269b0d1de8ca72"
-      },
-      "verification": {
-        "verified": true,
-        "reason": "valid",
-        "payload": "tree bce578209a9c9b47ca9f74fe38269b0d1de8ca72\nparent ea7fdbfc28720b1750fa6adbe71e75f6486a49b2\nauthor furszy <matiasfurszyfer@protonmail.com> 1684590677 -0300\ncommitter furszy <matiasfurszyfer@protonmail.com> 1685398965 -0300\n\nReturn EXIT_FAILURE on post-init fatal errors\n\nIt seems odd to return `EXIT_SUCCESS` when the node aborted\nexecution due a fatal internal error or any post-init problem\nthat triggers an unrequested shutdown.\n\ne.g. blocks or coins db I/O errors, disconnect block failure,\nfailure during thread import (external blocks loading process\nerror), among others.\n",
-        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEA++0fqwRHQpmlZfQXdI8zGhqpiMFAmR1JbUACgkQXdI8zGhq\npiOiuA//QabqKzTA5w+qbVf5wL4cFTSWd4pzkpUnNo1/GzGdZgMgFgzN+E6c3kOO\nMjTQn5fEKI3Y7lHRV507JiFUwwREyORAcGjY1TUZtfIrYk2vPOmOGzwjGFpo66vV\nn1rtP+SrM+QXjMryWUFWs3B340BnqGfQwEJ7XptBOReL7FZEVZxBCYPHq30lyLbr\nNNCwVieIrYE3RjAtLO5jvRJKHsIHeojT03cBw6xg0gcuQwSHTSZl+nBpkOeCo7Li\nlnOyAYNy8pPZQgZkONiiqpJ69SIXA/DiefwrRUdr7U/Mi5RtfAuE5CQqBqqIXVZq\nnSvxj16331ivAq63ZtZ7xOpEX4NExI1Fnq9PuFv0Raais46fy1iZ26GmxZif6tKF\nrB29y9Cr4eAwZYH3WYgYynmdhGpKNFRbv6Iu6oOCcehqvnRUzKTL/iSpTJQ8pqHN\nBicMzD0td+8X6ujQOjt6ZkrJVeg6RvkkYHbhBLm+pY8Dg5IhFr9OgB5iqTNIoRrx\ncYxhUsjFdwUt4iDaCMQ7yyc1x+jlV2lNNkVYawuJjTnCXJzj9v7mqqMTTWe/hg24\nmuK4/So1yC7mJEdabNF8jf6aNi4CkkYltl7JMSobo+cVVkar1YfQEcMZJcm7AV0G\n01g5b1PCq4JLvEgvvQ1//+j6u9ADmJWastUoLTZOEYfys75I+kc=\n=Lo5p\n-----END PGP SIGNATURE-----"
-      },
-      "parents": [
-        {
-          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/ea7fdbfc28720b1750fa6adbe71e75f6486a49b2",
-          "sha": "ea7fdbfc28720b1750fa6adbe71e75f6486a49b2",
-          "html_url": "https://github.com/bitcoin/bitcoin/commit/ea7fdbfc28720b1750fa6adbe71e75f6486a49b2"
-        }
-      ],
-      "message": "Return EXIT_FAILURE on post-init fatal errors\n\nIt seems odd to return `EXIT_SUCCESS` when the node aborted\nexecution due a fatal internal error or any post-init problem\nthat triggers an unrequested shutdown.\n\ne.g. blocks or coins db I/O errors, disconnect block failure,\nfailure during thread import (external blocks loading process\nerror), among others.",
-      "committer": {
-        "name": "furszy",
-        "email": "matiasfurszyfer@protonmail.com",
-        "date": "2023-05-29T22:22:45Z"
-      },
-      "author": {
-        "name": "furszy",
-        "email": "matiasfurszyfer@protonmail.com",
-        "date": "2023-05-20T13:51:17Z"
-      },
-      "sha": "d44dd73bcabc694880dfc966fad21980cd3b4c64"
     },
     {
       "event": "head_ref_force_pushed",
@@ -930,6 +860,242 @@
       },
       "html_url": "https://github.com/bitcoin/bitcoin/pull/27708#issuecomment-1579532617",
       "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27708"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDAwOGRjMGMzNjk1MWY1OTRlODcxNDc0YTgzOGY3NWUxMWQzODdmNzI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/008dc0c36951f594e871474a838f75e11d387f72",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/008dc0c36951f594e871474a838f75e11d387f72",
+      "tree": {
+        "sha": "d7005cc2f5e3ed554f8f6de3851b879349a6a649",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/d7005cc2f5e3ed554f8f6de3851b879349a6a649"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree d7005cc2f5e3ed554f8f6de3851b879349a6a649\nparent 57ab48624446c72bcf73905133ee6bce02028b37\nauthor Sebastian Falbesoner <sebastian.falbesoner@gmail.com> 1686089097 +0200\ncommitter furszy <matiasfurszyfer@protonmail.com> 1686146573 -0300\n\nrefactor: index: use `AbortNode` in fatal error helper\n\nDeduplicates code in the `FatalError` template function by using\n`AbortNode` which does the exact same thing if called without any user\nmessage (i.e. without second parameter specified). The template is still\nkept for ease-of-use w.r.t. not having to call `tfm::format(...)` at the\ncall-side each time, and also to keep the diff minimal.\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEA++0fqwRHQpmlZfQXdI8zGhqpiMFAmSAjg0ACgkQXdI8zGhq\npiNULBAAkVnMRtL9BRRLj38TghGCPj/gcEerl9VAxnZJo7trLFeQ123xCh7Mu7kn\njxAFesMa9l+cjnM2MfJFqvsx1JQALPZ0TlbNIZhXnS1GhXnWqdbwBHGm5L9bPDEA\nbsk2d7q+qSW3YEQPGUw6+1IDZk6qG5+Mw18JavwYkxHICjMUSDFK25H+okQTSBg+\n+Ppa/zzXGkm1bEtHjez7MwnJGhTngBjSL0LlGkfkf4g8wX4uZwxUoxmB2y4hY87M\niAZkpxbNce4yBsYp4mRIMRn0xdAoUitDGFXKf10We7zapZzvuxSDzrhX4ka4RaGG\nFRv4lF0iZ+qe7c89edTz68ggL3kT5P0CvVcTnZTT9a00WIL/sGZdiC3/beCxX691\nAI9HzxMynwbauaH2bALKLUAFmga5heyx1GrtZ7G9pUMM4hgxBv8hlf4hxhrput44\nL6AHuGckylfa06V08CyFG7LheBI+fX2zPa1fZidA1ZhwfDPdpElj/jGEQ6N1IvSe\nCUHdWXxbmJhQ4s81DblYgK/ZEcVfExFafON6DkVDycErEoT/xjV0MxqchrzNswC1\n/OvtFo8BCgk5ouPDPnZCvxoqy7N0d1aAmtBSwU4KAPhrsIUVvGUlXZtfiAPBkYMF\nG+ClyInJYv6OCHd7N+k2bRQbSfrKAg1QDEzXcvoQBEwNOVgrd1M=\n=MQaZ\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/57ab48624446c72bcf73905133ee6bce02028b37",
+          "sha": "57ab48624446c72bcf73905133ee6bce02028b37",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/57ab48624446c72bcf73905133ee6bce02028b37"
+        }
+      ],
+      "message": "refactor: index: use `AbortNode` in fatal error helper\n\nDeduplicates code in the `FatalError` template function by using\n`AbortNode` which does the exact same thing if called without any user\nmessage (i.e. without second parameter specified). The template is still\nkept for ease-of-use w.r.t. not having to call `tfm::format(...)` at the\ncall-side each time, and also to keep the diff minimal.",
+      "committer": {
+        "name": "furszy",
+        "email": "matiasfurszyfer@protonmail.com",
+        "date": "2023-06-07T14:02:53Z"
+      },
+      "author": {
+        "name": "Sebastian Falbesoner",
+        "email": "sebastian.falbesoner@gmail.com",
+        "date": "2023-06-06T22:04:57Z"
+      },
+      "sha": "008dc0c36951f594e871474a838f75e11d387f72"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKGQ3NmRlNzZjZDBiOTc1M2M5ZmM3YTk3YmIzNTI3MDY4MDhkMGY0ODU",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/d76de76cd0b9753c9fc7a97bb352706808d0f485",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/d76de76cd0b9753c9fc7a97bb352706808d0f485",
+      "tree": {
+        "sha": "caa87463613ba769b07d7eb97af6dde6162647e6",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/caa87463613ba769b07d7eb97af6dde6162647e6"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree caa87463613ba769b07d7eb97af6dde6162647e6\nparent 008dc0c36951f594e871474a838f75e11d387f72\nauthor furszy <matiasfurszyfer@protonmail.com> 1685397026 -0300\ncommitter furszy <matiasfurszyfer@protonmail.com> 1686146573 -0300\n\nrefactor: move 'AbortNode' after 'StartShutdown'\n\nrequired for the next commit, where 'StartErrorShutdown'\nis introduced.\n\nno behavior change.\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEA++0fqwRHQpmlZfQXdI8zGhqpiMFAmSAjg0ACgkQXdI8zGhq\npiPc2g/5AcmsKlZ6fQX2q0DLyytjsOtiwZCyXVzq2JKjVkWwSupEoUx+cKuglGlE\nIypnXfCVj7diq7ORg25VImQGucI020x7oKiOaFmi3fjIQ2EROVJ5CVnUoXFEaA99\nvKJAlT3MIpq1XLCAVOz/ewRAQ/QoyGh/yt4a9CdcHTxy8lz8TUEFrmvrJBYJmdRm\nO3yXxywsM6JDb5Vr3eKjXJ68c894sZXvduzY6mVGMXmb8twzH4JX7VUkdWZ/zv8h\nwVEZ1Jt4l79CvyiEdvctSbp7T0CAtj32R0ocIM/dCpcKaFVBFbMvjarqUqcLWt9C\nps9sak9xcSAQTf+eKpERQtM8J4IOO7MvflMC+nhGBQ888cvDzcJcep+sb6lBhtYk\nc9VgmL1B9FbDfMqXnx51g8k5JkoxSs4uVqrqAwp9avWQ/BH1O5tSczaMxPwf/9UO\n48rfpDFmbBBWUaUsoenPVPc9CBfY2XJF4lCTWyb+7ugn52VGMZ+6nVH1jYA0kGg2\nSaApwaar7r0AWcVKE/u+kcuxJ0bdcHIKp4emEr8o73qaTLsAKVKv1ac6HwxUkbDQ\nHKfx0HsjeGvPmPmV2VRKwOeSj7/UtmwORWIEyNU4AWu9abu6rF9L72cCqRRc7CSY\nnrH5K65h3XfAsS7KTG0OV3wDSDgifFvfkxa2c0AEgiJ0yC4eFmU=\n=0pvg\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/008dc0c36951f594e871474a838f75e11d387f72",
+          "sha": "008dc0c36951f594e871474a838f75e11d387f72",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/008dc0c36951f594e871474a838f75e11d387f72"
+        }
+      ],
+      "message": "refactor: move 'AbortNode' after 'StartShutdown'\n\nrequired for the next commit, where 'StartErrorShutdown'\nis introduced.\n\nno behavior change.",
+      "committer": {
+        "name": "furszy",
+        "email": "matiasfurszyfer@protonmail.com",
+        "date": "2023-06-07T14:02:53Z"
+      },
+      "author": {
+        "name": "furszy",
+        "email": "matiasfurszyfer@protonmail.com",
+        "date": "2023-05-29T21:50:26Z"
+      },
+      "sha": "d76de76cd0b9753c9fc7a97bb352706808d0f485"
+    },
+    {
+      "event": "committed",
+      "id": null,
+      "node_id": "C_kwDOABII59oAKDI5MmE2MTBjZmY3ZGI5ZjAzYTBiZWI1ODRhMDg3NTNlNWU1ZTM1ZWQ",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/292a610cff7db9f03a0beb584a08753e5e5e35ed",
+      "actor": null,
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": null,
+      "html_url": "https://github.com/bitcoin/bitcoin/commit/292a610cff7db9f03a0beb584a08753e5e5e35ed",
+      "tree": {
+        "sha": "1262deec2f35b0568615ba5895c9c84459985e09",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/git/trees/1262deec2f35b0568615ba5895c9c84459985e09"
+      },
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "payload": "tree 1262deec2f35b0568615ba5895c9c84459985e09\nparent d76de76cd0b9753c9fc7a97bb352706808d0f485\nauthor furszy <matiasfurszyfer@protonmail.com> 1684590677 -0300\ncommitter furszy <matiasfurszyfer@protonmail.com> 1686146573 -0300\n\nReturn EXIT_FAILURE on post-init fatal errors\n\nIt seems odd to return `EXIT_SUCCESS` when the node aborted\nexecution due a fatal internal error or any post-init problem\nthat triggers an unrequested shutdown.\n\ne.g. blocks or coins db I/O errors, disconnect block failure,\nfailure during thread import (external blocks loading process\nerror), among others.\n",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEA++0fqwRHQpmlZfQXdI8zGhqpiMFAmSAjg0ACgkQXdI8zGhq\npiND1Q//SQm77Z5J2MIO8iotOS6CU5uL0IjAVccs3N1kJESKM/+r3vz5WfIdKXWR\nv975qPy2IDl7sTmJc7fAfehWMAhWJ96k+tpbCYKczF6D93tHLi0DuvBn61sy2pvX\nvc2sBjVwZTdYSVnO1vHBdYjiTKQNFey1G2UghmtIM/NHalyVgBZJWnPBbjAZRKRe\nw0ogA9Mumyic8tE5SZ43gsSccTnAyyDYS2v6+5GhNKoplbBnif4yZqOXOWm8pDgQ\ny1tTmEq7OVWB0SiSVyU6khVCgm03/djjKcQto6dKbtenU/Lz6mvGZghBtMdMHoim\nejDsojz2MbqRbLdO4BdbMyF8dSgMZI1j19Zn9iHXCnFQT6SJffpfhlk0SG4Yrmh2\n+mCxvBwmDdlzVFtJ67Ul7Lmy2L91K2TFvYk7N8yrIE2NIdTkQ8T+ohvXIEwD01la\nQDQtgDy0+tFIQCc1baofi9/KHNQZ7RoTfsmhr4JpJT/3CTL5GjqNXox7mO04etqQ\nUvFFw3wRu0o0wM9Yb2V06lpDxa0DciXn2GsXXoUAZLnx7SxH9N6IPs2RlAZHDKHc\n+BUJiHPhc9OxKgeO7PTIe+oKi/w4Kr/pzqrrNwtCJSBEeMJSYyyRf1l+lLB8ZKio\n/VnqzsuJgqnP/TuaPrXvauHrWpvJP5X0LhjJsxKXg8md7qAnguA=\n=Gszl\n-----END PGP SIGNATURE-----"
+      },
+      "parents": [
+        {
+          "url": "https://api.github.com/repos/bitcoin/bitcoin/git/commits/d76de76cd0b9753c9fc7a97bb352706808d0f485",
+          "sha": "d76de76cd0b9753c9fc7a97bb352706808d0f485",
+          "html_url": "https://github.com/bitcoin/bitcoin/commit/d76de76cd0b9753c9fc7a97bb352706808d0f485"
+        }
+      ],
+      "message": "Return EXIT_FAILURE on post-init fatal errors\n\nIt seems odd to return `EXIT_SUCCESS` when the node aborted\nexecution due a fatal internal error or any post-init problem\nthat triggers an unrequested shutdown.\n\ne.g. blocks or coins db I/O errors, disconnect block failure,\nfailure during thread import (external blocks loading process\nerror), among others.",
+      "committer": {
+        "name": "furszy",
+        "email": "matiasfurszyfer@protonmail.com",
+        "date": "2023-06-07T14:02:53Z"
+      },
+      "author": {
+        "name": "furszy",
+        "email": "matiasfurszyfer@protonmail.com",
+        "date": "2023-05-20T13:51:17Z"
+      },
+      "sha": "292a610cff7db9f03a0beb584a08753e5e5e35ed"
+    },
+    {
+      "event": "head_ref_force_pushed",
+      "id": 9459754366,
+      "node_id": "HRFPE_lADOABII585maZ9VzwAAAAIz2GV-",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9459754366",
+      "actor": {
+        "login": "furszy",
+        "id": 5377650,
+        "node_id": "MDQ6VXNlcjUzNzc2NTA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5377650?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/furszy",
+        "html_url": "https://github.com/furszy",
+        "followers_url": "https://api.github.com/users/furszy/followers",
+        "following_url": "https://api.github.com/users/furszy/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/furszy/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/furszy/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/furszy/subscriptions",
+        "organizations_url": "https://api.github.com/users/furszy/orgs",
+        "repos_url": "https://api.github.com/users/furszy/repos",
+        "events_url": "https://api.github.com/users/furszy/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/furszy/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T14:04:22Z"
+    },
+    {
+      "event": "commented",
+      "id": 1580895192,
+      "node_id": "IC_kwDOABII585eOovY",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1580895192",
+      "actor": {
+        "login": "furszy",
+        "id": 5377650,
+        "node_id": "MDQ6VXNlcjUzNzc2NTA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5377650?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/furszy",
+        "html_url": "https://github.com/furszy",
+        "followers_url": "https://api.github.com/users/furszy/followers",
+        "following_url": "https://api.github.com/users/furszy/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/furszy/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/furszy/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/furszy/subscriptions",
+        "organizations_url": "https://api.github.com/users/furszy/orgs",
+        "repos_url": "https://api.github.com/users/furszy/repos",
+        "events_url": "https://api.github.com/users/furszy/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/furszy/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T14:05:44Z",
+      "updated_at": "2023-06-07T14:05:44Z",
+      "author_association": "MEMBER",
+      "body": "done, cherry-picked 🚜.",
+      "user": {
+        "login": "furszy",
+        "id": 5377650,
+        "node_id": "MDQ6VXNlcjUzNzc2NTA=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5377650?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/furszy",
+        "html_url": "https://github.com/furszy",
+        "followers_url": "https://api.github.com/users/furszy/followers",
+        "following_url": "https://api.github.com/users/furszy/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/furszy/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/furszy/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/furszy/subscriptions",
+        "organizations_url": "https://api.github.com/users/furszy/orgs",
+        "repos_url": "https://api.github.com/users/furszy/repos",
+        "events_url": "https://api.github.com/users/furszy/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/furszy/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27708#issuecomment-1580895192",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27708"
+    },
+    {
+      "event": "labeled",
+      "id": 9461339784,
+      "node_id": "LE_lADOABII585maZ9VzwAAAAIz8JaI",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9461339784",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T16:01:27Z",
+      "label": {
+        "name": "CI failed",
+        "color": "cccccc"
+      }
     }
   ],
   "comments": [
@@ -942,7 +1108,7 @@
       "path": "src/shutdown.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": null,
       "user": {
@@ -994,7 +1160,7 @@
       "path": "src/shutdown.h",
       "position": 28,
       "original_position": 18,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": null,
       "user": {
@@ -1046,7 +1212,7 @@
       "path": "src/shutdown.h",
       "position": 25,
       "original_position": 15,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": null,
       "user": {
@@ -1098,7 +1264,7 @@
       "path": "src/shutdown.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205560303,
       "user": {
@@ -1150,7 +1316,7 @@
       "path": "src/shutdown.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205560303,
       "user": {
@@ -1202,7 +1368,7 @@
       "path": "src/shutdown.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205560303,
       "user": {
@@ -1254,7 +1420,7 @@
       "path": "src/shutdown.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205560303,
       "user": {
@@ -1306,7 +1472,7 @@
       "path": "src/shutdown.h",
       "position": 25,
       "original_position": 15,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205612087,
       "user": {
@@ -1358,7 +1524,7 @@
       "path": "src/shutdown.h",
       "position": 28,
       "original_position": 18,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205561022,
       "user": {
@@ -1410,7 +1576,7 @@
       "path": "src/shutdown.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205560303,
       "user": {
@@ -1462,7 +1628,7 @@
       "path": "src/shutdown.h",
       "position": null,
       "original_position": 5,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205560303,
       "user": {
@@ -1514,7 +1680,7 @@
       "path": "src/shutdown.h",
       "position": 28,
       "original_position": 18,
-      "commit_id": "d44dd73bcabc694880dfc966fad21980cd3b4c64",
+      "commit_id": "292a610cff7db9f03a0beb584a08753e5e5e35ed",
       "original_commit_id": "c4e32eb72cae62eff510692a8df08181a2202a9d",
       "in_reply_to_id": 1205561022,
       "user": {

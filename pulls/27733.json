@@ -47,13 +47,22 @@
         "name": "Tests",
         "color": "d4c5f9",
         "default": false
+      },
+      {
+        "id": 2394053491,
+        "node_id": "MDU6TGFiZWwyMzk0MDUzNDkx",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/Good%20First%20Review",
+        "name": "Good First Review",
+        "description": "",
+        "color": "0052cc",
+        "default": false
       }
     ],
     "created_at": "2023-05-24T00:07:41Z",
-    "updated_at": "2023-05-27T08:06:36Z",
+    "updated_at": "2023-06-07T08:59:03Z",
     "mergeable": true,
     "mergeable_state": "blocked",
-    "merge_commit_sha": "1f2bb4f4702376f527b06952012ec6f9563aef24",
+    "merge_commit_sha": "737e0599ab42e3cd7d9c2534d71eba02dbd23672",
     "assignees": [],
     "requested_reviewers": [],
     "requested_teams": [],
@@ -286,12 +295,12 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34325,
-        "stargazers_count": 69819,
-        "watchers_count": 69819,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
-        "open_issues_count": 626,
+        "open_issues_count": 627,
         "is_template": false,
         "topics": [
           "bitcoin",
@@ -308,9 +317,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T07:29:24Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T07:34:31Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -498,6 +507,39 @@
       "commit_id": null,
       "commit_url": null,
       "created_at": "2023-05-24T05:37:51Z"
+    },
+    {
+      "event": "labeled",
+      "id": 9456046373,
+      "node_id": "LE_lADOABII585mski4zwAAAAIzn9El",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456046373",
+      "actor": {
+        "login": "glozow",
+        "id": 25183001,
+        "node_id": "MDQ6VXNlcjI1MTgzMDAx",
+        "avatar_url": "https://avatars.githubusercontent.com/u/25183001?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/glozow",
+        "html_url": "https://github.com/glozow",
+        "followers_url": "https://api.github.com/users/glozow/followers",
+        "following_url": "https://api.github.com/users/glozow/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/glozow/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/glozow/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/glozow/subscriptions",
+        "organizations_url": "https://api.github.com/users/glozow/orgs",
+        "repos_url": "https://api.github.com/users/glozow/repos",
+        "events_url": "https://api.github.com/users/glozow/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/glozow/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T08:59:03Z",
+      "label": {
+        "name": "Good First Review",
+        "color": "0052cc"
+      }
     }
   ],
   "comments": []

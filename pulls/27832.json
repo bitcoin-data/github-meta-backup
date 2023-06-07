@@ -49,6 +49,15 @@
         "default": false
       },
       {
+        "id": 2394053491,
+        "node_id": "MDU6TGFiZWwyMzk0MDUzNDkx",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/Good%20First%20Review",
+        "name": "Good First Review",
+        "description": "",
+        "color": "0052cc",
+        "default": false
+      },
+      {
         "id": 5334691551,
         "node_id": "LA_kwDOABII588AAAABPfju3w",
         "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/CI%20failed",
@@ -59,10 +68,10 @@
       }
     ],
     "created_at": "2023-06-06T11:52:02Z",
-    "updated_at": "2023-06-07T05:31:20Z",
+    "updated_at": "2023-06-07T12:40:10Z",
     "mergeable": true,
     "mergeable_state": "blocked",
-    "merge_commit_sha": "80fe48209acadde464cde3c7b0080af55089ff95",
+    "merge_commit_sha": "890c9fa6b6c8b2c5c2a1e3238a3445c20ab9dd20",
     "assignees": [],
     "requested_reviewers": [],
     "requested_teams": [],
@@ -165,7 +174,7 @@
         "forks_count": 12,
         "stargazers_count": 25,
         "watchers_count": 25,
-        "size": 205802,
+        "size": 205823,
         "default_branch": "master",
         "open_issues_count": 25,
         "is_template": false,
@@ -178,7 +187,7 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T05:35:04Z",
+        "pushed_at": "2023-06-07T14:05:39Z",
         "created_at": "2015-08-01T12:42:47Z",
         "updated_at": "2023-05-28T20:12:34Z",
         "license": {
@@ -294,12 +303,12 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34325,
-        "stargazers_count": 69819,
-        "watchers_count": 69819,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
-        "open_issues_count": 626,
+        "open_issues_count": 627,
         "is_template": false,
         "topics": [
           "bitcoin",
@@ -316,9 +325,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T07:29:24Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T07:34:31Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -347,7 +356,7 @@
     "deletions": 5,
     "changed_files": 2,
     "commits": 2,
-    "review_comments": 0,
+    "review_comments": 4,
     "comments": 3
   },
   "events": [
@@ -918,7 +927,285 @@
       },
       "html_url": "https://github.com/bitcoin/bitcoin/pull/27832#issuecomment-1579448029",
       "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/27832"
+    },
+    {
+      "event": "labeled",
+      "id": 9456052129,
+      "node_id": "LE_lADOABII585n7sZrzwAAAAIzn-eh",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9456052129",
+      "actor": {
+        "login": "glozow",
+        "id": 25183001,
+        "node_id": "MDQ6VXNlcjI1MTgzMDAx",
+        "avatar_url": "https://avatars.githubusercontent.com/u/25183001?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/glozow",
+        "html_url": "https://github.com/glozow",
+        "followers_url": "https://api.github.com/users/glozow/followers",
+        "following_url": "https://api.github.com/users/glozow/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/glozow/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/glozow/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/glozow/subscriptions",
+        "organizations_url": "https://api.github.com/users/glozow/orgs",
+        "repos_url": "https://api.github.com/users/glozow/repos",
+        "events_url": "https://api.github.com/users/glozow/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/glozow/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T08:59:30Z",
+      "label": {
+        "name": "Good First Review",
+        "color": "0052cc"
+      }
+    },
+    {
+      "event": "reviewed",
+      "id": 1467498686,
+      "node_id": "PRR_kwDOABII585XeEC-",
+      "url": null,
+      "actor": null,
+      "commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "commit_url": null,
+      "created_at": null,
+      "author_association": "CONTRIBUTOR",
+      "body": "",
+      "user": {
+        "login": "petertodd",
+        "id": 7042,
+        "node_id": "MDQ6VXNlcjcwNDI=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7042?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/petertodd",
+        "html_url": "https://github.com/petertodd",
+        "followers_url": "https://api.github.com/users/petertodd/followers",
+        "following_url": "https://api.github.com/users/petertodd/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/petertodd/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/petertodd/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/petertodd/subscriptions",
+        "organizations_url": "https://api.github.com/users/petertodd/orgs",
+        "repos_url": "https://api.github.com/users/petertodd/repos",
+        "events_url": "https://api.github.com/users/petertodd/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/petertodd/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27832#pullrequestreview-1467498686",
+      "submitted_at": "2023-06-07T12:18:13Z",
+      "state": "CHANGES_REQUESTED",
+      "pull_request_url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27832"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221483218",
+      "pull_request_review_id": 1467498686,
+      "id": 1221483218,
+      "node_id": "PRRC_kwDOABII585IzlrS",
+      "diff_hunk": "@@ -588,7 +588,11 @@ void SetupServerArgs(ArgsManager& argsman)\n     argsman.AddArg(\"-dustrelayfee=<amt>\", strprintf(\"Fee rate (in %s/kvB) used to define dust, the value of an output such that it will cost more than its value in fees at this fee rate to spend it. (default: %s)\", CURRENCY_UNIT, FormatMoney(DUST_RELAY_TX_FEE)), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-bytespersigop\", strprintf(\"Equivalent bytes per sigop in transactions for relay and mining (default: %u)\", DEFAULT_BYTES_PER_SIGOP), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-datacarrier\", strprintf(\"Relay and mine data carrier transactions (default: %u)\", DEFAULT_ACCEPT_DATACARRIER), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n-    argsman.AddArg(\"-datacarriersize\", strprintf(\"Maximum size of data in data carrier transactions we relay and mine (default: %u)\", MAX_OP_RETURN_RELAY), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n+    argsman.AddArg(\"-datacarriersize\",\n+                   strprintf(\"Relay and mine transactions whose data-carrying raw scriptPubKey \"\n+                             \"is of this size or less (default: %u)\",\n+                             MAX_OP_RETURN_RELAY),\n+                   ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);",
+      "path": "src/init.cpp",
+      "position": 9,
+      "original_position": 9,
+      "commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "original_commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "in_reply_to_id": null,
+      "user": {
+        "login": "petertodd",
+        "id": 7042,
+        "node_id": "MDQ6VXNlcjcwNDI=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7042?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/petertodd",
+        "html_url": "https://github.com/petertodd",
+        "followers_url": "https://api.github.com/users/petertodd/followers",
+        "following_url": "https://api.github.com/users/petertodd/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/petertodd/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/petertodd/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/petertodd/subscriptions",
+        "organizations_url": "https://api.github.com/users/petertodd/orgs",
+        "repos_url": "https://api.github.com/users/petertodd/repos",
+        "events_url": "https://api.github.com/users/petertodd/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/petertodd/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "NACK This wording is misleading. OP_Return outputs only contain data if they contain something in addition to the OP_Return opcode.\r\n\r\nA better approach here if we are touching this opcode could be to redefine `-datacarriersize` to be size *in-addition-too* the OP_Return opcode that is allowed. Thus `-datacarriersize=0` would allow 0 bytes in addition to the 1 byte used by the OP_Return opcode.",
+      "created_at": "2023-06-07T12:17:59Z",
+      "updated_at": "2023-06-07T12:18:13Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27832#discussion_r1221483218",
+      "author_association": "CONTRIBUTOR",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221483218"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27832"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 595,
+      "original_line": 595,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221497178",
+      "pull_request_review_id": 1467514518,
+      "id": 1221497178,
+      "node_id": "PRRC_kwDOABII585IzpFa",
+      "diff_hunk": "@@ -588,7 +588,11 @@ void SetupServerArgs(ArgsManager& argsman)\n     argsman.AddArg(\"-dustrelayfee=<amt>\", strprintf(\"Fee rate (in %s/kvB) used to define dust, the value of an output such that it will cost more than its value in fees at this fee rate to spend it. (default: %s)\", CURRENCY_UNIT, FormatMoney(DUST_RELAY_TX_FEE)), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-bytespersigop\", strprintf(\"Equivalent bytes per sigop in transactions for relay and mining (default: %u)\", DEFAULT_BYTES_PER_SIGOP), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-datacarrier\", strprintf(\"Relay and mine data carrier transactions (default: %u)\", DEFAULT_ACCEPT_DATACARRIER), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n-    argsman.AddArg(\"-datacarriersize\", strprintf(\"Maximum size of data in data carrier transactions we relay and mine (default: %u)\", MAX_OP_RETURN_RELAY), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n+    argsman.AddArg(\"-datacarriersize\",\n+                   strprintf(\"Relay and mine transactions whose data-carrying raw scriptPubKey \"\n+                             \"is of this size or less (default: %u)\",\n+                             MAX_OP_RETURN_RELAY),\n+                   ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);",
+      "path": "src/init.cpp",
+      "position": 9,
+      "original_position": 9,
+      "commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "original_commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "in_reply_to_id": 1221483218,
+      "user": {
+        "login": "MarcoFalke",
+        "id": 6399679,
+        "node_id": "MDQ6VXNlcjYzOTk2Nzk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6399679?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MarcoFalke",
+        "html_url": "https://github.com/MarcoFalke",
+        "followers_url": "https://api.github.com/users/MarcoFalke/followers",
+        "following_url": "https://api.github.com/users/MarcoFalke/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/MarcoFalke/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/MarcoFalke/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/MarcoFalke/subscriptions",
+        "organizations_url": "https://api.github.com/users/MarcoFalke/orgs",
+        "repos_url": "https://api.github.com/users/MarcoFalke/repos",
+        "events_url": "https://api.github.com/users/MarcoFalke/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/MarcoFalke/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "My goal is to document the current behavior and then behavior changes can be done in a follow-up change. Happy to drop this commit or change to a better wording to describe the current behavior, if you have any suggestions.",
+      "created_at": "2023-06-07T12:23:31Z",
+      "updated_at": "2023-06-07T12:23:31Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27832#discussion_r1221497178",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221497178"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27832"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 595,
+      "original_line": 595,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221516504",
+      "pull_request_review_id": 1467541975,
+      "id": 1221516504,
+      "node_id": "PRRC_kwDOABII585IztzY",
+      "diff_hunk": "@@ -588,7 +588,11 @@ void SetupServerArgs(ArgsManager& argsman)\n     argsman.AddArg(\"-dustrelayfee=<amt>\", strprintf(\"Fee rate (in %s/kvB) used to define dust, the value of an output such that it will cost more than its value in fees at this fee rate to spend it. (default: %s)\", CURRENCY_UNIT, FormatMoney(DUST_RELAY_TX_FEE)), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-bytespersigop\", strprintf(\"Equivalent bytes per sigop in transactions for relay and mining (default: %u)\", DEFAULT_BYTES_PER_SIGOP), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-datacarrier\", strprintf(\"Relay and mine data carrier transactions (default: %u)\", DEFAULT_ACCEPT_DATACARRIER), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n-    argsman.AddArg(\"-datacarriersize\", strprintf(\"Maximum size of data in data carrier transactions we relay and mine (default: %u)\", MAX_OP_RETURN_RELAY), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n+    argsman.AddArg(\"-datacarriersize\",\n+                   strprintf(\"Relay and mine transactions whose data-carrying raw scriptPubKey \"\n+                             \"is of this size or less (default: %u)\",\n+                             MAX_OP_RETURN_RELAY),\n+                   ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);",
+      "path": "src/init.cpp",
+      "position": 9,
+      "original_position": 9,
+      "commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "original_commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "in_reply_to_id": 1221483218,
+      "user": {
+        "login": "petertodd",
+        "id": 7042,
+        "node_id": "MDQ6VXNlcjcwNDI=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7042?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/petertodd",
+        "html_url": "https://github.com/petertodd",
+        "followers_url": "https://api.github.com/users/petertodd/followers",
+        "following_url": "https://api.github.com/users/petertodd/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/petertodd/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/petertodd/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/petertodd/subscriptions",
+        "organizations_url": "https://api.github.com/users/petertodd/orgs",
+        "repos_url": "https://api.github.com/users/petertodd/repos",
+        "events_url": "https://api.github.com/users/petertodd/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/petertodd/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "Since you are updating this, you should change the doc text to make clear that the current behavior is a mistake that needs fixing rathre than continue to incorrectly call them data carrier scriptPubKey's.\r\n\r\nBut it'd be less code churn to just fix the behavior in one shot. We have an ACK on https://github.com/bitcoin/bitcoin/pull/27261, so there is an argument to fix the bare OP_Return case. Rather than merging https://github.com/bitcoin/bitcoin/pull/27261 as-is I could make a pull-req that simply fixes the `-datacarriersize` off-by-one error. Fixing that error would also allow `-datacarrier` to be dropped entirely, as it is redundant: `-datacarriersize=0` prohibits data carrying outputs just fine.",
+      "created_at": "2023-06-07T12:35:49Z",
+      "updated_at": "2023-06-07T12:35:49Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27832#discussion_r1221516504",
+      "author_association": "CONTRIBUTOR",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221516504"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27832"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 595,
+      "original_line": 595,
+      "side": "RIGHT"
+    },
+    {
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221522467",
+      "pull_request_review_id": 1467550563,
+      "id": 1221522467,
+      "node_id": "PRRC_kwDOABII585IzvQj",
+      "diff_hunk": "@@ -588,7 +588,11 @@ void SetupServerArgs(ArgsManager& argsman)\n     argsman.AddArg(\"-dustrelayfee=<amt>\", strprintf(\"Fee rate (in %s/kvB) used to define dust, the value of an output such that it will cost more than its value in fees at this fee rate to spend it. (default: %s)\", CURRENCY_UNIT, FormatMoney(DUST_RELAY_TX_FEE)), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-bytespersigop\", strprintf(\"Equivalent bytes per sigop in transactions for relay and mining (default: %u)\", DEFAULT_BYTES_PER_SIGOP), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n     argsman.AddArg(\"-datacarrier\", strprintf(\"Relay and mine data carrier transactions (default: %u)\", DEFAULT_ACCEPT_DATACARRIER), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n-    argsman.AddArg(\"-datacarriersize\", strprintf(\"Maximum size of data in data carrier transactions we relay and mine (default: %u)\", MAX_OP_RETURN_RELAY), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);\n+    argsman.AddArg(\"-datacarriersize\",\n+                   strprintf(\"Relay and mine transactions whose data-carrying raw scriptPubKey \"\n+                             \"is of this size or less (default: %u)\",\n+                             MAX_OP_RETURN_RELAY),\n+                   ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);",
+      "path": "src/init.cpp",
+      "position": 9,
+      "original_position": 9,
+      "commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "original_commit_id": "a33333525f9bf787d5d3ba6f14fa67f0772c4bcc",
+      "in_reply_to_id": 1221483218,
+      "user": {
+        "login": "MarcoFalke",
+        "id": 6399679,
+        "node_id": "MDQ6VXNlcjYzOTk2Nzk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6399679?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MarcoFalke",
+        "html_url": "https://github.com/MarcoFalke",
+        "followers_url": "https://api.github.com/users/MarcoFalke/followers",
+        "following_url": "https://api.github.com/users/MarcoFalke/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/MarcoFalke/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/MarcoFalke/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/MarcoFalke/subscriptions",
+        "organizations_url": "https://api.github.com/users/MarcoFalke/orgs",
+        "repos_url": "https://api.github.com/users/MarcoFalke/repos",
+        "events_url": "https://api.github.com/users/MarcoFalke/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/MarcoFalke/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "> Fixing that error would also allow -datacarrier to be dropped entirely, as it is redundant: -datacarriersize=0 prohibits data carrying outputs just fine.\r\n\r\nI think `-datacarrier` can be dropped regardless of whether the behavior is changed. And this would have been my review comment in https://github.com/bitcoin/bitcoin/pull/27261 :)",
+      "created_at": "2023-06-07T12:40:09Z",
+      "updated_at": "2023-06-07T12:40:10Z",
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/27832#discussion_r1221522467",
+      "author_association": "MEMBER",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/comments/1221522467"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/bitcoin/bitcoin/pulls/27832"
+        }
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 595,
+      "original_line": 595,
+      "side": "RIGHT"
+    }
+  ]
 }

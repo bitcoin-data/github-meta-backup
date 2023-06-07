@@ -39,12 +39,22 @@
       "site_admin": false
     },
     "body": "When bumping the transaction fee, we will try to find the change output of the transaction in order to have an output whose value we can modify so that we can meet the target feerate. However we do not always find the change output which can cause us to unnecessarily add an additional output to the transaction. We can avoid this issue by outsourcing the determination of change to the user if they so desire.\r\n\r\nThis PR adds a `orig_change_pos` option to bumpfee which the user can use to specify the index of the change output. Additionally, a new dialog is added to the GUI that allows the user to select the change output when they are bumping the transaction fee. This dialog will default select output that the wallet determines to be change, if it could find one.\r\n\r\nFixes #11233\r\nFixes #20795",
-    "labels": [],
+    "labels": [
+      {
+        "id": 5334691551,
+        "node_id": "LA_kwDOABII588AAAABPfju3w",
+        "url": "https://api.github.com/repos/bitcoin/bitcoin/labels/CI%20failed",
+        "name": "CI failed",
+        "description": "",
+        "color": "cccccc",
+        "default": false
+      }
+    ],
     "created_at": "2022-11-07T23:38:09Z",
-    "updated_at": "2023-06-06T12:40:52Z",
+    "updated_at": "2023-06-07T13:35:12Z",
     "mergeable": true,
     "mergeable_state": "blocked",
-    "merge_commit_sha": "07c1ce096fc1e120d9102d1df8dd91ecd5f59327",
+    "merge_commit_sha": "c79447e62a9258827d4e65c6fa7c65e34d579850",
     "assignees": [],
     "requested_reviewers": [
       {
@@ -169,7 +179,7 @@
         "forks_count": 10,
         "stargazers_count": 34,
         "watchers_count": 34,
-        "size": 238743,
+        "size": 239097,
         "default_branch": "master",
         "open_issues_count": 0,
         "is_template": false,
@@ -298,10 +308,10 @@
         "svn_url": "https://github.com/bitcoin/bitcoin",
         "homepage": "https://bitcoincore.org/en/download",
         "language": "C++",
-        "forks_count": 34324,
-        "stargazers_count": 69818,
-        "watchers_count": 69818,
-        "size": 233879,
+        "forks_count": 34341,
+        "stargazers_count": 69825,
+        "watchers_count": 69825,
+        "size": 234259,
         "default_branch": "master",
         "open_issues_count": 627,
         "is_template": false,
@@ -320,9 +330,9 @@
         "archived": false,
         "disabled": false,
         "visibility": "public",
-        "pushed_at": "2023-06-07T07:15:46Z",
+        "pushed_at": "2023-06-07T15:59:50Z",
         "created_at": "2010-12-19T15:16:43Z",
-        "updated_at": "2023-06-07T06:49:43Z",
+        "updated_at": "2023-06-07T15:20:57Z",
         "license": {
           "key": "mit",
           "name": "MIT License",
@@ -352,7 +362,7 @@
     "changed_files": 4,
     "commits": 3,
     "review_comments": 14,
-    "comments": 9
+    "comments": 10
   },
   "events": [
     {
@@ -2045,6 +2055,93 @@
       "commit_id": null,
       "commit_url": null,
       "created_at": "2023-05-19T17:14:29Z"
+    },
+    {
+      "event": "labeled",
+      "id": 9458863525,
+      "node_id": "LE_lADOABII585Vx-jlzwAAAAIzys2l",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/events/9458863525",
+      "actor": {
+        "login": "DrahtBot",
+        "id": 39886733,
+        "node_id": "MDQ6VXNlcjM5ODg2NzMz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/39886733?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrahtBot",
+        "html_url": "https://github.com/DrahtBot",
+        "followers_url": "https://api.github.com/users/DrahtBot/followers",
+        "following_url": "https://api.github.com/users/DrahtBot/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/DrahtBot/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/DrahtBot/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/DrahtBot/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrahtBot/orgs",
+        "repos_url": "https://api.github.com/users/DrahtBot/repos",
+        "events_url": "https://api.github.com/users/DrahtBot/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/DrahtBot/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T12:59:10Z",
+      "label": {
+        "name": "CI failed",
+        "color": "cccccc"
+      }
+    },
+    {
+      "event": "commented",
+      "id": 1580838529,
+      "node_id": "IC_kwDOABII585eOa6B",
+      "url": "https://api.github.com/repos/bitcoin/bitcoin/issues/comments/1580838529",
+      "actor": {
+        "login": "MarcoFalke",
+        "id": 6399679,
+        "node_id": "MDQ6VXNlcjYzOTk2Nzk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6399679?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MarcoFalke",
+        "html_url": "https://github.com/MarcoFalke",
+        "followers_url": "https://api.github.com/users/MarcoFalke/followers",
+        "following_url": "https://api.github.com/users/MarcoFalke/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/MarcoFalke/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/MarcoFalke/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/MarcoFalke/subscriptions",
+        "organizations_url": "https://api.github.com/users/MarcoFalke/orgs",
+        "repos_url": "https://api.github.com/users/MarcoFalke/repos",
+        "events_url": "https://api.github.com/users/MarcoFalke/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/MarcoFalke/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2023-06-07T13:35:11Z",
+      "updated_at": "2023-06-07T13:35:11Z",
+      "author_association": "MEMBER",
+      "body": "Needs rebase?",
+      "user": {
+        "login": "MarcoFalke",
+        "id": 6399679,
+        "node_id": "MDQ6VXNlcjYzOTk2Nzk=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6399679?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/MarcoFalke",
+        "html_url": "https://github.com/MarcoFalke",
+        "followers_url": "https://api.github.com/users/MarcoFalke/followers",
+        "following_url": "https://api.github.com/users/MarcoFalke/following%7B/other_user%7D",
+        "gists_url": "https://api.github.com/users/MarcoFalke/gists%7B/gist_id%7D",
+        "starred_url": "https://api.github.com/users/MarcoFalke/starred%7B/owner%7D%7B/repo%7D",
+        "subscriptions_url": "https://api.github.com/users/MarcoFalke/subscriptions",
+        "organizations_url": "https://api.github.com/users/MarcoFalke/orgs",
+        "repos_url": "https://api.github.com/users/MarcoFalke/repos",
+        "events_url": "https://api.github.com/users/MarcoFalke/events%7B/privacy%7D",
+        "received_events_url": "https://api.github.com/users/MarcoFalke/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/bitcoin/bitcoin/pull/26467#issuecomment-1580838529",
+      "issue_url": "https://api.github.com/repos/bitcoin/bitcoin/issues/26467"
     }
   ],
   "comments": [
